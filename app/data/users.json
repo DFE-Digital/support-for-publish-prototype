@@ -1,0 +1,12 @@
+[
+  {
+    "id": "2bc57186-3329-4c96-a7aa-9d785895fe43",
+    "username": "colin",
+    "password": "bat",
+    "display_name": "Colin",
+    "email": "colin@example.com",
+    "organisation": {},
+    "role": "",
+    "active": true
+  }
+]
