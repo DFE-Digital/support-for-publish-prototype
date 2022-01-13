@@ -1,5 +1,6 @@
 .DS_Store
 .port.tmp
+public
 package-lock.json
 
 # Ignore tracking usage data config - we want a different one for each user
