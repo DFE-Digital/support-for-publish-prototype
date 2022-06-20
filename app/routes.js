@@ -6,25 +6,44 @@ const passport = require('passport')
 // Controller modules
 const authenticationController = require('./controllers/authentication.js')
 
+// Authentication middleware
 const checkIsAuthenticated = (req, res, next) => {
-  if (req.session.passport || req.session.data.user) {
-    req.session.data.user = req.session.passport.user
+  if (req.session.passport) {
+    // the signed in user
+    res.locals.passport = req.session.passport
+    // the base URL for navigation
+    res.locals.baseUrl = ''
+    res.locals.cycleId = req.params.cycleId
     next()
   } else {
+    delete req.session.data
     res.redirect('/sign-in')
   }
 }
 
-/// --------------------------------------------------///
+/// ------------------------------------------------------------------------ ///
+/// ALL ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.all('*', (req, res, next) => {
+  res.locals.referrer = req.query.referrer
+  res.locals.query = req.query
+  res.locals.flash = req.flash('success') // pass through 'success' messages only
+  next()
+})
+
+/// ------------------------------------------------------------------------ ///
 /// AUTHENTICATION ROUTES
-/// --------------------------------------------------///
+/// ------------------------------------------------------------------------ ///
 
 router.get('/sign-in', authenticationController.sign_in_get)
 router.post('/sign-in', passport.authenticate('local', {
-  successRedirect: '/',
+  successRedirect: '/auth',
   failureRedirect: '/sign-in',
   failureFlash: 'Enter valid sign-in details'
 }))
+
+router.get('/auth', authenticationController.auth_get)
 
 router.get('/sign-out', authenticationController.sign_out_get)
 
