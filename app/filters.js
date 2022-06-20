@@ -1,4 +1,7 @@
 const _ = require('lodash')
+const { DateTime } = require('luxon')
+const marked = require('marked')
+const numeral = require('numeral')
 
 module.exports = function (env) {
   /**
@@ -27,6 +30,15 @@ module.exports = function (env) {
   }
 
   /* ------------------------------------------------------------------
+   numeral filter for use in Nunjucks
+   example: {{ params.number | numeral("0,00.0") }}
+   outputs: 1,000.00
+  ------------------------------------------------------------------ */
+  filters.numeral = (number, format) => {
+    return numeral(number).format(format)
+  }
+
+  /* ------------------------------------------------------------------
   utility function to get an error for a component
   example: {{ errors | getErrorMessage('title') }}
   outputs: "Enter a title"
@@ -41,6 +53,19 @@ module.exports = function (env) {
     )[0]
 
     return error
+  }
+
+  /* ------------------------------------------------------------------
+  utility function to parse markdown as HTML
+  example: {{ "## Title" | markdownToHtml }}
+  outputs: "<h2>Title</h2>"
+  ------------------------------------------------------------------ */
+  filters.markdownToHtml = (markdown) => {
+    if (!markdown) {
+      return null
+    }
+    const html = marked.parse(markdown)
+    return html
   }
 
   /* ------------------------------------------------------------------
