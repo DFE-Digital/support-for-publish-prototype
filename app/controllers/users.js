@@ -189,9 +189,49 @@ exports.edit_get = (req, res) => {
 exports.edit_post = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
   let user = userModel.findOne({ userId: req.params.userId })
-  user = req.session.data.user
 
   const errors = []
+
+  if (!req.session.data.user.firstName.length) {
+    const error = {}
+    error.fieldName = 'firstName'
+    error.href = '#firstName'
+    error.text = 'Enter a first name'
+    errors.push(error)
+  }
+
+  if (!req.session.data.user.lastName.length) {
+    const error = {}
+    error.fieldName = 'lastName'
+    error.href = '#lastName'
+    error.text = 'Enter a last name'
+    errors.push(error)
+  }
+
+  const userExists = userModel.findOne({
+    organisationId: req.params.organisationId,
+    email: req.session.data.user.email
+  })
+
+  if (!req.session.data.user.email.length) {
+    const error = {}
+    error.fieldName = 'email'
+    error.href = '#email'
+    error.text = 'Enter an email address'
+    errors.push(error)
+  } else if (!validationHelper.isValidEmail(req.session.data.user.email)) {
+    const error = {}
+    error.fieldName = 'email'
+    error.href = '#email'
+    error.text = 'Enter an email address in the correct format, like name@example.com'
+    errors.push(error)
+  } else if (userExists) {
+    const error = {}
+    error.fieldName = 'email'
+    error.href = '#email'
+    error.text = 'Email address already in use'
+    errors.push(error)
+  }
 
   if (errors.length) {
     res.render('../views/organisations/users/edit', {
@@ -205,13 +245,15 @@ exports.edit_post = (req, res) => {
       errors
     })
   } else {
-    userModel.updateOne({
+    userModel.saveOne({
       organisationId: req.params.organisationId,
       userId: req.params.userId,
       user: req.session.data.user
     })
 
-    req.flash('success', 'User details updated')
+    delete req.session.data.user
+
+    req.flash('success', 'User updated')
     res.redirect(`/organisations/${req.params.organisationId}/users/${req.params.userId}`)
   }
 }
