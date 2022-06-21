@@ -5,6 +5,10 @@ const passport = require('passport')
 
 // Controller modules
 const authenticationController = require('./controllers/authentication.js')
+const courseController = require('./controllers/courses')
+const locationController = require('./controllers/locations')
+const organisationController = require('./controllers/organisations')
+const userController = require('./controllers/users')
 
 // Authentication middleware
 const checkIsAuthenticated = (req, res, next) => {
@@ -71,6 +75,38 @@ router.post('/password-reset', authenticationController.password_reset_post)
 router.get('/registration-complete', authenticationController.registration_complete_get)
 
 router.get('/terms-and-conditions', authenticationController.terms_and_conditions_get)
+
+/// ------------------------------------------------------------------------ ///
+/// COURSE ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/organisations/:organisationId/courses/:courseId', checkIsAuthenticated, courseController.show)
+
+router.get('/organisations/:organisationId/courses', checkIsAuthenticated, courseController.list)
+
+/// ------------------------------------------------------------------------ ///
+/// USER ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/organisations/:organisationId/users/:userId', checkIsAuthenticated, userController.show)
+
+router.get('/organisations/:organisationId/users', checkIsAuthenticated, userController.list)
+
+/// ------------------------------------------------------------------------ ///
+/// LOCATION ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/organisations/:organisationId/locations/:locationId', checkIsAuthenticated, locationController.show)
+
+router.get('/organisations/:organisationId/locations', checkIsAuthenticated, locationController.list)
+
+/// ------------------------------------------------------------------------ ///
+/// ORGANISATION ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/organisations/:organisationId', checkIsAuthenticated, organisationController.show)
+
+router.get('/organisations', checkIsAuthenticated, organisationController.list)
 
 /// --------------------------------------------------///
 /// HOME ROUTES
