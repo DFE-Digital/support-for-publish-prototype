@@ -21,7 +21,7 @@ exports.getPaginationItems = (pageNumber, pageCount, pageSize = 50) => {
 
   const itemArray = []
   for (let i = startItem; i <= endItem; i++) {
-    let item = {}
+    const item = {}
     item.text = i
     item.href = '?page=' + i + '&limit=' + pageSize
     item.selected = true ? parseInt(pageNumber) === i : false
@@ -39,7 +39,7 @@ exports.getPagination = (data, pageNumber = 1, pageSize = 50) => {
   pageSize = Math.abs(pageSize)
 
   // Prevent users putting in a limit not in the pre-defined set: 10, 25, 50, 100
-  pageSize = ([10,25,50,100].indexOf(parseInt(pageSize)) !== -1) ? parseInt(pageSize) : 50
+  pageSize = ([10, 25, 50, 100].indexOf(parseInt(pageSize)) !== -1) ? parseInt(pageSize) : 50
 
   // Make sure pageNumber is positive
   pageNumber = Math.abs(pageNumber)

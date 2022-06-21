@@ -39,8 +39,8 @@ module.exports = (env) => {
   filters.falsify = (input) => {
     if (_.isNumber(input)) return input
     else if (input == false) return false
-    if (_.isString(input)){
-      const truthyValues = ['yes','true']
+    if (_.isString(input)) {
+      const truthyValues = ['yes', 'true']
       const falsyValues = ['no', 'false']
       if (truthyValues.includes(input.toLowerCase())) return true
       else if (falsyValues.includes(input.toLowerCase())) return false
@@ -122,13 +122,13 @@ module.exports = (env) => {
   filters.govukDateAtTime = (date) => {
     const govukDate = filters.govukDate(date)
     const time = filters.time(date)
-    return govukDate + " at " + time
+    return govukDate + ' at ' + time
   }
 
   filters.govukShortDateAtTime = (date) => {
     const govukDate = filters.dateToGovukDate(date)
     const time = filters.time(date)
-    return govukDate + " at " + time
+    return govukDate + ' at ' + time
   }
 
   /* ------------------------------------------------------------------

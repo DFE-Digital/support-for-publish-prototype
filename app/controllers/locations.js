@@ -15,7 +15,7 @@ exports.list = (req, res) => {
   })
 
   // Get the pagination data
-  let pagination = paginationHelper.getPagination(locations, req.query.page)
+  const pagination = paginationHelper.getPagination(locations, req.query.page)
 
   // Get a slice of the data to display
   locations = paginationHelper.getDataByPage(locations, pagination.pageNumber)

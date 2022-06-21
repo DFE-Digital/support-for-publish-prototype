@@ -96,7 +96,7 @@ filters.arrayToGovukDate = (array, format) => {
 
 filters.dateToGovukDate = (date, format = false) => {
   if (date) {
-    let theDate = DateTime.fromISO(date)
+    const theDate = DateTime.fromISO(date)
     if (theDate.isValid) {
       return theDate.toFormat('d MMMM yyyy')
     }
@@ -106,7 +106,7 @@ filters.dateToGovukDate = (date, format = false) => {
 
 filters.dateToGovukShortDate = (date) => {
   if (date) {
-    let theDate = DateTime.fromISO(date)
+    const theDate = DateTime.fromISO(date)
     if (theDate.isValid) {
       return theDate.toFormat('d MMM yyyy')
     }

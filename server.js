@@ -142,8 +142,8 @@ passport.deserializeUser((user, done) => {
 passport.use(new LocalStrategy(
   (username, password, done) => {
     const user = authenticationModel.findOne({
-      username: username,
-      password: password,
+      username,
+      password,
       active: true
     })
     if (user) { return done(null, user) }

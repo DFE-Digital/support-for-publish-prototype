@@ -3,7 +3,7 @@ const organisationModel = require('../models/organisations')
 exports.getAccreditedBodyOptions = (organisationId, selectedItem) => {
   const items = []
 
-  const organisation = organisationModel.findOne({ organisationId: organisationId })
+  const organisation = organisationModel.findOne({ organisationId })
 
   organisation.accreditedBodies.forEach((accreditedBody, i) => {
     const item = {}
@@ -69,7 +69,7 @@ exports.getAccreditedBodyAutocompleteOptions = (selectedItem) => {
 }
 
 exports.getOrganisationLabel = (organisationId) => {
-  const organisation = organisationModel.findOne({ organisationId: organisationId })
+  const organisation = organisationModel.findOne({ organisationId })
 
   let label = organisationId
 
