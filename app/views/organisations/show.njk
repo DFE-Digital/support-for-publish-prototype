@@ -25,5 +25,67 @@
     </div>
   </div>
 
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              text: organisation.name
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "organisation ame"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Code"
+            },
+            value: {
+              text: organisation.code
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "organisation code"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Provider type"
+            },
+            value: {
+              text: organisation.type | getProviderTypeLabel
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "provider type"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+    </div>
+  </div>
+
 
 {% endblock %}
