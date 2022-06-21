@@ -119,13 +119,13 @@ module.exports = (env) => {
   @type {Date} date
   ------------------------------------------------------------------ */
 
-  filters.govukDateAtTime = date => {
+  filters.govukDateAtTime = (date) => {
     const govukDate = filters.govukDate(date)
     const time = filters.time(date)
     return govukDate + " at " + time
   }
 
-  filters.govukShortDateAtTime = date => {
+  filters.govukShortDateAtTime = (date) => {
     const govukDate = filters.dateToGovukDate(date)
     const time = filters.time(date)
     return govukDate + " at " + time
@@ -136,7 +136,7 @@ module.exports = (env) => {
   @type {Date} date
   ------------------------------------------------------------------ */
 
-  filters.time = date => {
+  filters.time = (date) => {
     let dt = DateTime.fromISO(date)
     if (dt.minute > 0) {
       dt = dt.toFormat('h:mma')
