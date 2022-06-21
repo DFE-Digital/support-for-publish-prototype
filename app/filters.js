@@ -12,6 +12,21 @@ module.exports = function (env) {
    */
   const filters = {}
 
+  // Import filters from filters folder
+  if (fs.existsSync(individualFiltersFolder)) {
+    const files = fs.readdirSync(individualFiltersFolder)
+    files.forEach(file => {
+      const fileData = require(path.join(individualFiltersFolder, file))
+      // Loop through each exported function in file (likely just one)
+      Object.keys(fileData).forEach((filterGroup) => {
+        // Get each method from the file
+        Object.keys(fileData[filterGroup]).forEach(filterName => {
+          filters[filterName] = fileData[filterGroup][filterName]
+        })
+      })
+    })
+  }
+
   /* ------------------------------------------------------------------
   utility function to return true or false
   example: {{ 'yes' | falsify }}
