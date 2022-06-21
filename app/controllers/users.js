@@ -29,7 +29,8 @@ exports.list = (req, res) => {
       users: `/organisations/${req.params.organisationId}/users`,
       courses: `/organisations/${req.params.organisationId}/courses`,
       locations: `/organisations/${req.params.organisationId}/locations`,
-      change: `/organisations/${req.params.organisationId}/users/${req.params.userId}`
+      new: `/organisations/${req.params.organisationId}/users/new`,
+      view: `/organisations/${req.params.organisationId}/users`
     }
   })
 }
@@ -46,7 +47,7 @@ exports.show = (req, res) => {
     organisation,
     user,
     actions: {
-      back: `/organisations/${req.params.organisationId}`,
+      back: `/organisations/${req.params.organisationId}/users`,
       change: `/organisations/${req.params.organisationId}/users/${req.params.userId}/edit`
     }
   })
@@ -100,3 +101,7 @@ exports.edit_post = (req, res) => {
     res.redirect(`/organisations/${req.params.organisationId}/users/${req.params.userId}`)
   }
 }
+
+/// ------------------------------------------------------------------------ ///
+/// ADD USER
+/// ------------------------------------------------------------------------ ///
