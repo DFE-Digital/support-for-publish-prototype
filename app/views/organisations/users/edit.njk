@@ -1,9 +1,13 @@
 {% extends "_layout.njk" %}
 
 {% set primaryNavId = "organisations" %}
-{% set subNavId = "users" %}
 
-{% set title = user.firstName + " " + user.lastName %}
+{% if user.id %}
+  {% set title = user.firstName + " " + user.lastName %}
+{% else %}
+  {% set title = "Add user" %}
+{% endif %}
+
 {% set caption = organisation.name + " (" + organisation.code + ")" %}
 
 {% block pageTitle %}
@@ -23,7 +27,56 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
       {% include "_includes/page-heading.njk" %}
+
+      <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+        {{ govukInput({
+          id: "firstName",
+          name: "user[firstName]",
+          label: {
+            text: "First name",
+            classes: "govuk-label--s"
+          },
+          errorMessage: errors | getErrorMessage("firstName"),
+          value: user.firstName,
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        {{ govukInput({
+          id: "lastName",
+          name: "user[lastName]",
+          label: {
+            text: "Last name",
+            classes: "govuk-label--s"
+          },
+          errorMessage: errors | getErrorMessage("lastName"),
+          value: user.lastName,
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        {{ govukInput({
+          id: "email",
+          name: "user[email]",
+          label: {
+            text: "Email address",
+            classes: "govuk-label--s"
+          },
+          errorMessage: errors | getErrorMessage("email"),
+          value: user.email
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="{{ actions.cancel }}">Cancel</a>
+      </p>
+
     </div>
   </div>
 
