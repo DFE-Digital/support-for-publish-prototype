@@ -3,6 +3,7 @@ const userModel = require('../models/users')
 
 const organisationHelper = require('../helpers/organisations')
 const paginationHelper = require('../helpers/pagination')
+const validationHelper = require('../helpers/validators')
 
 exports.list = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
@@ -62,12 +63,15 @@ exports.show = (req, res) => {
 /// ------------------------------------------------------------------------ ///
 
 exports.new_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
   let back = `/organisations/${req.params.organisationId}/users`
   if (req.query.referrer === 'check') {
     back = `/organisations/${req.params.organisationId}/users/new/check`
   }
 
   res.render('../views/organisations/users/edit', {
+    organisation,
     user: req.session.data.user,
     actions: {
       save: `/organisations/${req.params.organisationId}/users/new`,
@@ -78,6 +82,8 @@ exports.new_get = (req, res) => {
 }
 
 exports.new_post = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
   const errors = []
 
   if (!req.session.data.user.firstName.length) {
@@ -123,6 +129,7 @@ exports.new_post = (req, res) => {
 
   if (errors.length) {
     res.render('../views/organisations/users/edit', {
+      organisation,
       user: req.session.data.user,
       actions: {
         save: `/organisations/${req.params.organisationId}/users/new`,
