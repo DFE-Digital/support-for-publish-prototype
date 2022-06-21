@@ -80,6 +80,22 @@
                 }
               ]
             }
+          },
+          {
+            key: {
+              text: "Is an accredited body?"
+            },
+            value: {
+              text: "Yes" if organisation.isAccreditedBody else "No"
+            }
+          },
+          {
+            key: {
+              text: "Last updated"
+            },
+            value: {
+              text: organisation.updatedAt | govukShortDateAtTime
+            }
           }
         ]
       }) }}
