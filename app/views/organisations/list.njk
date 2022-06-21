@@ -17,8 +17,18 @@
     </div>
   </div>
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+  <div class="app-filter-layout">
+    <div class="app-filter-layout__filter">
+
+      {% include "./_filter-panel.njk" %}
+
+    </div>
+
+    <div class="app-filter-layout__content">
+
+      <div class="app-action-bar">
+        <div class="app-action-bar__filter"></div>
+      </div>
 
       <ul class="govuk-list govuk-list--spaced">
         {% for organisation in organisations %}
@@ -30,16 +40,11 @@
         {% endfor %}
       </ul>
 
-    </div>
-  </div>
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-
       {% if organisations.length and pagination %}
         {% include "_includes/pagination.njk" %}
       {% endif %}
 
     </div>
   </div>
+
 {% endblock %}
