@@ -6,7 +6,7 @@ const paginationHelper = require('../helpers/pagination')
 
 exports.list = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  let users = userModel.findMany({})
+  let users = userModel.findMany({ organisationId: req.params.organisationId })
 
   users.sort((a, b) => {
     if (a.name) {
