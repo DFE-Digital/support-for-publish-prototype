@@ -69,6 +69,33 @@ module.exports = function (env) {
   }
 
   /* ------------------------------------------------------------------
+  utility function to get the provider type label
+  example: {{ "scitt" | getProviderTypeLabel }}
+  outputs: "School Centred Initial Teacher Training (SCITT)"
+  ------------------------------------------------------------------ */
+  filters.getProviderTypeLabel = (type) => {
+    let label = ''
+
+    if (type) {
+      switch (type) {
+        case 'hei':
+          label = 'Higher Education Institute (HEI)'
+          break
+        case 'scitt':
+          label = 'School Centred Initial Teacher Training (SCITT)'
+          break
+        case 'lead_school':
+          label = 'Lead school'
+          break
+        default:
+          label = type
+      }
+    }
+
+    return label
+  }
+
+  /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */
   return filters
