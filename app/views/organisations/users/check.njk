@@ -3,7 +3,7 @@
 {% set primaryNavId = "organisations" %}
 
 {% set title = "Check your answers" %}
-{% set caption = "Add user" %}
+{% set caption = "Add user - " + organisation.name %}
 
 {% block pageTitle %}
   {{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
@@ -84,7 +84,7 @@
         }) }}
 
         {{ govukWarningText({
-          text: "The user will be sent an email to tell them you’ve added them to the organisation",
+          text: "The user will be sent an email to tell them you’ve added them to " + organisation.name + ".",
           iconFallbackText: "Warning"
         }) }}
 
