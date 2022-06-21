@@ -1,0 +1,22 @@
+{{ appSubNavigation({
+  label: "Sub navigation",
+  items: [
+    {
+      text: "Details",
+      href: actions.details,
+      active: true if subNavId == "details"
+    }, {
+      text: "Users",
+      href: actions.users,
+      active: true if subNavId == "users"
+    }, {
+      text: "Courses",
+      href: actions.courses,
+      active: true if subNavId == "courses"
+    }, {
+      text: "Locations",
+      href: actions.locations,
+      active: true if subNavId == "locations"
+    }
+  ]
+}) }}
