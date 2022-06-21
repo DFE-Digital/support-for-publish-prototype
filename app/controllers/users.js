@@ -6,6 +6,8 @@ const paginationHelper = require('../helpers/pagination')
 const validationHelper = require('../helpers/validators')
 
 exports.list = (req, res) => {
+  delete req.session.data.user
+
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
   let users = userModel.findMany({ organisationId: req.params.organisationId })
 
@@ -144,7 +146,10 @@ exports.new_post = (req, res) => {
 }
 
 exports.new_check_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
   res.render('../views/organisations/users/check', {
+    organisation,
     user: req.session.data.user,
     actions: {
       save: `/organisations/${req.params.organisationId}/users/new/check`,
@@ -188,7 +193,7 @@ exports.edit_get = (req, res) => {
 
 exports.edit_post = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  let user = userModel.findOne({ userId: req.params.userId })
+  const user = userModel.findOne({ userId: req.params.userId })
 
   const errors = []
 
