@@ -24,8 +24,10 @@
 
       {% set organisationsHtml %}
         <ul class="govuk-list">
-          {% for organisation in user.organisations %}
-            <li>{{ organisation.name }}</li>
+          {% for userOrganisation in user.organisations %}
+            <li>
+              {{ userOrganisation.name }}
+            </li>
           {% endfor %}
         </ul>
       {% endset %}
@@ -63,7 +65,7 @@
             value: {
               html: organisationsHtml
             }
-          }
+          } if 1 == 0
         ]
       }) }}
 
