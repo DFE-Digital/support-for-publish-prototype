@@ -88,6 +88,18 @@ router.get('/organisations/:organisationId/courses', checkIsAuthenticated, cours
 /// USER ROUTES
 /// ------------------------------------------------------------------------ ///
 
+router.get('/organisations/:organisationId/users/:userId/edit', checkIsAuthenticated, userController.edit_get)
+router.post('/organisations/:organisationId/users/:userId/edit', checkIsAuthenticated, userController.edit_post)
+
+router.get('/organisations/:organisationId/users/:userId/new', checkIsAuthenticated, userController.new_get)
+router.post('/organisations/:organisationId/users/:userId/new', checkIsAuthenticated, userController.new_post)
+
+router.get('/organisations/:organisationId/users/:userId/new/check', checkIsAuthenticated, userController.new_check_get)
+router.post('/organisations/:organisationId/users/:userId/new/check', checkIsAuthenticated, userController.new_check_post)
+
+router.get('/organisations/:organisationId/users/:userId/delete', checkIsAuthenticated, userController.delete_get)
+router.post('/organisations/:organisationId/users/:userId/delete', checkIsAuthenticated, userController.delete_post)
+
 router.get('/organisations/:organisationId/users/:userId', checkIsAuthenticated, userController.show)
 
 router.get('/organisations/:organisationId/users', checkIsAuthenticated, userController.list)
