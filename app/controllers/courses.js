@@ -29,7 +29,8 @@ exports.list = (req, res) => {
       users: `/organisations/${req.params.organisationId}/users`,
       courses: `/organisations/${req.params.organisationId}/courses`,
       locations: `/organisations/${req.params.organisationId}/locations`,
-      change: `/organisations/${req.params.organisationId}/courses/${req.params.courseId}`
+      new: `/organisations/${req.params.organisationId}/courses/new`,
+      view: `/organisations/${req.params.organisationId}/courses`
     }
   })
 }
@@ -46,7 +47,7 @@ exports.show = (req, res) => {
     organisation,
     course,
     actions: {
-      back: `/organisations/${req.params.organisationId}`,
+      back: `/organisations/${req.params.organisationId}/courses`,
       change: `/organisations/${req.params.organisationId}/courses/${req.params.courseId}/edit`
     }
   })
