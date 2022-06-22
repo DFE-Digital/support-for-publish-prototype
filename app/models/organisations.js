@@ -21,6 +21,13 @@ exports.findMany = (params) => {
     organisations = organisations.filter(organisation => params.providerTypes.includes(organisation.type))
   }
 
+  if (params.keywords) {
+    organisations = organisations.filter(organisation =>
+      organisation.name.toLowerCase().includes(params.keywords)
+      || organisation.code.toLowerCase().includes(params.keywords)
+    )
+  }
+
   return organisations
 }
 

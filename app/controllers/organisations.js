@@ -9,9 +9,11 @@ const utilsHelper = require('../helpers/utils')
 exports.list = (req, res) => {
   // Filters
   let providerType = null
+  let keywords = req.session.data.keywords
 
   const providerTypes = utilsHelper.getCheckboxValues(providerType, req.session.data.filter?.providerType)
 
+  const hasSearch = !!((keywords))
   const hasFilters = !!((providerTypes && providerTypes.length > 0))
 
   let selectedFilters = null
@@ -42,7 +44,7 @@ exports.list = (req, res) => {
   const providerTypeItems = organisationHelper.getProviderTypeOptions(selectedProviderType)
 
   // Data
-  let organisations = organisationModel.findMany({ providerTypes })
+  let organisations = organisationModel.findMany({ providerTypes, keywords })
 
   organisations.sort((a, b) => {
     if (a.name) {
@@ -62,10 +64,16 @@ exports.list = (req, res) => {
     providerTypeItems,
     selectedFilters,
     hasFilters,
+    hasSearch,
+    keywords,
     actions: {
       filters: {
         apply: '/organisations',
         remove: '/organisations/remove-all-filters'
+      },
+      search: {
+        find: '/organisations',
+        remove: '/organisations/remove-keyword-search'
       }
     }
   })
@@ -78,6 +86,11 @@ exports.remove_all_filters_get = (req, res) => {
 
 exports.remove_provider_type_filter_get = (req, res) => {
   req.session.data.filter.providerType = utilsHelper.removeFilter(req.params.providerType, req.session.data.filter.providerType)
+  res.redirect('/organisations')
+}
+
+exports.remove_keyword_search_get = (req, res) => {
+  delete req.session.data.keywords
   res.redirect('/organisations')
 }
 
