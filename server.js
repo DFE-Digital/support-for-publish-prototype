@@ -12,7 +12,8 @@ const sessionInMemory = require('express-session')
 
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const users = require('./app/data/users.json')
+
+const authenticationModel = require('./app/models/authentication')
 
 // Run before other code to make sure variables from .env are available
 dotenv.config()
@@ -140,7 +141,11 @@ passport.deserializeUser((user, done) => {
 // Authentication
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    const user = users.find(user => user.username === username && user.password === password && user.active === true)
+    const user = authenticationModel.findOne({
+      username,
+      password,
+      active: true
+    })
     if (user) { return done(null, user) }
     return done(null, false)
   }

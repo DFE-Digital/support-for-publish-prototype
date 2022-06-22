@@ -7,7 +7,7 @@
 {% endif %}
 
 {% block pageTitle %}
-{{ 'Error: ' if errors.length}} {{- title }} – {{ serviceName }} – GOV.UK
+{{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
 {% endblock %}
 
 {% block content %}
@@ -64,7 +64,8 @@
               errorMessage: "Enter a valid email address" if errors.error,
               value: data.username,
               classes: "govuk-!-width-two-thirds",
-              spellcheck: false
+              spellcheck: false,
+              autocomplete: "off"
             }) }}
 
             {{ govukInput({
@@ -79,7 +80,9 @@
               classes: "govuk-!-width-two-thirds",
               formGroup: {
                 classes: "govuk-!-margin-bottom-1"
-              }
+              },
+              spellcheck: false,
+              autocomplete: "off"
             }) }}
 
             <p class="govuk-body">

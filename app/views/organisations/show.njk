@@ -1,0 +1,107 @@
+{% extends "_layout.njk" %}
+
+{% set primaryNavId = "organisations" %}
+{% set subNavId = "details" %}
+
+{% set title = organisation.name + " (" + organisation.code + ")" %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+  {% include "_includes/notification-banner.njk" %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% include "_includes/page-heading.njk" %}
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {% include "./_sub-navigation.njk" %}
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              text: organisation.name
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "organisation ame"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Code"
+            },
+            value: {
+              text: organisation.code
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "organisation code"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Provider type"
+            },
+            value: {
+              text: organisation.type | getProviderTypeLabel
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "provider type"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Is an accredited body?"
+            },
+            value: {
+              text: "Yes" if organisation.isAccreditedBody else "No"
+            }
+          },
+          {
+            key: {
+              text: "Last updated"
+            },
+            value: {
+              text: organisation.updatedAt | govukShortDateAtTime
+            }
+          }
+        ]
+      }) }}
+
+    </div>
+  </div>
+
+
+{% endblock %}

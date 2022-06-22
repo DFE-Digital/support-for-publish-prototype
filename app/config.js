@@ -25,6 +25,11 @@ module.exports = {
   // Enable or disable Browser Sync
   useBrowserSync: 'true',
 
-  useLogin: 'false'
+  useLogin: 'false',
 
+  useLoginFallback: 'false',
+
+  phaseTagText: 'beta',
+
+  isRollover: 'false'
 }

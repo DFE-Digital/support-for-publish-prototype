@@ -1,9 +1,7 @@
 const authentication = require('../models/authentication')
 
 exports.sign_in_get = (req, res) => {
-  if (req.session.passport || req.session.data.user) {
-    delete req.session.data.username
-    delete req.session.data.password
+  if (req.session.passport) {
     res.redirect('/')
   } else {
     const errors = req.flash()
@@ -19,12 +17,16 @@ exports.sign_in_get = (req, res) => {
   }
 }
 
-exports.sign_out_get = (req, res) => {
+exports.auth_get = (req, res) => {
   delete req.session.data.username
   delete req.session.data.password
-  delete req.session.data.user
+  res.redirect('/organisations')
+}
+
+exports.sign_out_get = (req, res) => {
+  delete req.session.data
   delete req.session.passport
-  req.flash('success','Signed out')
+  req.flash('success', 'Signed out')
   res.redirect('/sign-in')
 }
 

@@ -1,0 +1,23 @@
+{% extends "_layout.njk" %}
+
+{% set primaryNavId = "organisations" %}
+{% set subNavId = "locations" %}
+
+{% set title = location.name %}
+{% set caption = organisation.name + " (" + organisation.code + ")" %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+  {% include "_includes/notification-banner.njk" %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% include "_includes/page-heading.njk" %}
+    </div>
+  </div>
+
+{% endblock %}
