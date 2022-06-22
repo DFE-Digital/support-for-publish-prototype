@@ -4,7 +4,7 @@ const fs = require('fs')
 const directoryPath = path.join(__dirname, '../data/organisations/')
 
 exports.findMany = (params) => {
-  const organisations = []
+  let organisations = []
 
   let documents = fs.readdirSync(directoryPath, 'utf8')
 
@@ -16,6 +16,10 @@ exports.findMany = (params) => {
     const data = JSON.parse(raw)
     organisations.push(data)
   })
+
+  if (params.providerTypes) {
+    organisations = organisations.filter(organisation => params.providerTypes.includes(organisation.type))
+  }
 
   return organisations
 }

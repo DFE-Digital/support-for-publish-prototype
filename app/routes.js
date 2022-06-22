@@ -116,6 +116,10 @@ router.get('/organisations/:organisationId/locations', checkIsAuthenticated, loc
 /// ORGANISATION ROUTES
 /// ------------------------------------------------------------------------ ///
 
+router.get('/organisations/remove-all-filters', checkIsAuthenticated, organisationController.remove_all_filters_get)
+
+router.get('/organisations/remove-provider-type-filter/:providerType', checkIsAuthenticated, organisationController.remove_provider_type_filter_get)
+
 router.get('/organisations/:organisationId', checkIsAuthenticated, organisationController.show)
 
 router.get('/organisations', checkIsAuthenticated, organisationController.list)

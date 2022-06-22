@@ -4,9 +4,45 @@ const organisationModel = require('../models/organisations')
 const cycleHelper = require('../helpers/cycles')
 const organisationHelper = require('../helpers/organisations')
 const paginationHelper = require('../helpers/pagination')
+const utilsHelper = require('../helpers/utils')
 
 exports.list = (req, res) => {
-  let organisations = organisationModel.findMany({})
+  // Filters
+  let providerType = null
+
+  const providerTypes = utilsHelper.getCheckboxValues(providerType, req.session.data.filter?.providerType)
+
+  const hasFilters = !!((providerTypes && providerTypes.length > 0))
+
+  let selectedFilters = null
+
+  if (hasFilters) {
+    selectedFilters = {
+      categories: []
+    }
+
+    if (providerTypes && providerTypes.length) {
+      selectedFilters.categories.push({
+        heading: { text: 'Provider type' },
+        items: providerTypes.map((providerType) => {
+          return {
+            text: organisationHelper.getProviderTypeLabel(providerType),
+            href: `/organisations/remove-provider-type-filter/${providerType}`
+          }
+        })
+      })
+    }
+  }
+
+  let selectedProviderType
+  if (req.session.data.filter?.providerType) {
+    selectedProviderType = req.session.data.filter.providerType
+  }
+
+  const providerTypeItems = organisationHelper.getProviderTypeOptions(selectedProviderType)
+
+  // Data
+  let organisations = organisationModel.findMany({ providerTypes })
 
   organisations.sort((a, b) => {
     if (a.name) {
@@ -22,8 +58,27 @@ exports.list = (req, res) => {
 
   res.render('../views/organisations/list', {
     organisations,
-    pagination
+    pagination,
+    providerTypeItems,
+    selectedFilters,
+    hasFilters,
+    actions: {
+      filters: {
+        apply: '/organisations',
+        remove: '/organisations/remove-all-filters'
+      }
+    }
   })
+}
+
+exports.remove_all_filters_get = (req, res) => {
+  delete req.session.data.filter
+  res.redirect('/organisations')
+}
+
+exports.remove_provider_type_filter_get = (req, res) => {
+  req.session.data.filter.providerType = utilsHelper.removeFilter(req.params.providerType, req.session.data.filter.providerType)
+  res.redirect('/organisations')
 }
 
 /// ------------------------------------------------------------------------ ///
