@@ -11,6 +11,7 @@ app/data/degree-grades.json
 app/data/financial-incentives.json
 app/data/funding-types.json
 app/data/program-types.json
+app/data/provider-types.json
 app/data/notification-types.json
 app/data/permission-types.json
 app/data/qualifications.json
