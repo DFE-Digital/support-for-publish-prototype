@@ -1,6 +1,11 @@
-[
-  {
-    "id": "a0f338c5-e94c-42f8-9c26-b9c2eb6850d3",
-    "name": "Department for Education"
-  }
-]
+{
+  "id": "a0f338c5-e94c-42f8-9c26-b9c2eb6850d3",
+  "name": "Department for Education",
+  "code": "ZZZ",
+  "type": "government",
+  "isAccreditedBody":false,
+  "ukprn": "12345",
+  "urn":"108607",
+  "updatedAt":"1970-01-01T00:00:00.000Z",
+  "updatedAt":"1970-01-01T23:59:59.999Z"
+}
