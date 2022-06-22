@@ -2,13 +2,14 @@
 
 {% set primaryNavId = "organisations" %}
 
-{% set title = "Organisations" %}
+{% set title = "Organisations (" + pagination.totalCount | numeral("0,0") + ")" %}
 
 {% block beforeContent %}
 
 {% endblock %}
 
 {% block content %}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
