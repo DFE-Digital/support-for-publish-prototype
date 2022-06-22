@@ -5,6 +5,8 @@ const { DateTime } = require('luxon')
 const marked = require('marked')
 const numeral = require('numeral')
 
+const organisationHelper = require('./helpers/organisations')
+
 const individualFiltersFolder = path.join(__dirname, './filters')
 
 module.exports = (env) => {
@@ -92,23 +94,11 @@ module.exports = (env) => {
   example: {{ "scitt" | getProviderTypeLabel }}
   outputs: "School Centred Initial Teacher Training (SCITT)"
   ------------------------------------------------------------------ */
-  filters.getProviderTypeLabel = (type) => {
-    let label = ''
+  filters.getProviderTypeLabel = (code) => {
+    let label = code
 
-    if (type) {
-      switch (type) {
-        case 'hei':
-          label = 'Higher Education Institute (HEI)'
-          break
-        case 'scitt':
-          label = 'School Centred Initial Teacher Training (SCITT)'
-          break
-        case 'lead_school':
-          label = 'Lead school'
-          break
-        default:
-          label = type
-      }
+    if (code) {
+      label = organisationHelper.getProviderTypeLabel(code)
     }
 
     return label
