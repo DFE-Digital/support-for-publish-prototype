@@ -131,7 +131,7 @@ router.get('/organisations', checkIsAuthenticated, organisationController.list)
 /// --------------------------------------------------///
 
 router.get('/', checkIsAuthenticated, (req, res) => {
-  res.redirect('/organisations');
+  res.redirect('/organisations')
 })
 
 module.exports = router
