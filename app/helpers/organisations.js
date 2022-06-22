@@ -1,5 +1,7 @@
 const organisationModel = require('../models/organisations')
 
+const providerTypes = require('../data/provider-types')
+
 exports.getAccreditedBodyOptions = (organisationId, selectedItem) => {
   const items = []
 
@@ -75,6 +77,35 @@ exports.getOrganisationLabel = (organisationId) => {
 
   if (organisation) {
     label = organisation.name
+  }
+
+  return label
+}
+
+exports.getProviderTypeOptions = (selectedItem) => {
+  const items = []
+
+  providerTypes.forEach((providerType, i) => {
+    const item = {}
+
+    item.text = providerType.name
+    item.value = providerType.code
+    item.id = providerType.id
+    item.checked = (selectedItem && selectedItem.includes(providerType.code)) ? 'checked' : ''
+
+    items.push(item)
+  })
+
+  return items
+}
+
+exports.getProviderTypeLabel = (code) => {
+  const providerType = providerTypes.find(providerType => providerType.code === code)
+
+  let label = code
+
+  if (providerType) {
+    label = providerType.name
   }
 
   return label
