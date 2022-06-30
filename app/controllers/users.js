@@ -12,9 +12,7 @@ exports.list = (req, res) => {
   let users = userModel.findMany({ organisationId: req.params.organisationId })
 
   users.sort((a, b) => {
-    if (a.name) {
-      return a.name.localeCompare(b.name)
-    }
+    return a.firstName.localeCompare(b.firstName) || a.lastName.localeCompare(b.lastName)
   })
 
   // Get the pagination data
