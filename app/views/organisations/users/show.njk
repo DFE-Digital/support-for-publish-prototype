@@ -92,6 +92,14 @@
             value: {
               html: organisationsHtml
             }
+          },
+          {
+            key: {
+              text: "Date last signed in"
+            },
+            value: {
+              text: user.lastSignInAt | today | govukShortDateAtTime
+            }
           }
         ]
       }) }}
