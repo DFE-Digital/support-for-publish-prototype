@@ -11,12 +11,6 @@
   top: 0;
   z-index: 10;
 
-  // &:after {
-  //   content: '';
-  //   display: inline-block;
-  //   width: 100%;
-  // }
-
   [class^=govuk-heading-] {
     margin-bottom: 0;
   }
@@ -26,7 +20,6 @@
   }
 
 }
-
 
 // JavaScript
 .app-filter__legend {
@@ -71,14 +64,9 @@
       }
     }
 
-    &:focus {
-      // @include govuk-focusable;
-    }
-
   }
 
 }
-
 
 .app-filter__header-title,
 .app-filter__header-action {
@@ -87,10 +75,9 @@
   vertical-align: middle;
 }
 
-
 .app-filter__close {
   @include govuk-font(19);
-  // @include govuk-focusable;
+
   color: govuk-colour("black");
   cursor: pointer; // I know Adam won’t like this
   background-color: transparent;
