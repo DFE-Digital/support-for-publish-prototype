@@ -50,6 +50,24 @@ exports.updateOne = (params) => {
   if (params.organisationId) {
     organisation = this.findOne({ organisationId: params.organisationId })
 
+    if (params.organisation.name !== undefined) {
+      organisation.name = params.organisation.name
+    }
+
+    if (params.organisation.code !== undefined) {
+      organisation.code = params.organisation.code
+    }
+
+    if (params.organisation.type !== undefined) {
+      organisation.type = params.organisation.type
+
+      if (organisation.type === 'lead_school') {
+        organisation.isAccreditedBody = false
+      } else {
+        organisation.isAccreditedBody = true
+      }
+    }
+
     if (params.organisation.urn !== undefined) {
       organisation.urn = params.organisation.urn
     }

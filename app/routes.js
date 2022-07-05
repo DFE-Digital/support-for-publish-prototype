@@ -122,6 +122,9 @@ router.get('/organisations/remove-all-filters', checkIsAuthenticated, organisati
 
 router.get('/organisations/remove-provider-type-filter/:providerType', checkIsAuthenticated, organisationController.remove_provider_type_filter_get)
 
+router.get('/organisations/:organisationId/edit', checkIsAuthenticated, organisationController.edit_get)
+router.post('/organisations/:organisationId/edit', checkIsAuthenticated, organisationController.edit_post)
+
 router.get('/organisations/:organisationId', checkIsAuthenticated, organisationController.show)
 
 router.get('/organisations', checkIsAuthenticated, organisationController.list)
