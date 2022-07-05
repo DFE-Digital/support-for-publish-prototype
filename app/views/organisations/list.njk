@@ -44,6 +44,7 @@
             <a class="govuk-link" href="/organisations/{{ organisation.id }}">
               {{ organisation.name }} ({{ organisation.code }})
             </a>
+            <p class="govuk-hint govuk-!-font-size-16">{{ organisation.type | getProviderTypeLabel }}</p>
           </li>
         {% endfor %}
       </ul>
