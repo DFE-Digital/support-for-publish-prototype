@@ -45,7 +45,6 @@ exports.findOne = (params) => {
 }
 
 exports.updateOne = (params) => {
-  console.log(params);
   let organisation
 
   if (params.organisationId) {
@@ -61,6 +60,12 @@ exports.updateOne = (params) => {
 
     if (params.organisation.type !== undefined) {
       organisation.type = params.organisation.type
+
+      if (organisation.type === 'lead_school') {
+        organisation.isAccreditedBody = false
+      } else {
+        organisation.isAccreditedBody = true
+      }
     }
 
     if (params.organisation.urn !== undefined) {
