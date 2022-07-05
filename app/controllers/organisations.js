@@ -140,7 +140,7 @@ exports.edit_get = (req, res) => {
 
 exports.edit_post = (req, res) => {
   let organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  organisation = req.session.data.organisation
+  organisation = req.body.organisation
 
   let selectedProviderType
   if (organisation.type) {
@@ -150,6 +150,22 @@ exports.edit_post = (req, res) => {
   const providerTypeItems = organisationHelper.getProviderTypeOptions(selectedProviderType)
 
   const errors = []
+
+  if (!req.body.organisation.name.length) {
+    const error = {}
+    error.fieldName = 'organisation-name'
+    error.href = '#organisation-name'
+    error.text = 'Enter a name'
+    errors.push(error)
+  }
+
+  if (!req.body.organisation.code.length) {
+    const error = {}
+    error.fieldName = 'organisation-code'
+    error.href = '#organisation-code'
+    error.text = 'Enter a provider code'
+    errors.push(error)
+  }
 
   if (errors.length) {
     res.render('../views/organisations/edit', {
