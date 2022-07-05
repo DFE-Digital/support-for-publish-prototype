@@ -8,8 +8,8 @@ const utilsHelper = require('../helpers/utils')
 
 exports.list = (req, res) => {
   // Filters
-  let providerType = null
-  let keywords = req.session.data.keywords
+  const providerType = null
+  const keywords = req.session.data.keywords
 
   const providerTypes = utilsHelper.getCheckboxValues(providerType, req.session.data.filter?.providerType)
 

@@ -26,9 +26,11 @@ exports.arrayToDateObject = (array) => {
 }
 
 exports.getCheckboxValues = (name, data) => {
-  return name && (Array.isArray(name) ? name : [name].filter((name) => {
-    return name !== '_unchecked'
-  })) || data && (Array.isArray(data) ? data : [data])
+  return name && (Array.isArray(name)
+    ? name
+    : [name].filter((name) => {
+        return name !== '_unchecked'
+      })) || data && (Array.isArray(data) ? data : [data])
 }
 
 exports.removeFilter = (value, data) => {

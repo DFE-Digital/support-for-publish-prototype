@@ -23,8 +23,8 @@ exports.findMany = (params) => {
 
   if (params.keywords?.length) {
     organisations = organisations.filter(organisation =>
-      organisation.name.toLowerCase().includes(params.keywords)
-      || organisation.code.toLowerCase().includes(params.keywords)
+      organisation.name.toLowerCase().includes(params.keywords) ||
+      organisation.code.toLowerCase().includes(params.keywords)
     )
   }
 
