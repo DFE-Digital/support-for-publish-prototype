@@ -14,7 +14,7 @@ exports.list = (req, res) => {
   const providerTypes = utilsHelper.getCheckboxValues(providerType, req.session.data.filter?.providerType)
 
   const hasSearch = !!((keywords))
-  const hasFilters = !!((providerTypes && providerTypes.length > 0))
+  const hasFilters = !!((providerTypes?.length > 0))
 
   let selectedFilters = null
 
@@ -23,7 +23,7 @@ exports.list = (req, res) => {
       categories: []
     }
 
-    if (providerTypes && providerTypes.length) {
+    if (providerTypes?.length) {
       selectedFilters.categories.push({
         heading: { text: 'Provider type' },
         items: providerTypes.map((providerType) => {

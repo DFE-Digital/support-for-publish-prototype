@@ -17,11 +17,11 @@ exports.findMany = (params) => {
     organisations.push(data)
   })
 
-  if (params.providerTypes) {
+  if (params.providerTypes?.length) {
     organisations = organisations.filter(organisation => params.providerTypes.includes(organisation.type))
   }
 
-  if (params.keywords) {
+  if (params.keywords?.length) {
     organisations = organisations.filter(organisation =>
       organisation.name.toLowerCase().includes(params.keywords)
       || organisation.code.toLowerCase().includes(params.keywords)
