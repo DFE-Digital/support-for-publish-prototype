@@ -45,10 +45,23 @@ exports.findOne = (params) => {
 }
 
 exports.updateOne = (params) => {
+  console.log(params);
   let organisation
 
   if (params.organisationId) {
     organisation = this.findOne({ organisationId: params.organisationId })
+
+    if (params.organisation.name !== undefined) {
+      organisation.name = params.organisation.name
+    }
+
+    if (params.organisation.code !== undefined) {
+      organisation.code = params.organisation.code
+    }
+
+    if (params.organisation.type !== undefined) {
+      organisation.type = params.organisation.type
+    }
 
     if (params.organisation.urn !== undefined) {
       organisation.urn = params.organisation.urn
