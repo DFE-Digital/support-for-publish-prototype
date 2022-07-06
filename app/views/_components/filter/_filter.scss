@@ -1,26 +1,15 @@
 .app-filter {
-  background-color: govuk-colour("white");
-  // box-shadow: inset 0 0 0 1px govuk-colour("mid-grey");
-
-  &:focus {
-    // box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
-  }
+  background-color: govuk-colour("light-grey");
 }
 
-
 .app-filter__header {
-  font-size: 0; // Hide whitespace between elements
+  background-color: govuk-colour("light-grey");
+  display: flex;
+  justify-content: space-between;
   padding: govuk-spacing(2) govuk-spacing(3);
-  text-align: justify; // Trick to remove the need for floats
   position: sticky;
   top: 0;
-  background-color: govuk-colour('white');
-  z-index: 9;
-  &:after {
-    content: '';
-    display: inline-block;
-    width: 100%;
-  }
+  z-index: 10;
 
   [class^=govuk-heading-] {
     margin-bottom: 0;
@@ -31,7 +20,6 @@
   }
 
 }
-
 
 // JavaScript
 .app-filter__legend {
@@ -60,7 +48,7 @@
     }
 
     &::after {
-      background-image: url("/public/images/icon-toggle-plus-minus.svg");
+      background-image: url("#{$app-assets-path}images/icon-toggle-plus-minus.svg");
       background-position: 0 0;
       content: "";
       display: block;
@@ -76,14 +64,9 @@
       }
     }
 
-    &:focus {
-      // @include govuk-focusable;
-    }
-
   }
 
 }
-
 
 .app-filter__header-title,
 .app-filter__header-action {
@@ -92,9 +75,9 @@
   vertical-align: middle;
 }
 
-
 .app-filter__close {
-  // @include govuk-focusable;
+  @include govuk-font(19);
+
   color: govuk-colour("black");
   cursor: pointer; // I know Adam won’t like this
   background-color: transparent;
@@ -118,7 +101,7 @@
   }
 
   &::before {
-    background-image: url("/public/images/icon-close-cross-black.svg");
+    background-image: url("#{$app-assets-path}images/icon-close-cross-black.svg");
     content: '';
     display: inline-block;
     height: 14px;
@@ -131,14 +114,13 @@
 
 }
 
-
-.app-filter__close {
-  @include govuk-font(19);
-}
-
 .app-filter__selected {
   background-color: govuk-colour("light-grey");
-  padding: govuk-spacing(4) govuk-spacing(3);
+  padding: govuk-spacing(1);
+  padding-bottom: govuk-spacing(5);
+  margin: govuk-spacing(2);
+  border-top: 1px solid govuk-colour("mid-grey");
+  border-bottom: 1px solid govuk-colour("mid-grey");
 
   ul:last-of-type {
     margin-bottom: 0; // IE9 +
@@ -160,6 +142,7 @@
 
 .app-filter__heading-title,
 .app-filter__heading-action {
+  padding-top: govuk-spacing(3);
   display: inline-block;
   text-align: left;
   vertical-align: middle;
@@ -168,7 +151,7 @@
 
 .app-filter-tags {
   font-size: 0;
-  margin-bottom: govuk-spacing(4); // Needs to adjust to 15px on mobile
+  margin-bottom: govuk-spacing(2); // Needs to adjust to 15px on mobile
   padding-left: 0;
 
   li {
@@ -204,7 +187,7 @@
   }
 
   &:after {
-    background-image: url("/public/images/icon-tag-remove-cross.svg");
+    background-image: url("#{$app-assets-path}images/icon-tag-remove-cross.svg");
     content: '';
     display: inline-block;
     font-weight: bold;
@@ -215,7 +198,7 @@
   }
 
   &:hover:after {
-    background-image: url("/public/images/icon-tag-remove-cross-white.svg");
+    background-image: url("#{$app-assets-path}images/icon-tag-remove-cross-white.svg");
   }
 
 }
@@ -226,6 +209,15 @@
 
   div:last-of-type {
     margin-bottom: 0; // IE9 +
+  }
+
+  .govuk-checkboxes__label,
+  .govuk-radios__label {
+    @include govuk-font(16);
+
+    &::before {
+      background-color: govuk-colour("white");
+    }
   }
 
 }
