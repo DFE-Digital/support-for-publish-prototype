@@ -8,13 +8,16 @@ const filters = {}
 
 // Merge arrays or strings together in to an array
 filters.combineArrays = (arr1 = [], arr2 = []) => {
-  if (_.isString(arr1)) arr1 = [arr1]
-  if (_.isString(arr2)) arr2 = [arr2]
+  if (_.isString(arr1)) {
+    arr1 = [arr1]
+  }
+  if (_.isString(arr2)) {
+    arr2 = [arr2]
+  }
   return [...arr1, ...arr2]
 }
 
 filters.isArray = arr => {
-  const isArray = _.isArray(arr)
   return _.isArray(arr)
 }
 
@@ -52,15 +55,23 @@ filters.push = (array, item) => {
 }
 
 filters.trimEach = input => {
-  if (!input) return
+  if (!input) {
+    return
+  }
 
   if (_.isArray(input)) {
     return input.map(item => {
-      if (_.isString(item)) return item.trim()
-      else return item
+      if (_.isString(item)) {
+        return item.trim()
+      } else {
+        return item
+      }
     })
-  } else if (_.isString(input)) return input.trim()
-  else return input
+  } else if (_.isString(input)) {
+    return input.trim()
+  } else {
+    return input
+  }
 }
 
 // Remove empty items from arrays / coerce empty to false
@@ -139,10 +150,10 @@ const joinArray = (array, options = {}) => {
   if (!_.isArray(array)) return
 
   // Don't output anything if no array or items
-  if (!array || array.length == 0) return // return nothing if no items
+  if (!array || array.length === 0) return // return nothing if no items
 
   // No delimiters if only one item
-  if (array.length == 1) {
+  if (array.length === 1) {
     // console.log(array[0])
     return options.prepend + array[0] + options.append // just return item
   }
@@ -181,9 +192,11 @@ filters.spaceSeparate = (items) => filters.joinArray(items, { delimiter: ' ' })
 // A with B, A with B and C, A with B and C and D
 // Todo: extend joinArray to support first delimiter
 filters.withSeparate = (items) => {
-  if (items.length < 2) return items
-  else if (items.length == 2) return filters.joinArray(items, { delimiter: ' with ' })
-  else {
+  if (items.length < 2) {
+    return items
+  } else if (items.length === 2) {
+    return filters.joinArray(items, { delimiter: ' with ' })
+  } else {
     // Grab first two items and join them
     const firstTwoItems = items.splice(0, 2).join(' with ')
     // Add to start of array
@@ -198,14 +211,18 @@ filters.joinAsSentences = (items) => filters.joinArray(items, { delimiter: '. ',
 
 filters.removeArrayItem = (array, itemToRemove) => {
   if (_.isArray(array)) {
-    return filteredItems = array.filter(item => item != itemToRemove)
-  } else return array
+    return array.filter(item => item !== itemToRemove)
+  } else {
+    return array
+  }
 }
 
 filters.removeArrayItems = (array, itemsToRemove) => {
   if (_.isArray(array)) {
-    return filteredItems = array.filter(item => !itemsToRemove.includes(item))
-  } else return array
+    return array.filter(item => !itemsToRemove.includes(item))
+  } else {
+    return array
+  }
 }
 
 // -------------------------------------------------------------------

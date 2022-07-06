@@ -56,7 +56,9 @@ filters.objectArrayToArray = array => {
 }
 
 filters.objectToArray = object => {
-  if (!object) return []
+  if (!object) {
+    return []
+  }
   const newArray = []
   Object.keys(object).forEach(key => {
     newArray.push(object[key])
@@ -69,9 +71,10 @@ filters.keepAttributes = (array, keysToKeep) => {
   const keepKeys = theObject => {
     const newObj = {}
     // Re-orders in order of keysToKeep and keeps only selected keys
-
     // Coerce string to array
-    if (_.isString(keysToKeep)) keysToKeep = [keysToKeep]
+    if (_.isString(keysToKeep)) {
+      keysToKeep = [keysToKeep]
+    }
 
     keysToKeep.forEach(key => {
       const objectKeys = Object.keys(theObject)
@@ -86,7 +89,9 @@ filters.keepAttributes = (array, keysToKeep) => {
     return array.map(keepKeys)
   }
   // Single object
-  else return keepKeys(array)
+  else {
+    return keepKeys(array)
+  }
 }
 
 // set attribute on object
@@ -99,7 +104,7 @@ filters.setAttribute = (dictionary, key, value) => {
 // set attribute on object (or array of objects)
 filters.addAttribute = (dictionary, key, value) => {
   if (Array.isArray(dictionary)) {
-    newArr = []
+    const newArr = []
     dictionary.forEach(item => {
       const newItem = Object.assign({}, item)
       newItem[key] = value
@@ -149,7 +154,9 @@ filters.deleteAttribute = (input, attribute) => {
     return input.map(deleteAttributeFromObject)
   }
   // Single object
-  else return deleteAttributeFromObject(input)
+  else {
+    return deleteAttributeFromObject(input)
+  }
 }
 
 // Delete a keys with blank values
