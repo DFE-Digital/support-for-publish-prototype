@@ -164,7 +164,7 @@ exports.getCycleOptions = (selectedItems) => {
     if ((currentCycleYear > fromYear && currentCycleYear <= toYear) ||
       (previousCycleYear > fromYear && previousCycleYear <= toYear)) {
       item.text = data.shortDesc
-      if (data.code == getCurrentCycle().code) {
+      if (data.code === getCurrentCycle().code) {
         item.text += ' - current'
       }
       item.value = data.code
