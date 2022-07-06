@@ -38,19 +38,27 @@
 
       {% include "./_search-panel.njk" %}
 
-      <ul class="govuk-list govuk-list--spaced">
-        {% for organisation in organisations %}
-          <li>
-            <a class="govuk-link" href="/organisations/{{ organisation.id }}">
-              {{ organisation.name }} ({{ organisation.code }})
-            </a>
-            <p class="govuk-hint govuk-!-font-size-16">{{ organisation.type | getProviderTypeLabel }}</p>
-          </li>
-        {% endfor %}
-      </ul>
+      {% if organisations.length %}
 
-      {% if organisations.length and pagination %}
-        {% include "_includes/pagination.njk" %}
+        <ul class="govuk-list govuk-list--spaced">
+          {% for organisation in organisations %}
+            <li>
+              <a class="govuk-link" href="/organisations/{{ organisation.id }}">
+                {{ organisation.name }} ({{ organisation.code }})
+              </a>
+              <p class="govuk-hint govuk-!-font-size-16">{{ organisation.type | getProviderTypeLabel }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if organisations.length and pagination %}
+          {% include "_includes/pagination.njk" %}
+        {% endif %}
+
+      {% else %}
+
+        {% include "./_no-results.njk" %}
+
       {% endif %}
 
     </div>
