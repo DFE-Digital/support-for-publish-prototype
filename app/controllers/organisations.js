@@ -29,7 +29,7 @@ exports.list = (req, res) => {
         items: providerTypes.map((providerType) => {
           return {
             text: organisationHelper.getProviderTypeLabel(providerType),
-            href: `/organisations/remove-provider-type-filter/${providerType}`
+            href: `/cycles/${req.params.cycleId}/organisations/remove-provider-type-filter/${providerType}`
           }
         })
       })
@@ -67,13 +67,14 @@ exports.list = (req, res) => {
     hasSearch,
     keywords,
     actions: {
+      view: `/cycles/${req.params.cycleId}/organisations`,
       filters: {
-        apply: '/organisations',
-        remove: '/organisations/remove-all-filters'
+        apply: `/cycles/${req.params.cycleId}/organisations`,
+        remove: `/cycles/${req.params.cycleId}/organisations/remove-all-filters`
       },
       search: {
-        find: '/organisations',
-        remove: '/organisations/remove-keyword-search'
+        find: `/cycles/${req.params.cycleId}/organisations`,
+        remove: `/cycles/${req.params.cycleId}/organisations/remove-keyword-search`
       }
     }
   })
@@ -81,17 +82,17 @@ exports.list = (req, res) => {
 
 exports.remove_all_filters_get = (req, res) => {
   delete req.session.data.filter
-  res.redirect('/organisations')
+  res.redirect(`/cycles/${req.params.cycleId}/organisations`)
 }
 
 exports.remove_provider_type_filter_get = (req, res) => {
   req.session.data.filter.providerType = utilsHelper.removeFilter(req.params.providerType, req.session.data.filter.providerType)
-  res.redirect('/organisations')
+  res.redirect(`/cycles/${req.params.cycleId}/organisations`)
 }
 
 exports.remove_keyword_search_get = (req, res) => {
   delete req.session.data.keywords
-  res.redirect('/organisations')
+  res.redirect(`/cycles/${req.params.cycleId}/organisations`)
 }
 
 /// ------------------------------------------------------------------------ ///
@@ -104,11 +105,11 @@ exports.show = (req, res) => {
   res.render('../views/organisations/show', {
     organisation,
     actions: {
-      details: `/organisations/${req.params.organisationId}`,
-      users: `/organisations/${req.params.organisationId}/users`,
-      courses: `/organisations/${req.params.organisationId}/courses`,
-      locations: `/organisations/${req.params.organisationId}/locations`,
-      change: `/organisations/${req.params.organisationId}/edit`
+      details: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+      users: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
+      courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
+      locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`
     }
   })
 }
@@ -131,9 +132,9 @@ exports.edit_get = (req, res) => {
     organisation,
     providerTypeItems,
     actions: {
-      save: `/organisations/${req.params.organisationId}/edit`,
-      back: `/organisations/${req.params.organisationId}`,
-      cancel: `/organisations/${req.params.organisationId}`
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`
     }
   })
 }
@@ -172,9 +173,9 @@ exports.edit_post = (req, res) => {
       organisation,
       providerTypeItems,
       actions: {
-        save: `/organisations/${req.params.organisationId}/edit`,
-        back: `/organisations/${req.params.organisationId}`,
-        cancel: `/organisations/${req.params.organisationId}`
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`
       },
       errors
     })
@@ -185,6 +186,6 @@ exports.edit_post = (req, res) => {
     })
 
     req.flash('success', 'Organisation details updated')
-    res.redirect(`/organisations/${req.params.organisationId}`)
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`)
   }
 }

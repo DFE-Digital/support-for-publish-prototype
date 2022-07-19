@@ -5,6 +5,7 @@ const { DateTime } = require('luxon')
 const marked = require('marked')
 const numeral = require('numeral')
 
+const cycleHelper = require('./helpers/cycles')
 const organisationHelper = require('./helpers/organisations')
 
 const individualFiltersFolder = path.join(__dirname, './filters')
@@ -134,6 +135,21 @@ module.exports = (env) => {
       dt = dt.toFormat('ha')
     }
     return dt.toLowerCase()
+  }
+
+  /* ------------------------------------------------------------------
+  utility function to get the cycle label
+  example: {{ '2022' | getCycleLabel }}
+  outputs: "2021 to 2022 - current"
+  ------------------------------------------------------------------ */
+  filters.getCycleLabel = (cycle) => {
+    let label = cycle
+
+    if (cycle) {
+      label = cycleHelper.getCycleLabel(cycle)
+    }
+
+    return label
   }
 
   /* ------------------------------------------------------------------

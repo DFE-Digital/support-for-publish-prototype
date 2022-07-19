@@ -43,7 +43,7 @@
         <ul class="govuk-list govuk-list--spaced">
           {% for organisation in organisations %}
             <li>
-              <a class="govuk-link" href="/organisations/{{ organisation.id }}">
+              <a class="govuk-link" href="{{ actions.view }}/{{ organisation.id }}">
                 {{ organisation.name }} ({{ organisation.code }})
               </a>
               <p class="govuk-hint govuk-!-font-size-16">{{ organisation.type | getProviderTypeLabel }}</p>
