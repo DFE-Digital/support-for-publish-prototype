@@ -81,18 +81,24 @@
   }) }}
 
   {% if isRollover == "true" %}
-    {{ appSwitcher({
-      text: "Recruitment cycle 2022 to 2023",
-      actions: {
-        items: [
-          {
-            text: "Change recruitment cycle",
-            href: "#"
-          }
-        ] | removeEmpty
-      },
-      classes: "govuk-width-container"
-    }) }}
+
+    {% if not hideSwitcher %}
+
+      {{ appSwitcher({
+        text: "Recruitment cycle " + (cycleId | getCycleLabel),
+        actions: {
+          items: [
+            {
+              text: "Change recruitment cycle",
+              href: "/cycles"
+            }
+          ] | removeEmpty
+        },
+        classes: "govuk-width-container"
+      }) }}
+
+    {% endif %}
+
   {% endif %}
 
 
