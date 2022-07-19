@@ -42,6 +42,7 @@
 {% from "_components/pagination/macro.njk"             import appPagination %}
 {% from "_components/primary-navigation/macro.njk"     import appPrimaryNavigation %}
 {% from "_components/search/macro.njk"                 import appSearch %}
+{% from "_components/switcher/macro.njk"               import appSwitcher %}
 {% from "_components/sub-navigation/macro.njk"         import appSubNavigation %}
 {% from "_components/summary-card/macro.njk"           import appSummaryCard %}
 
@@ -78,8 +79,24 @@
       classes: "app-tag--prototype" if environment != 'production'
     },
     html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.',
-    classes: "govuk-width-container govuk-phase-banner--no-border-bottom"
+    classes: "govuk-width-container" + (" govuk-phase-banner--no-border-bottom" if isRollover == "false" and headerNavId != "account")
   }) }}
+
+  {% if isRollover == "true" %}
+    {{ appSwitcher({
+      text: "Recruitment cycle 2022 to 2023",
+      actions: {
+        items: [
+          {
+            text: "Change recruitment cycle",
+            href: "#"
+          }
+        ] | removeEmpty
+      },
+      classes: "govuk-width-container"
+    }) }}
+  {% endif %}
+
 
   {% if not hidePrimaryNavigation %}
     {{ appPrimaryNavigation({
