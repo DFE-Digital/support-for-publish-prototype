@@ -25,12 +25,12 @@ exports.list = (req, res) => {
     courses,
     pagination,
     actions: {
-      details: `/organisations/${req.params.organisationId}`,
-      users: `/organisations/${req.params.organisationId}/users`,
-      courses: `/organisations/${req.params.organisationId}/courses`,
-      locations: `/organisations/${req.params.organisationId}/locations`,
-      new: `/organisations/${req.params.organisationId}/courses/new`,
-      view: `/organisations/${req.params.organisationId}/courses`
+      details: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+      users: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
+      courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
+      locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      new: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses/new`,
+      view: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`
     }
   })
 }
@@ -47,8 +47,8 @@ exports.show = (req, res) => {
     organisation,
     course,
     actions: {
-      back: `/organisations/${req.params.organisationId}/courses`,
-      change: `/organisations/${req.params.organisationId}/courses/${req.params.courseId}/edit`
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses/${req.params.courseId}/edit`
     }
   })
 }
@@ -65,9 +65,9 @@ exports.edit_get = (req, res) => {
     organisation,
     course,
     actions: {
-      save: `/organisations/${req.params.organisationId}/courses/${req.params.courseId}/edit`,
-      back: `/organisations/${req.params.organisationId}/courses`,
-      cancel: `/organisations/${req.params.organisationId}/courses`
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses/${req.params.courseId}/edit`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`
     }
   })
 }
@@ -84,9 +84,9 @@ exports.edit_post = (req, res) => {
       organisation,
       course,
       actions: {
-        save: `/organisations/${req.params.organisationId}/courses/${req.params.courseId}/edit`,
-        back: `/organisations/${req.params.organisationId}/courses`,
-        cancel: `/organisations/${req.params.organisationId}/courses`
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses/${req.params.courseId}/edit`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`
       },
       errors
     })
@@ -98,6 +98,6 @@ exports.edit_post = (req, res) => {
     })
 
     req.flash('success', 'course details updated')
-    res.redirect(`/organisations/${req.params.organisationId}/courses/${req.params.courseId}`)
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses/${req.params.courseId}`)
   }
 }

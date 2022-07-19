@@ -25,12 +25,12 @@ exports.list = (req, res) => {
     locations,
     pagination,
     actions: {
-      details: `/organisations/${req.params.organisationId}`,
-      users: `/organisations/${req.params.organisationId}/users`,
-      courses: `/organisations/${req.params.organisationId}/courses`,
-      locations: `/organisations/${req.params.organisationId}/locations`,
-      new: `/organisations/${req.params.organisationId}/locations/new`,
-      view: `/organisations/${req.params.organisationId}/locations`
+      details: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+      users: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
+      courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
+      locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      new: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+      view: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
     }
   })
 }
@@ -47,8 +47,8 @@ exports.show = (req, res) => {
     organisation,
     location,
     actions: {
-      back: `/organisations/${req.params.organisationId}/locations`,
-      change: `/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`
     }
   })
 }
@@ -65,9 +65,9 @@ exports.edit_get = (req, res) => {
     organisation,
     location,
     actions: {
-      save: `/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
-      back: `/organisations/${req.params.organisationId}/locations`,
-      cancel: `/organisations/${req.params.organisationId}/locations`
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
     }
   })
 }
@@ -84,9 +84,9 @@ exports.edit_post = (req, res) => {
       organisation,
       location,
       actions: {
-        save: `/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
-        back: `/organisations/${req.params.organisationId}/locations`,
-        cancel: `/organisations/${req.params.organisationId}/locations`
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
       },
       errors
     })
@@ -98,6 +98,6 @@ exports.edit_post = (req, res) => {
     })
 
     req.flash('success', 'location details updated')
-    res.redirect(`/organisations/${req.params.organisationId}/locations/${req.params.locationId}`)
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`)
   }
 }

@@ -26,12 +26,12 @@ exports.list = (req, res) => {
     users,
     pagination,
     actions: {
-      details: `/organisations/${req.params.organisationId}`,
-      users: `/organisations/${req.params.organisationId}/users`,
-      courses: `/organisations/${req.params.organisationId}/courses`,
-      locations: `/organisations/${req.params.organisationId}/locations`,
-      new: `/organisations/${req.params.organisationId}/users/new`,
-      view: `/organisations/${req.params.organisationId}/users`
+      details: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+      users: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
+      courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
+      locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      new: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/new`,
+      view: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`
     }
   })
 }
@@ -51,9 +51,9 @@ exports.show = (req, res) => {
     user,
     signedInUser,
     actions: {
-      back: `/organisations/${req.params.organisationId}/users`,
-      change: `/organisations/${req.params.organisationId}/users/${req.params.userId}/edit`,
-      delete: `/organisations/${req.params.organisationId}/users/${req.params.userId}/delete`
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/${req.params.userId}/edit`,
+      delete: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/${req.params.userId}/delete`
     }
   })
 }
@@ -65,18 +65,18 @@ exports.show = (req, res) => {
 exports.new_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
-  let back = `/organisations/${req.params.organisationId}/users`
+  let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`
   if (req.query.referrer === 'check') {
-    back = `/organisations/${req.params.organisationId}/users/new/check`
+    back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/new/check`
   }
 
   res.render('../views/organisations/users/edit', {
     organisation,
     user: req.session.data.user,
     actions: {
-      save: `/organisations/${req.params.organisationId}/users/new`,
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/new`,
       back,
-      cancel: `/organisations/${req.params.organisationId}/users`
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`
     }
   })
 }
@@ -132,14 +132,14 @@ exports.new_post = (req, res) => {
       organisation,
       user: req.session.data.user,
       actions: {
-        save: `/organisations/${req.params.organisationId}/users/new`,
-        back: `/organisations/${req.params.organisationId}/users`,
-        cancel: `/organisations/${req.params.organisationId}/users`
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/new`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`
       },
       errors
     })
   } else {
-    res.redirect(`/organisations/${req.params.organisationId}/users/new/check`)
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/new/check`)
   }
 }
 
@@ -150,10 +150,10 @@ exports.new_check_get = (req, res) => {
     organisation,
     user: req.session.data.user,
     actions: {
-      save: `/organisations/${req.params.organisationId}/users/new/check`,
-      back: `/organisations/${req.params.organisationId}/users/new`,
-      change: `/organisations/${req.params.organisationId}/users/new`,
-      cancel: `/organisations/${req.params.organisationId}/users`
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/new/check`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/new`,
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/new`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`
     }
   })
 }
@@ -167,7 +167,7 @@ exports.new_check_post = (req, res) => {
   delete req.session.data.user
 
   req.flash('success', 'User added')
-  res.redirect(`/organisations/${req.params.organisationId}/users`)
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`)
 }
 
 /// ------------------------------------------------------------------------ ///
@@ -182,9 +182,9 @@ exports.edit_get = (req, res) => {
     organisation,
     user,
     actions: {
-      save: `/organisations/${req.params.organisationId}/users/${req.params.userId}/edit`,
-      back: `/organisations/${req.params.organisationId}/users`,
-      cancel: `/organisations/${req.params.organisationId}/users`
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/${req.params.userId}/edit`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`
     }
   })
 }
@@ -241,9 +241,9 @@ exports.edit_post = (req, res) => {
       organisation,
       user,
       actions: {
-        save: `/organisations/${req.params.organisationId}/users/${req.params.userId}/edit`,
-        back: `/organisations/${req.params.organisationId}/users`,
-        cancel: `/organisations/${req.params.organisationId}/users`
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/${req.params.userId}/edit`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`
       },
       errors
     })
@@ -257,7 +257,7 @@ exports.edit_post = (req, res) => {
     delete req.session.data.user
 
     req.flash('success', 'User updated')
-    res.redirect(`/organisations/${req.params.organisationId}/users/${req.params.userId}`)
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/${req.params.userId}`)
   }
 }
 
@@ -273,9 +273,9 @@ exports.delete_get = (req, res) => {
     organisation,
     user,
     actions: {
-      save: `/organisations/${req.params.organisationId}/users/${req.params.userId}/delete`,
-      back: `/organisations/${req.params.organisationId}/users/${req.params.userId}`,
-      cancel: `/organisations/${req.params.organisationId}/users/${req.params.userId}`
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/${req.params.userId}/delete`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/${req.params.userId}`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users/${req.params.userId}`
     }
   })
 }
@@ -287,5 +287,5 @@ exports.delete_post = (req, res) => {
   })
 
   req.flash('success', 'User removed')
-  res.redirect(`/organisations/${req.params.organisationId}/users`)
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`)
 }
