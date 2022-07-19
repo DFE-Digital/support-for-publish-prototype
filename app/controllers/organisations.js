@@ -29,7 +29,7 @@ exports.list = (req, res) => {
         items: providerTypes.map((providerType) => {
           return {
             text: organisationHelper.getProviderTypeLabel(providerType),
-            href: `/cycles/${req.params.cycleId}/remove-provider-type-filter/${providerType}`
+            href: `/cycles/${req.params.cycleId}/organisations/remove-provider-type-filter/${providerType}`
           }
         })
       })
