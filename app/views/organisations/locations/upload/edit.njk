@@ -74,7 +74,7 @@
             },
             autocomplete: "address-line1",
             errorMessage: errors | getErrorMessage("address-line-1"),
-            value: location.addressLine1
+            value: location.address.addressLine1 if location.address.addressLine1 else location.addressLine1
           }) }}
 
           {{ govukInput({
@@ -86,7 +86,7 @@
             },
             autocomplete: "address-line1",
             errorMessage: errors | getErrorMessage("address-line-2"),
-            value: location.addressLine2
+            value: location.address.addressLine2 if location.address.addressLine2 else location.addressLine2
           }) }}
 
           {{ govukInput({
@@ -99,7 +99,7 @@
             classes: "govuk-!-width-two-thirds",
             autocomplete: "address-level2",
             errorMessage: errors | getErrorMessage("address-town"),
-            value: location.town
+            value: location.address.town if location.address.town else location.town
           }) }}
 
           {{ govukInput({
@@ -111,7 +111,7 @@
             },
             classes: "govuk-!-width-two-thirds",
             errorMessage: errors | getErrorMessage("address-county"),
-            value: location.county
+            value: location.address.county if location.address.county else location.county
           }) }}
 
           {{ govukInput({
@@ -124,7 +124,7 @@
             classes: "govuk-input--width-10",
             autocomplete: "postal-code",
             errorMessage: errors | getErrorMessage("address-postcode"),
-            value: location.postcode | upper
+            value: (location.address.postcode if location.address.postcode else location.postcode) | upper
           }) }}
 
         {% endcall %}

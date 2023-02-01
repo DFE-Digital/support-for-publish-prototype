@@ -43,7 +43,7 @@
               {% endif %}
             </p>
           {% endset %}
-{{actions|dump|safe}}
+
           {{ govukSummaryList({
             card: {
               title: {
@@ -52,7 +52,7 @@
               actions: {
                 items: [
                   {
-                    href: actions.change + "?action=change&position=" + loop.index,
+                    href: actions.change + "?action=change&position=" + loop.index0,
                     text: "Change",
                     visuallyHiddenText: "location " + loop.index
                   }
@@ -73,7 +73,8 @@
                   text: "Unique reference number (URN)"
                 },
                 value: {
-                  text: location.urn if location.urn else "Not entered"
+                  text: location.urn if location.urn else "Not entered",
+                  classes: "govuk-hint" if not location.urn
                 }
               },
               {
