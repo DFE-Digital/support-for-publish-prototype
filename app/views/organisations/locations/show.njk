@@ -7,7 +7,10 @@
 {% set caption = organisation.name + " (" + organisation.code + ")" %}
 
 {% block beforeContent %}
-
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) }}
 {% endblock %}
 
 {% block content %}
@@ -16,7 +19,107 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
       {% include "_includes/page-heading.njk" %}
+
+      {% set addressHtml %}
+        <p class="govuk-body">
+          {% if location.address.addressLine1.length %}
+            {{ location.address.addressLine1 }}<br>
+          {% endif %}
+          {% if location.address.addressLine2.length %}
+            {{ location.address.addressLine2 }}<br>
+          {% endif %}
+          {% if location.address.town.length %}
+            {{ location.address.town }}<br>
+          {% endif %}
+          {% if location.address.county.length %}
+            {{ location.address.county }}<br>
+          {% endif %}
+          {% if location.address.postcode.length %}
+            {{ location.address.postcode | upper }}<br>
+          {% endif %}
+        </p>
+      {% endset %}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              text: location.name
+            },
+            actions: {
+              items: [
+                {
+                  href: actions.change + "?referrer=change",
+                  text: "Change",
+                  visuallyHiddenText: "name"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Location code"
+            },
+            value: {
+              text: "- (dash)" if location.code == "-" else location.code
+            },
+            actions: {
+              items: [
+                {
+                  href: actions.change + "?referrer=change",
+                  text: "Change",
+                  visuallyHiddenText: "location code"
+                }
+              ]
+            } if 1 == 0
+          },
+          {
+            key: {
+              text: "Unique reference number (URN)"
+            },
+            value: {
+              text: location.urn if location.urn else "Not entered",
+              classes: "govuk-hint" if not location.urn
+            },
+            actions: {
+              items: [
+                {
+                  href: actions.change + "?referrer=change",
+                  text: "Change",
+                  visuallyHiddenText: "unique reference number (URN)"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Address"
+            },
+            value: {
+              html: addressHtml
+            },
+            actions: {
+              items: [
+                {
+                  href: actions.change + "/address?referrer=change",
+                  text: "Change",
+                  visuallyHiddenText: "address"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <p class="govuk-body">
+        <a class="govuk-link app-link--destructive" href="{{ actions.delete }}">Remove location</a>
+      </p>
+
     </div>
   </div>
 
