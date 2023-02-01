@@ -1,8 +1,8 @@
 const locationModel = require('../models/locations')
 const organisationModel = require('../models/organisations')
 
-const organisationHelper = require('../helpers/organisations')
 const paginationHelper = require('../helpers/pagination')
+const validationHelper = require("../helpers/validators")
 
 exports.list = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
@@ -51,7 +51,8 @@ exports.show = (req, res) => {
     location,
     actions: {
       back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
-      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
+      delete: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/delete`
     }
   })
 }
@@ -83,6 +84,48 @@ exports.new_post = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
   const errors = []
+
+  if (!req.session.data.location.name.length) {
+    const error = {};
+    error.fieldName = "location-name";
+    error.href = "#location-name";
+    error.text = "Enter a name";
+    errors.push(error);
+  }
+
+  if (!req.session.data.location.address.addressLine1.length) {
+    const error = {};
+    error.fieldName = "address-line-1";
+    error.href = "#address-line-1";
+    error.text = "Enter address line 1";
+    errors.push(error);
+  }
+
+  if (!req.session.data.location.address.town.length) {
+    const error = {};
+    error.fieldName = "address-town";
+    error.href = "#address-town";
+    error.text = "Enter a town or city";
+    errors.push(error);
+  }
+
+  if (!req.session.data.location.address.postcode.length) {
+    const error = {};
+    error.fieldName = "address-postcode";
+    error.href = "#address-postcode";
+    error.text = "Enter postcode";
+    errors.push(error);
+  } else if (
+    !validationHelper.isValidPostcode(
+      req.session.data.location.address.postcode
+    )
+  ) {
+    const error = {};
+    error.fieldName = "address-postcode";
+    error.href = "#address-postcode";
+    error.text = "Enter a real postcode";
+    errors.push(error);
+  }
 
   if (errors.length) {
     res.render('../views/organisations/locations/edit', {
@@ -116,7 +159,7 @@ exports.new_check_get = (req, res) => {
 }
 
 exports.new_check_post = (req, res) => {
-  locationModel.saveOne({
+  locationModel.insertOne({
     organisationId: req.params.organisationId,
     location: req.session.data.location
   })
@@ -160,6 +203,48 @@ exports.edit_post = (req, res) => {
 
   const errors = []
 
+  if (!req.session.data.location.name.length) {
+    const error = {};
+    error.fieldName = "location-name";
+    error.href = "#location-name";
+    error.text = "Enter a name";
+    errors.push(error);
+  }
+
+  if (!req.session.data.location.address.addressLine1.length) {
+    const error = {};
+    error.fieldName = "address-line-1";
+    error.href = "#address-line-1";
+    error.text = "Enter address line 1";
+    errors.push(error);
+  }
+
+  if (!req.session.data.location.address.town.length) {
+    const error = {};
+    error.fieldName = "address-town";
+    error.href = "#address-town";
+    error.text = "Enter a town or city";
+    errors.push(error);
+  }
+
+  if (!req.session.data.location.address.postcode.length) {
+    const error = {};
+    error.fieldName = "address-postcode";
+    error.href = "#address-postcode";
+    error.text = "Enter postcode";
+    errors.push(error);
+  } else if (
+    !validationHelper.isValidPostcode(
+      req.session.data.location.address.postcode
+    )
+  ) {
+    const error = {};
+    error.fieldName = "address-postcode";
+    error.href = "#address-postcode";
+    error.text = "Enter a real postcode";
+    errors.push(error);
+  }
+
   if (errors.length) {
     res.render('../views/organisations/locations/edit', {
       organisation,
@@ -178,7 +263,9 @@ exports.edit_post = (req, res) => {
       location: req.session.data.location
     })
 
-    req.flash('success', 'location details updated')
+    delete req.session.data.location
+
+    req.flash('success', 'Location details updated')
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`)
   }
 }
@@ -196,7 +283,7 @@ exports.delete_get = (req, res) => {
 
   res.render('../views/organisations/locations/delete', {
     organisation,
-    user,
+    location,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/delete`,
       back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`,
