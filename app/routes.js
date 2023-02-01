@@ -109,6 +109,15 @@ router.get('/cycles/:cycleId/organisations/:organisationId/users', checkIsAuthen
 /// LOCATION ROUTES
 /// ------------------------------------------------------------------------ ///
 
+router.get('/cycles/:cycleId/organisations/:organisationId/locations/multiple/new', checkIsAuthenticated, locationController.new_multiple_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/locations/multiple/new', checkIsAuthenticated, locationController.new_multiple_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/locations/multiple/edit', checkIsAuthenticated, locationController.new_multiple_edit_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/locations/multiple/edit', checkIsAuthenticated, locationController.new_multiple_edit_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/locations/multiple/check', checkIsAuthenticated, locationController.new_multiple_check_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/locations/multiple/check', checkIsAuthenticated, locationController.new_multiple_check_post)
+
 router.get('/cycles/:cycleId/organisations/:organisationId/locations/new', checkIsAuthenticated, locationController.new_get)
 router.post('/cycles/:cycleId/organisations/:organisationId/locations/new', checkIsAuthenticated, locationController.new_post)
 
