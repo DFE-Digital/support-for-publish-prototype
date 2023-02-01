@@ -109,6 +109,18 @@ router.get('/cycles/:cycleId/organisations/:organisationId/users', checkIsAuthen
 /// LOCATION ROUTES
 /// ------------------------------------------------------------------------ ///
 
+router.get('/cycles/:cycleId/organisations/:organisationId/locations/new', checkIsAuthenticated, locationController.new_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/locations/new', checkIsAuthenticated, locationController.new_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/locations/new/check', checkIsAuthenticated, locationController.new_check_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/locations/new/check', checkIsAuthenticated, locationController.new_check_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/locations/:locationId/edit', checkIsAuthenticated, locationController.edit_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/locations/:locationId/edit', checkIsAuthenticated, locationController.edit_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/locations/:locationId/delete', checkIsAuthenticated, locationController.delete_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/locations/:locationId/delete', checkIsAuthenticated, locationController.delete_post)
+
 router.get('/cycles/:cycleId/organisations/:organisationId/locations/:locationId', checkIsAuthenticated, locationController.show)
 
 router.get('/cycles/:cycleId/organisations/:organisationId/locations', checkIsAuthenticated, locationController.list)
