@@ -6,7 +6,7 @@ const paginationHelper = require('../helpers/pagination')
 
 exports.list = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  let locations = locationModel.findMany({})
+  let locations = locationModel.findMany({ organisationId: req.params.organisationId })
 
   locations.sort((a, b) => {
     if (a.name) {
@@ -41,7 +41,10 @@ exports.list = (req, res) => {
 
 exports.show = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  const location = locationModel.findOne({ locationId: req.params.locationId })
+  const location = locationModel.findOne({
+    organisationId: req.params.organisationId,
+    locationId: req.params.locationId
+  })
 
   res.render('../views/organisations/locations/show', {
     organisation,
@@ -54,12 +57,86 @@ exports.show = (req, res) => {
 }
 
 /// ------------------------------------------------------------------------ ///
+/// NEW LOCATION
+/// ------------------------------------------------------------------------ ///
+
+exports.new_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
+  let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+  if (req.query.referrer === 'check') {
+    back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/check`
+  }
+
+  res.render('../views/organisations/locations/edit', {
+    organisation,
+    location: req.session.data.location,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+      back,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+    }
+  })
+}
+
+exports.new_post = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
+  const errors = []
+
+  if (errors.length) {
+    res.render('../views/organisations/locations/edit', {
+      organisation,
+      location: req.session.data.location,
+      actions: {
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+      },
+      errors
+    })
+  } else {
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/check`)
+  }
+}
+
+exports.new_check_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
+  res.render('../views/organisations/locations/check', {
+    organisation,
+    location: req.session.data.location,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/check`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+    }
+  })
+}
+
+exports.new_check_post = (req, res) => {
+  locationModel.saveOne({
+    organisationId: req.params.organisationId,
+    location: req.session.data.location
+  })
+
+  delete req.session.data.location
+
+  req.flash('success', 'Location added')
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
+}
+
+/// ------------------------------------------------------------------------ ///
 /// EDIT LOCATION
 /// ------------------------------------------------------------------------ ///
 
 exports.edit_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  const location = locationModel.findOne({ locationId: req.params.locationId })
+  const location = locationModel.findOne({
+    organisationId: req.params.organisationId,
+    locationId: req.params.locationId
+  })
 
   res.render('../views/organisations/locations/edit', {
     organisation,
@@ -74,7 +151,11 @@ exports.edit_get = (req, res) => {
 
 exports.edit_post = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  let location = locationModel.findOne({ locationId: req.params.locationId })
+  let location = locationModel.findOne({
+    organisationId: req.params.organisationId,
+    locationId: req.params.locationId
+  })
+
   location = req.session.data.location
 
   const errors = []
@@ -100,4 +181,36 @@ exports.edit_post = (req, res) => {
     req.flash('success', 'location details updated')
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`)
   }
+}
+
+/// ------------------------------------------------------------------------ ///
+/// DELETE LOCATION
+/// ------------------------------------------------------------------------ ///
+
+exports.delete_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const location = locationModel.findOne({
+    organisationId: req.params.organisationId,
+    locationId: req.params.locationId
+  })
+
+  res.render('../views/organisations/locations/delete', {
+    organisation,
+    user,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/delete`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`
+    }
+  })
+}
+
+exports.delete_post = (req, res) => {
+  locationModel.deleteOne({
+    organisationId: req.params.organisationId,
+    locationId: req.params.locationId
+  })
+
+  req.flash('success', 'Location removed')
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
 }
