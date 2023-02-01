@@ -402,7 +402,7 @@ exports.new_multiple_edit_get = (req, res) => {
   }
 
   // set the back route for new or change flow
-  let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple`
+  let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/new`
   if (req.query.action === 'change') {
     back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/check`
   } else if (req.session.data.upload.position) {
@@ -436,6 +436,40 @@ exports.new_multiple_edit_post = (req, res) => {
     errors.push(error)
   }
 
+  if (!req.session.data.location.address.addressLine1.length) {
+    const error = {};
+    error.fieldName = "address-line-1";
+    error.href = "#address-line-1";
+    error.text = "Enter address line 1";
+    errors.push(error);
+  }
+
+  if (!req.session.data.location.address.town.length) {
+    const error = {};
+    error.fieldName = "address-town";
+    error.href = "#address-town";
+    error.text = "Enter a town or city";
+    errors.push(error);
+  }
+
+  if (!req.session.data.location.address.postcode.length) {
+    const error = {};
+    error.fieldName = "address-postcode";
+    error.href = "#address-postcode";
+    error.text = "Enter postcode";
+    errors.push(error);
+  } else if (
+    !validationHelper.isValidPostcode(
+      req.session.data.location.address.postcode
+    )
+  ) {
+    const error = {};
+    error.fieldName = "address-postcode";
+    error.href = "#address-postcode";
+    error.text = "Enter a real postcode";
+    errors.push(error);
+  }
+
   if (errors.length) {
     const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
     const location = req.session.data.location
@@ -450,7 +484,7 @@ exports.new_multiple_edit_post = (req, res) => {
     }
 
     // set the back route for new or change flow
-    let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple`
+    let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/new`
     if (req.query.action === 'change') {
       back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/check`
     } else if (req.session.data.upload.position) {
@@ -499,7 +533,7 @@ exports.new_multiple_check_get = (req, res) => {
     locations,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/check`,
-      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/edit?action=back&position=${locations.length}`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/edit?action=back&position=${locations.length-1}`,
       cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
       change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/edit`
     }
@@ -507,7 +541,7 @@ exports.new_multiple_check_get = (req, res) => {
 }
 
 exports.new_multiple_check_post = (req, res) => {
-  locations.saveMany(req.params.organisationId, req.session.data.locations)
+  locationModel.insertMany(req.params.organisationId, req.session.data.locations)
   if (req.session.data.locations.length === 1) {
     req.flash('success', `Location ${req.session.data.locations[0].name} added`)
   } else {
@@ -515,5 +549,5 @@ exports.new_multiple_check_post = (req, res) => {
   }
   delete req.session.data.upload
   delete req.session.data.locations
-  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.providerId}/locations`)
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
 }
