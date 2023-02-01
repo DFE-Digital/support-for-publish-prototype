@@ -22,6 +22,82 @@
 
       <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
+        {% set addressHtml %}
+          <p class="govuk-body">
+            {% if location.address.addressLine1.length %}
+              {{ location.address.addressLine1 }}<br>
+            {% endif %}
+            {% if location.address.addressLine2.length %}
+              {{ location.address.addressLine2 }}<br>
+            {% endif %}
+            {% if location.address.town.length %}
+              {{ location.address.town }}<br>
+            {% endif %}
+            {% if location.address.county.length %}
+              {{ location.address.county }}<br>
+            {% endif %}
+            {% if location.address.postcode.length %}
+              {{ location.address.postcode | upper }}<br>
+            {% endif %}
+          </p>
+        {% endset %}
+
+        {{ govukSummaryList({
+          rows: [
+            {
+              key: {
+                text: "Name"
+              },
+              value: {
+                text: location.name
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "name"
+                  }
+                ]
+              }
+            },
+            {
+              key: {
+                text: "Unique reference number (URN)"
+              },
+              value: {
+                text: location.urn if location.urn else "Not entered",
+                classes: "govuk-hint" if not location.urn
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "unique reference number (URN)"
+                  }
+                ]
+              }
+            },
+            {
+              key: {
+                text: "Address"
+              },
+              value: {
+                html: addressHtml
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "/address?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "address"
+                  }
+                ]
+              }
+            }
+          ]
+        }) }}
 
         {{ govukButton({
           text: "Add location"
