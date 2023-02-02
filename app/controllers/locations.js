@@ -420,7 +420,8 @@ exports.new_multiple_edit_get = (req, res) => {
     currentLocationNum,
     actions: {
       save,
-      back
+      back,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
     }
   })
 }
@@ -500,7 +501,8 @@ exports.new_multiple_edit_post = (req, res) => {
       currentLocationNum,
       actions: {
         save,
-        back
+        back,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
       }
     })
   } else {
