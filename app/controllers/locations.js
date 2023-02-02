@@ -110,45 +110,45 @@ exports.new_post = (req, res) => {
   const errors = []
 
   if (!req.session.data.location.name.length) {
-    const error = {};
-    error.fieldName = "location-name";
-    error.href = "#location-name";
-    error.text = "Enter a name";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "location-name"
+    error.href = "#location-name"
+    error.text = "Enter a name"
+    errors.push(error)
   }
 
   if (!req.session.data.location.address.addressLine1.length) {
-    const error = {};
-    error.fieldName = "address-line-1";
-    error.href = "#address-line-1";
-    error.text = "Enter address line 1";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-line-1"
+    error.href = "#address-line-1"
+    error.text = "Enter address line 1"
+    errors.push(error)
   }
 
   if (!req.session.data.location.address.town.length) {
-    const error = {};
-    error.fieldName = "address-town";
-    error.href = "#address-town";
-    error.text = "Enter a town or city";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-town"
+    error.href = "#address-town"
+    error.text = "Enter a town or city"
+    errors.push(error)
   }
 
   if (!req.session.data.location.address.postcode.length) {
-    const error = {};
-    error.fieldName = "address-postcode";
-    error.href = "#address-postcode";
-    error.text = "Enter postcode";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter postcode"
+    errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(
       req.session.data.location.address.postcode
     )
   ) {
-    const error = {};
-    error.fieldName = "address-postcode";
-    error.href = "#address-postcode";
-    error.text = "Enter a real postcode";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter a real postcode"
+    errors.push(error)
   }
 
   if (errors.length) {
@@ -228,45 +228,45 @@ exports.edit_post = (req, res) => {
   const errors = []
 
   if (!req.session.data.location.name.length) {
-    const error = {};
-    error.fieldName = "location-name";
-    error.href = "#location-name";
-    error.text = "Enter a name";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "location-name"
+    error.href = "#location-name"
+    error.text = "Enter a name"
+    errors.push(error)
   }
 
   if (!req.session.data.location.address.addressLine1.length) {
-    const error = {};
-    error.fieldName = "address-line-1";
-    error.href = "#address-line-1";
-    error.text = "Enter address line 1";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-line-1"
+    error.href = "#address-line-1"
+    error.text = "Enter address line 1"
+    errors.push(error)
   }
 
   if (!req.session.data.location.address.town.length) {
-    const error = {};
-    error.fieldName = "address-town";
-    error.href = "#address-town";
-    error.text = "Enter a town or city";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-town"
+    error.href = "#address-town"
+    error.text = "Enter a town or city"
+    errors.push(error)
   }
 
   if (!req.session.data.location.address.postcode.length) {
-    const error = {};
-    error.fieldName = "address-postcode";
-    error.href = "#address-postcode";
-    error.text = "Enter postcode";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter postcode"
+    errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(
       req.session.data.location.address.postcode
     )
   ) {
-    const error = {};
-    error.fieldName = "address-postcode";
-    error.href = "#address-postcode";
-    error.text = "Enter a real postcode";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter a real postcode"
+    errors.push(error)
   }
 
   if (errors.length) {
@@ -442,37 +442,37 @@ exports.new_multiple_edit_post = (req, res) => {
   }
 
   if (!req.session.data.location.address.addressLine1.length) {
-    const error = {};
-    error.fieldName = "address-line-1";
-    error.href = "#address-line-1";
-    error.text = "Enter address line 1";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-line-1"
+    error.href = "#address-line-1"
+    error.text = "Enter address line 1"
+    errors.push(error)
   }
 
   if (!req.session.data.location.address.town.length) {
-    const error = {};
-    error.fieldName = "address-town";
-    error.href = "#address-town";
-    error.text = "Enter a town or city";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-town"
+    error.href = "#address-town"
+    error.text = "Enter a town or city"
+    errors.push(error)
   }
 
   if (!req.session.data.location.address.postcode.length) {
-    const error = {};
-    error.fieldName = "address-postcode";
-    error.href = "#address-postcode";
-    error.text = "Enter postcode";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter postcode"
+    errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(
       req.session.data.location.address.postcode
     )
   ) {
-    const error = {};
-    error.fieldName = "address-postcode";
-    error.href = "#address-postcode";
-    error.text = "Enter a real postcode";
-    errors.push(error);
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter a real postcode"
+    errors.push(error)
   }
 
   if (errors.length) {
