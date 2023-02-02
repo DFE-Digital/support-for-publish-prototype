@@ -27,6 +27,10 @@ exports.list = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
   let locations = locationModel.findMany({ organisationId: req.params.organisationId })
 
+  delete req.session.data.location
+  delete req.session.data.locations
+  delete req.session.data.upload
+
   locations.sort((a, b) => {
     if (a.name) {
       return a.name.localeCompare(b.name)
@@ -549,7 +553,7 @@ exports.new_multiple_check_post = (req, res) => {
   } else {
     req.flash('success', `${req.session.data.locations.length} locations added`)
   }
-  delete req.session.data.upload
   delete req.session.data.locations
+  delete req.session.data.upload
   res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
 }
