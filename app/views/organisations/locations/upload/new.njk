@@ -36,7 +36,7 @@
           classes: "govuk-label--s"
         },
         hint: {
-          text: "Enter the location name, unique reference number and address. Separate them with a tab or comma and use a new line for each location. You can also copy and paste directly from a spreadsheet."
+          text: "Enter the location name, unique reference number and address. Separate each location item with a tab or comma and use a new line for each location. You can also copy and paste directly from a spreadsheet as long as it is formatted correctly."
         },
         errorMessage: errors | getErrorMessage("raw"),
         value: data.upload.raw
@@ -56,7 +56,7 @@
           <li>postcode</li>
         </ul>
         <p class="govuk-body">
-          If data is missing, you need to include a blank item. For example:
+          If any of this data is missing, you need to include a blank item in its place, such as a comma. For example:
         </p>
         {{ govukInsetText({
           text: "My location name,,123 main street,,Some town,,SW11 4AA"
