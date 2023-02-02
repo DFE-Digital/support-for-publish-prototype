@@ -209,3 +209,12 @@ exports.deleteOne = (params) => {
     fs.unlinkSync(filePath)
   }
 }
+
+exports.insertMany = (organisationId, locations) => {
+  locations.forEach(location => {
+    this.insertOne({
+      organisationId,
+      location
+    })
+  })
+}
