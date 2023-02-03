@@ -43,8 +43,11 @@
       }) }}
 
       {% set helpText %}
+        <h2 class="govuk-heading-m">
+          How to format the data
+        </h2>
         <p class="govuk-body">
-          The data needs to include:
+          Enter the location name, unique reference number and address. Separate each location item with a comma and use a new line for each location. You need to include:
         </p>
         <ul class="govuk-list govuk-list--bullet">
           <li>location name</li>
@@ -61,15 +64,19 @@
         {{ govukInsetText({
           text: "My location name,,123 main street,,Some town,,SW11 4AA"
         }) }}
+        <h3 class="govuk-heading-s">
+          Copying from a spreadsheet
+        </h3>
         <p class="govuk-body">
-          In this example, we only have data for location name, address line 1, town or city, and postcode.
+          You can also copy and paste directly from a spreadsheet. Your spreadsheet needs to look like this example:
         </p>
+        <img src="/public/images/locations-spreadsheet.png" alt="Spreadsheet showing school names and addresses" class="govuk-!-width-full">
       {% endset %}
 
-      {{ govukDetails({
+      {# {{ govukDetails({
         summaryText: "Help formatting the data",
         html: helpText
-      }) }}
+      }) }} #}
 
       {{ govukButton({
         text: "Continue"
@@ -80,6 +87,8 @@
     <p class="govuk-body">
       <a class="govuk-link" href="{{ actions.cancel }}">Cancel</a>
     </p>
+
+    {{ helpText | safe }}
 
   </div>
 </div>

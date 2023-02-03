@@ -334,7 +334,7 @@ exports.new_multiple_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
   // clear any previously uploaded data
   delete req.session.data.upload
-  res.render('../views/organisations/locations/upload/new', {
+  res.render('../views/organisations/locations/upload/index', {
     organisation,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/new`,
@@ -360,7 +360,7 @@ exports.new_multiple_post = (req, res) => {
 
   if (errors.length) {
     const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-    res.render('../views/organisations/locations/upload/new', {
+    res.render('../views/organisations/locations/upload/index', {
       organisation,
       errors,
       actions: {
