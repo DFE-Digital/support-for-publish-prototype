@@ -191,7 +191,12 @@ exports.new_check_post = (req, res) => {
   delete req.session.data.location
 
   req.flash('success', 'Location added')
-  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
+
+  if (req.session.data.button.submit === 'continue') {
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`)
+  } else {
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
+  }
 }
 
 /// ------------------------------------------------------------------------ ///
