@@ -1,0 +1,24 @@
+$border-colour: govuk-colour("mid-grey");
+
+code,
+kbd,
+pre,
+samp {
+  font-size: govuk-font(19);
+  margin-left: 0;
+  background-color: govuk-colour("light-grey");
+  direction: ltr;
+  text-align: left;
+  word-break: normal;
+  white-space: pre;
+  word-spacing: normal;
+  hyphens: none;
+  tab-size: 2;
+}
+
+pre {
+  margin: govuk-spacing(3) 0 govuk-spacing(5) 0;
+  padding: govuk-spacing(3);
+  overflow-x: scroll;
+  outline: 1px solid rgba($border-colour, .5);
+}
