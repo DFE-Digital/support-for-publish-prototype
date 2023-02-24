@@ -216,7 +216,7 @@ exports.edit_get = (req, res) => {
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
       back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
-      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`
     }
   })
 }
@@ -281,7 +281,7 @@ exports.edit_post = (req, res) => {
       actions: {
         save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
         back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
-        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`
       },
       errors
     })
