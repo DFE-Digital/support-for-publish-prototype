@@ -294,7 +294,7 @@ exports.edit_post = (req, res) => {
 
     delete req.session.data.location
 
-    req.flash('success', 'Location details updated')
+    req.flash('success', 'Location updated')
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`)
   }
 }
