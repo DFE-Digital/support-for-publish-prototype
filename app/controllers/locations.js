@@ -407,7 +407,7 @@ exports.new_multiple_edit_get = (req, res) => {
   // set the save route for new or change flow
   let save = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/edit`
   if (req.query.action === 'change') {
-    save = save + '?action=change'
+    save += '?action=change'
   }
 
   // set the back route for new or change flow
@@ -417,6 +417,11 @@ exports.new_multiple_edit_get = (req, res) => {
   } else if (req.session.data.upload.position) {
     const previousPosition = req.session.data.upload.position - 1
     back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/edit?action=back&position=${previousPosition}`
+  }
+
+  let cancel = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+  if (req.query.action === 'change') {
+    cancel += '/multiple/check'
   }
 
   // get the user from the parsed users
@@ -430,7 +435,7 @@ exports.new_multiple_edit_get = (req, res) => {
     actions: {
       save,
       back,
-      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+      cancel
     }
   })
 }
@@ -490,7 +495,7 @@ exports.new_multiple_edit_post = (req, res) => {
     // set the save route for new or change flow
     let save = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/edit`
     if (req.query.action === 'change') {
-      save = save + '?action=change'
+      save += '?action=change'
     }
 
     // set the back route for new or change flow
@@ -502,6 +507,11 @@ exports.new_multiple_edit_post = (req, res) => {
       back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/edit?action=back&position=${previousPosition}`
     }
 
+    let cancel = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+    if (req.query.action === 'change') {
+      cancel += '/multiple/check'
+    }
+
     res.render('../views/organisations/locations/upload/edit', {
       organisation,
       location,
@@ -511,7 +521,7 @@ exports.new_multiple_edit_post = (req, res) => {
       actions: {
         save,
         back,
-        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+        cancel
       }
     })
   } else {
