@@ -14,7 +14,7 @@ const parseRawLocationData = (array) => {
     location.name = row[0]
     location.urn = row[1]
     location.addressLine1 = row[2]
-    location.addressLine3 = row[3]
+    location.addressLine2 = row[3]
     location.town = row[4]
     location.county = row[5]
     location.postcode = row[6]
