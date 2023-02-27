@@ -67,19 +67,9 @@
           value: user.email
         }) }}
 
-        {% if user.id %}
-
-          {{ govukButton({
-            text: "Update user"
-          }) }}
-
-        {% else %}
-
-          {{ govukButton({
-            text: "Continue"
-          }) }}
-
-        {% endif %}
+        {{ govukButton({
+          text: "Update user" if user.id else "Continue"
+        }) }}
 
       </form>
 
