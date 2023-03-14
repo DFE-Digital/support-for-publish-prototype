@@ -211,10 +211,10 @@ exports.edit_post = (req, res) => {
     errors.push(error)
   }
 
-  const userExists = userModel.findOne({
-    organisationId: req.params.organisationId,
-    email: req.session.data.user.email
-  })
+  // const userExists = userModel.findOne({
+  //   organisationId: req.params.organisationId,
+  //   email: req.session.data.user.email
+  // })
 
   if (!req.session.data.user.email.length) {
     const error = {}
@@ -228,12 +228,12 @@ exports.edit_post = (req, res) => {
     error.href = '#email'
     error.text = 'Enter an email address in the correct format, like name@example.com'
     errors.push(error)
-  } else if (userExists) {
-    const error = {}
-    error.fieldName = 'email'
-    error.href = '#email'
-    error.text = 'Email address already in use'
-    errors.push(error)
+  // } else if (userExists) {
+  //   const error = {}
+  //   error.fieldName = 'email'
+  //   error.href = '#email'
+  //   error.text = 'Email address already in use'
+  //   errors.push(error)
   }
 
   if (errors.length) {
