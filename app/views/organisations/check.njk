@@ -20,7 +20,7 @@
       {% include "_includes/page-heading.njk" %}
 
       <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
-{{organisation|dump|safe}}
+
         {% set addressHtml %}
           <p class="govuk-body">
             {% if organisation.address.addressLine1.length %}
