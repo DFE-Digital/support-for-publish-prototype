@@ -331,21 +331,21 @@ exports.new_contact_details_post = (req, res) => {
 
   const errors = []
 
-  if (!req.session.data.organisation.contact.email.length) {
-    const error = {}
-    error.fieldName = 'organisation-email'
-    error.href = '#organisation-email'
-    error.text = 'Enter an email address'
-    errors.push(error)
-  }
+  // if (!req.session.data.organisation.contact.email.length) {
+  //   const error = {}
+  //   error.fieldName = 'organisation-email'
+  //   error.href = '#organisation-email'
+  //   error.text = 'Enter an email address'
+  //   errors.push(error)
+  // }
 
-  if (!req.session.data.organisation.contact.telephone.length) {
-    const error = {}
-    error.fieldName = 'organisation-telephone'
-    error.href = '#organisation-telephone'
-    error.text = 'Enter a telephone number'
-    errors.push(error)
-  }
+  // if (!req.session.data.organisation.contact.telephone.length) {
+  //   const error = {}
+  //   error.fieldName = 'organisation-telephone'
+  //   error.href = '#organisation-telephone'
+  //   error.text = 'Enter a telephone number'
+  //   errors.push(error)
+  // }
 
   if (!req.session.data.organisation.contact.website.length) {
     const error = {}
