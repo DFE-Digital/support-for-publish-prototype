@@ -26,12 +26,18 @@
   </div>
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
 
       {{ govukButton({
         text: "Add course",
         href: "#"
       }) }}
+
+      {% if users.length %}
+
+      {% else %}
+        <p class="govuk-body">There are no courses for {{ organisation.name if organisation.name else "your organisation" }}.</p>
+      {% endif %}
 
     </div>
   </div>
