@@ -113,7 +113,8 @@ exports.show = (req, res) => {
       users: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
       courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
       locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
-      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`,
+      delete: `#`
     }
   })
 }
@@ -190,6 +191,104 @@ exports.edit_post = (req, res) => {
     })
 
     req.flash('success', 'Organisation details updated')
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`)
+  }
+}
+
+exports.edit_contact_details_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
+  res.render('../views/organisations/contact', {
+    organisation,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit/contact`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`
+    }
+  })
+}
+
+exports.edit_contact_details_post = (req, res) => {
+  let organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  organisation = req.session.data.organisation
+
+  const errors = []
+
+  // if (!req.session.data.organisation.contact.email.length) {
+  //   const error = {}
+  //   error.fieldName = 'organisation-email'
+  //   error.href = '#organisation-email'
+  //   error.text = 'Enter an email address'
+  //   errors.push(error)
+  // }
+
+  // if (!req.session.data.organisation.contact.telephone.length) {
+  //   const error = {}
+  //   error.fieldName = 'organisation-telephone'
+  //   error.href = '#organisation-telephone'
+  //   error.text = 'Enter a telephone number'
+  //   errors.push(error)
+  // }
+
+  if (!req.session.data.organisation.contact.website.length) {
+    const error = {}
+    error.fieldName = 'organisation-website'
+    error.href = '#organisation-website'
+    error.text = 'Enter a website'
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.address.addressLine1.length) {
+    const error = {}
+    error.fieldName = "address-line-1"
+    error.href = "#address-line-1"
+    error.text = "Enter address line 1"
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.address.town.length) {
+    const error = {}
+    error.fieldName = "address-town"
+    error.href = "#address-town"
+    error.text = "Enter a town or city"
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.address.postcode.length) {
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter postcode"
+    errors.push(error)
+  } else if (
+    !validationHelper.isValidPostcode(
+      req.session.data.organisation.address.postcode
+    )
+  ) {
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter a real postcode"
+    errors.push(error)
+  }
+
+  if (errors.length) {
+    res.render('../views/organisations/contact', {
+      organisation,
+      actions: {
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit/contact`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`
+      },
+      errors
+    })
+  } else {
+    organisationModel.updateOne({
+      organisationId: req.params.organisationId,
+      organisation
+    })
+
+    req.flash('success', 'Contact details updated')
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`)
   }
 }
