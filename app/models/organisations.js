@@ -44,6 +44,74 @@ exports.findOne = (params) => {
   return organisation
 }
 
+exports.insertOne = (params) => {
+  const organisation = {}
+
+  organisation.id = uuid()
+
+  organisation.name = params.organisation.name
+
+  organisation.code = params.organisation.code
+
+  if (params.organisation.ukprn) {
+    organisation.urn = params.organisation.ukprn
+  }
+
+  if (params.organisation.urn) {
+    organisation.urn = params.organisation.urn
+  }
+
+  organisation.isAccreditedBody = params.organisation.isAccreditedBody
+
+  if (params.organisation.isAccreditedBody === 'yes') {
+    if (params.organisation.accreditedProviderId) {
+      organisation.accreditedProviderId = params.organisation.accreditedProviderId
+    }
+  }
+
+  organisation.type = params.organisation.type
+
+  organisation.address = {}
+
+  if (params.organisation.address) {
+    if (params.organisation.address.addressLine1.length) {
+      organisation.address.addressLine1 = params.organisation.address.addressLine1
+    }
+
+    if (params.organisation.address.addressLine2.length) {
+      organisation.address.addressLine2 = params.organisation.address.addressLine2
+    }
+
+    if (params.organisation.address.addressLine3.length) {
+      organisation.address.addressLine3 = params.organisation.address.addressLine3
+    }
+
+    if (params.organisation.address.town.length) {
+      organisation.address.town = params.organisation.address.town
+    }
+
+    if (params.organisation.address.county.length) {
+      organisation.address.county = params.organisation.address.county
+    }
+
+    if (params.organisation.address.postcode.length) {
+      organisation.address.postcode = params.organisation.address.postcode.toUpperCase()
+    }
+  }
+
+  organisation.createdAt = new Date()
+
+  const filePath = directoryPath + '/' + organisation.id + '.json'
+
+  // create a JSON sting for the submitted data
+  const fileData = JSON.stringify(organisation)
+
+  // write the JSON data
+  fs.writeFileSync(filePath, fileData)
+
+  return organisation
+}
+
 exports.updateOne = (params) => {
   let organisation
 
