@@ -114,7 +114,7 @@ exports.show = (req, res) => {
       courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
       locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
       change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`,
-      delete: `#`
+      delete: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/delete`
     }
   })
 }
@@ -637,4 +637,30 @@ exports.new_check_post = (req, res) => {
 
   req.flash('success', 'Organisation added')
   res.redirect(`/cycles/${req.params.cycleId}/organisations/${organisation.id}`)
+}
+
+/// ------------------------------------------------------------------------ ///
+/// DELETE LOCATION
+/// ------------------------------------------------------------------------ ///
+
+exports.delete_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
+  res.render('../views/organisations/delete', {
+    organisation,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/delete`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`
+    }
+  })
+}
+
+exports.delete_post = (req, res) => {
+  organisationModel.deleteOne({
+    organisationId: req.params.organisationId
+  })
+
+  req.flash('success', 'Organisation removed')
+  res.redirect(`/cycles/${req.params.cycleId}/organisations`)
 }

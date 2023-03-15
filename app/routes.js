@@ -162,6 +162,9 @@ router.post('/cycles/:cycleId/organisations/:organisationId/edit/contact', check
 router.get('/cycles/:cycleId/organisations/:organisationId/edit', checkIsAuthenticated, organisationController.edit_get)
 router.post('/cycles/:cycleId/organisations/:organisationId/edit', checkIsAuthenticated, organisationController.edit_post)
 
+router.get('/cycles/:cycleId/organisations/:organisationId/delete', checkIsAuthenticated, organisationController.delete_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/delete', checkIsAuthenticated, organisationController.delete_post)
+
 router.get('/cycles/:cycleId/organisations/:organisationId', checkIsAuthenticated, organisationController.show)
 
 router.get('/cycles/:cycleId/organisations', checkIsAuthenticated, organisationController.list)
