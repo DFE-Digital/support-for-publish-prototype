@@ -76,6 +76,22 @@ exports.insertOne = (params) => {
 
   organisation.type = params.organisation.type
 
+  organisation.contact = {}
+
+  if (params.organisation.contact) {
+    if (params.organisation.contact.email.length) {
+      organisation.contact.email = params.organisation.contact.email.toLowerCase()
+    }
+
+    if (params.organisation.contact.telephone.length) {
+      organisation.contact.telephone = params.organisation.contact.telephone
+    }
+
+    if (params.organisation.contact.website.length) {
+      organisation.contact.website = params.organisation.contact.website.toLowerCase()
+    }
+  }
+
   organisation.address = {}
 
   if (params.organisation.address) {
