@@ -8,6 +8,8 @@ const utilsHelper = require('../helpers/utils')
 const validationHelper = require("../helpers/validators")
 
 exports.list = (req, res) => {
+  delete req.session.data.organisation
+
   // Filters
   const providerType = null
   const keywords = req.session.data.keywords
