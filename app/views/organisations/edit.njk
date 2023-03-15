@@ -112,7 +112,7 @@
             {
               value: "yes",
               text: "Yes",
-              checked: true if organisation.isAccreditedBody or organisation.isAccreditedBody == "yes" else false,
+              checked: true if organisation.isAccreditedBody in ["yes",true] else false,
               conditional: {
                 html: conditionalHtml
               }
@@ -120,7 +120,7 @@
             {
               value: "no",
               text: "No",
-              checked: true if not organisation.isAccreditedBody or organisation.isAccreditedBody == "no" else false
+              checked: true if organisation.isAccreditedBody in ["no",false] else false
             }
           ],
           errorMessage: errors | getErrorMessage("organisation-is-accredited-body")
