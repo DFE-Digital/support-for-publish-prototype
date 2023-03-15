@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const { v4: uuid } = require('uuid')
 
 const directoryPath = path.join(__dirname, '../data/organisations/')
 
@@ -54,7 +55,7 @@ exports.insertOne = (params) => {
   organisation.code = params.organisation.code
 
   if (params.organisation.ukprn) {
-    organisation.urn = params.organisation.ukprn
+    organisation.ukprn = params.organisation.ukprn
   }
 
   if (params.organisation.urn) {
@@ -64,9 +65,13 @@ exports.insertOne = (params) => {
   organisation.isAccreditedBody = params.organisation.isAccreditedBody
 
   if (params.organisation.isAccreditedBody === 'yes') {
+    organisation.isAccreditedBody = true
+
     if (params.organisation.accreditedProviderId) {
       organisation.accreditedProviderId = params.organisation.accreditedProviderId
     }
+  } else {
+    organisation.isAccreditedBody = false
   }
 
   organisation.type = params.organisation.type
