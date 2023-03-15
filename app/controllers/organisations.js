@@ -293,12 +293,16 @@ exports.new_post = (req, res) => {
       errors
     })
   } else {
-    res.redirect(`/cycles/${req.params.cycleId}/organisations/new/address`)
+    if (req.query.referrer === 'check') {
+      res.redirect(`/cycles/${req.params.cycleId}/organisations/new/check`)
+    } else {
+      res.redirect(`/cycles/${req.params.cycleId}/organisations/new/contact`)
+    }
   }
 }
 
-exports.new_address_get = (req, res) => {
-  let save = `/cycles/${req.params.cycleId}/organisations/new/address`
+exports.new_contact_details_get = (req, res) => {
+  let save = `/cycles/${req.params.cycleId}/organisations/new/contact`
   let back = `/cycles/${req.params.cycleId}/organisations/new`
 
   if (req.query.referrer === 'check') {
@@ -306,7 +310,7 @@ exports.new_address_get = (req, res) => {
     back = `/cycles/${req.params.cycleId}/organisations/new/check`
   }
 
-  res.render('../views/organisations/address', {
+  res.render('../views/organisations/contact', {
     organisation: req.session.data.organisation,
     actions: {
       save,
@@ -316,8 +320,8 @@ exports.new_address_get = (req, res) => {
   })
 }
 
-exports.new_address_post = (req, res) => {
-  let save = `/cycles/${req.params.cycleId}/organisations/new/address`
+exports.new_contact_details_post = (req, res) => {
+  let save = `/cycles/${req.params.cycleId}/organisations/new/contact`
   let back = `/cycles/${req.params.cycleId}/organisations/new`
 
   if (req.query.referrer === 'check') {
@@ -326,6 +330,30 @@ exports.new_address_post = (req, res) => {
   }
 
   const errors = []
+
+  if (!req.session.data.organisation.contact.email.length) {
+    const error = {}
+    error.fieldName = 'organisation-email'
+    error.href = '#organisation-email'
+    error.text = 'Enter an email address'
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.contact.telephone.length) {
+    const error = {}
+    error.fieldName = 'organisation-telephone'
+    error.href = '#organisation-telephone'
+    error.text = 'Enter a telephone number'
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.contact.website.length) {
+    const error = {}
+    error.fieldName = 'organisation-website'
+    error.href = '#organisation-website'
+    error.text = 'Enter a website'
+    errors.push(error)
+  }
 
   if (!req.session.data.organisation.address.addressLine1.length) {
     const error = {}
@@ -362,7 +390,7 @@ exports.new_address_post = (req, res) => {
   }
 
   if (errors.length) {
-    res.render('../views/organisations/address', {
+    res.render('../views/organisations/contact', {
       organisation: req.session.data.organisation,
       actions: {
         save,
@@ -376,6 +404,85 @@ exports.new_address_post = (req, res) => {
   }
 }
 
+// exports.new_address_get = (req, res) => {
+//   let save = `/cycles/${req.params.cycleId}/organisations/new/address`
+//   let back = `/cycles/${req.params.cycleId}/organisations/new/contact`
+
+//   if (req.query.referrer === 'check') {
+//     save += '?referrer=check'
+//     back = `/cycles/${req.params.cycleId}/organisations/new/check`
+//   }
+
+//   res.render('../views/organisations/address', {
+//     organisation: req.session.data.organisation,
+//     actions: {
+//       save,
+//       back,
+//       cancel: `/cycles/${req.params.cycleId}/organisations`
+//     }
+//   })
+// }
+
+// exports.new_address_post = (req, res) => {
+//   let save = `/cycles/${req.params.cycleId}/organisations/new/address`
+//   let back = `/cycles/${req.params.cycleId}/organisations/new/contact`
+
+//   if (req.query.referrer === 'check') {
+//     save += '?referrer=check'
+//     back = `/cycles/${req.params.cycleId}/organisations/new/check`
+//   }
+
+//   const errors = []
+
+//   if (!req.session.data.organisation.address.addressLine1.length) {
+//     const error = {}
+//     error.fieldName = "address-line-1"
+//     error.href = "#address-line-1"
+//     error.text = "Enter address line 1"
+//     errors.push(error)
+//   }
+
+//   if (!req.session.data.organisation.address.town.length) {
+//     const error = {}
+//     error.fieldName = "address-town"
+//     error.href = "#address-town"
+//     error.text = "Enter a town or city"
+//     errors.push(error)
+//   }
+
+//   if (!req.session.data.organisation.address.postcode.length) {
+//     const error = {}
+//     error.fieldName = "address-postcode"
+//     error.href = "#address-postcode"
+//     error.text = "Enter postcode"
+//     errors.push(error)
+//   } else if (
+//     !validationHelper.isValidPostcode(
+//       req.session.data.organisation.address.postcode
+//     )
+//   ) {
+//     const error = {}
+//     error.fieldName = "address-postcode"
+//     error.href = "#address-postcode"
+//     error.text = "Enter a real postcode"
+//     errors.push(error)
+//   }
+
+//   if (errors.length) {
+//     res.render('../views/organisations/address', {
+//       organisation: req.session.data.organisation,
+//       actions: {
+//         save,
+//         back,
+//         cancel: `/cycles/${req.params.cycleId}/organisations`
+//       },
+//       errors
+//     })
+//   } else {
+//     res.redirect(`/cycles/${req.params.cycleId}/organisations/new/check`)
+//   }
+// }
+
 exports.new_check_get = (req, res) => {
   if (req.session.data.organisation.isAccreditedBody === 'no') {
     delete req.session.data.organisation.accreditedProviderId
@@ -385,7 +492,7 @@ exports.new_check_get = (req, res) => {
     organisation: req.session.data.organisation,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/new/check`,
-      back: `/cycles/${req.params.cycleId}/organisations/new/address`,
+      back: `/cycles/${req.params.cycleId}/organisations/new/contact`,
       cancel: `/cycles/${req.params.cycleId}/organisations`,
       change: `/cycles/${req.params.cycleId}/organisations/new`
     }

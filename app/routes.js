@@ -147,8 +147,11 @@ router.get('/cycles/:cycleId/organisations/remove-provider-type-filter/:provider
 router.get('/cycles/:cycleId/organisations/new', checkIsAuthenticated, organisationController.new_get)
 router.post('/cycles/:cycleId/organisations/new', checkIsAuthenticated, organisationController.new_post)
 
-router.get('/cycles/:cycleId/organisations/new/address', checkIsAuthenticated, organisationController.new_address_get)
-router.post('/cycles/:cycleId/organisations/new/address', checkIsAuthenticated, organisationController.new_address_post)
+router.get('/cycles/:cycleId/organisations/new/contact', checkIsAuthenticated, organisationController.new_contact_details_get)
+router.post('/cycles/:cycleId/organisations/new/contact', checkIsAuthenticated, organisationController.new_contact_details_post)
+
+// router.get('/cycles/:cycleId/organisations/new/address', checkIsAuthenticated, organisationController.new_address_get)
+// router.post('/cycles/:cycleId/organisations/new/address', checkIsAuthenticated, organisationController.new_address_post)
 
 router.get('/cycles/:cycleId/organisations/new/check', checkIsAuthenticated, organisationController.new_check_get)
 router.post('/cycles/:cycleId/organisations/new/check', checkIsAuthenticated, organisationController.new_check_post)
