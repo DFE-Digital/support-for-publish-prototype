@@ -187,7 +187,8 @@
               text: "Email address"
             },
             value: {
-              text: organisation.contact.email
+              text: organisation.contact.email if organisation.contact.email else "Not entered",
+              classes: "govuk-hint" if not organisation.contact.email
             },
             actions: {
               items: [
@@ -204,7 +205,8 @@
               text: "Telephone number"
             },
             value: {
-              text: organisation.contact.telephone
+              text: organisation.contact.telephone if organisation.contact.telephone else "Not entered",
+              classes: "govuk-hint" if not organisation.contact.telephone
             },
             actions: {
               items: [
