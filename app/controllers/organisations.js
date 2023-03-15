@@ -629,12 +629,12 @@ exports.new_check_get = (req, res) => {
 }
 
 exports.new_check_post = (req, res) => {
-  organisationModel.insertOne({
+  const organisation = organisationModel.insertOne({
     organisation: req.session.data.organisation
   })
 
   delete req.session.data.organisation
 
   req.flash('success', 'Organisation added')
-  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`)
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${organisation.id}`)
 }
