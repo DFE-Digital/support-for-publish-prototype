@@ -6,7 +6,10 @@
 {% set title = organisation.name + " (" + organisation.code + ")" %}
 
 {% block beforeContent %}
-
+{# {{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) }} #}
 {% endblock %}
 
 {% block content %}
@@ -89,7 +92,8 @@
               text: "UK provider reference number (UKPRN)"
             },
             value: {
-              text: organisation.ukprn
+              text: organisation.ukprn if organisation.ukprn else "Not entered",
+              classes: "govuk-hint" if not organisation.ukprn
             },
             actions: {
               items: [
@@ -106,7 +110,8 @@
               text: "Unique reference number (URN)"
             },
             value: {
-              text: organisation.urn
+              text: organisation.urn if organisation.urn else "Not entered",
+              classes: "govuk-hint" if not organisation.urn
             },
             actions: {
               items: [
@@ -140,7 +145,8 @@
               text: "Accredited provider ID"
             },
             value: {
-              text: organisation.accreditedProviderId
+              text: organisation.accreditedProviderId if organisation.accreditedProviderId else "Not entered",
+              classes: "govuk-hint" if not organisation.accreditedProviderId
             },
             actions: {
               items: [
@@ -165,6 +171,64 @@
                   href: actions.change,
                   text: "Change",
                   visuallyHiddenText: "provider type"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Contact details</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Email address"
+            },
+            value: {
+              text: organisation.contact.email
+            },
+            actions: {
+              items: [
+                {
+                  href: actions.change + "/contact?referrer=check",
+                  text: "Change",
+                  visuallyHiddenText: "email address"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Telephone number"
+            },
+            value: {
+              text: organisation.contact.telephone
+            },
+            actions: {
+              items: [
+                {
+                  href: actions.change + "/contact?referrer=check",
+                  text: "Change",
+                  visuallyHiddenText: "telephone number"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Website"
+            },
+            value: {
+              text: organisation.contact.website | urlize | safe
+            },
+            actions: {
+              items: [
+                {
+                  href: actions.change + "/contact?referrer=check",
+                  text: "Change",
+                  visuallyHiddenText: "website"
                 }
               ]
             }

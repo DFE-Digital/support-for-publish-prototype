@@ -149,10 +149,35 @@
             } if organisation.isAccreditedBody == "yes",
             {
               key: {
+                text: "Provider type"
+              },
+              value: {
+                text: organisation.type | getProviderTypeLabel
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change,
+                    text: "Change",
+                    visuallyHiddenText: "provider type"
+                  }
+                ]
+              }
+            }
+          ]
+        }) }}
+
+        <h2 class="govuk-heading-m">Contact details</h2>
+
+        {{ govukSummaryList({
+          rows: [
+            {
+              key: {
                 text: "Email address"
               },
               value: {
-                text: organisation.contact.email
+                text: organisation.contact.email if organisation.contact.email else "Not entered",
+                classes: "govuk-hint" if not organisation.contact.email
               },
               actions: {
                 items: [
@@ -169,7 +194,8 @@
                 text: "Telephone number"
               },
               value: {
-                text: organisation.contact.telephone
+                text: organisation.contact.telephone if organisation.contact.telephone else "Not entered",
+                classes: "govuk-hint" if not organisation.contact.telephone
               },
               actions: {
                 items: [
@@ -186,7 +212,7 @@
                 text: "Website"
               },
               value: {
-                text: organisation.contact.website
+                text: organisation.contact.website | urlize | safe
               },
               actions: {
                 items: [
