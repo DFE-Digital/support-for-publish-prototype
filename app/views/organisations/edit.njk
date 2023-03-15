@@ -38,6 +38,8 @@
             text: "Provider name",
             classes: "govuk-label--s"
           },
+          autocomplete: "organization",
+          spellcheck: false,
           errorMessage: errors | getErrorMessage("organisation-name"),
           value: organisation.name
         }) }}
