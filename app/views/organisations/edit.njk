@@ -2,8 +2,12 @@
 
 {% set primaryNavId = "organisations" %}
 
-{% set title = "Organisation details" %}
-{% set caption = organisation.name %}
+{% if organisation.id %}
+  {% set title = organisation.name %}
+{% else %}
+  {% set title = "Organisation details" %}
+  {% set caption = "Add organisation" %}
+{% endif %}
 
 {% block pageTitle %}
   {{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
@@ -31,7 +35,7 @@
           id: "organisation-name",
           name: "organisation[name]",
           label: {
-            text: "Name",
+            text: "Provider name",
             classes: "govuk-label--s"
           },
           errorMessage: errors | getErrorMessage("organisation-name"),
@@ -45,9 +49,79 @@
             text: "Provider code",
             classes: "govuk-label--s"
           },
+          classes: "govuk-input--width-10",
           errorMessage: errors | getErrorMessage("organisation-code"),
-          value: organisation.code,
-          classes: "govuk-!-width-one-quarter"
+          value: organisation.code
+        }) }}
+
+        {{ govukInput({
+          id: "organisation-ukprn",
+          name: "organisation[ukprn]",
+          label: {
+            text: "UK provider reference number (UKPRN) (optional)",
+            classes: "govuk-label--s"
+          },
+          classes: "govuk-input--width-10",
+          errorMessage: errors | getErrorMessage("organisation-ukprn"),
+          value: organisation.ukprn
+        }) }}
+
+        <p class="govuk-body govuk-!-margin-bottom-7">Find UKPRNs on the <a class="govuk-hint" href="https://www.ukrlp.co.uk/" target="_blank">UK register of learning providers (opens in new tab)</a></p>
+
+        {{ govukInput({
+          id: "organisation-urn",
+          name: "organisation[urn]",
+          label: {
+            text: "Unique reference number (URN) (optional)",
+            classes: "govuk-label--s"
+          },
+          classes: "govuk-input--width-10",
+          errorMessage: errors | getErrorMessage("organisation-urn"),
+          value: organisation.urn
+        }) }}
+
+        <p class="govuk-body govuk-!-margin-bottom-7">Find URNs on <a class="govuk-hint" href="https://www.get-information-schools.service.gov.uk/" target="_blank">Get Information about Schools (opens in new tab)</a></p>
+
+        {% set conditionalHtml %}
+          {{ govukInput({
+            id: "organisation-accredited-provider-id",
+            name: "organisation[accreditedProviderId]",
+            label: {
+              text: "Accredited provider ID"
+            },
+            classes: "govuk-input--width-10",
+            errorMessage: errors | getErrorMessage("organisation-accredited-provider-id"),
+            value: organisation.accreditedProviderId
+          }) }}
+
+        {% endset %}
+
+        {{ govukRadios({
+          idPrefix: "organisation-is-accredited-body",
+          name: "organisation[isAccreditedBody]",
+          fieldset: {
+            legend: {
+              text: "Is the organisation an accredited provider?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: true if organisation.isAccreditedBody == "yes" else false,
+              conditional: {
+                html: conditionalHtml
+              }
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: true if organisation.isAccreditedBody == "no" else false
+            }
+          ],
+          errorMessage: errors | getErrorMessage("organisation-is-accredited-body")
         }) }}
 
         {{ govukRadios({
@@ -60,11 +134,12 @@
               classes: "govuk-fieldset__legend--s"
             }
           },
-          items: providerTypeItems
+          items: providerTypeItems,
+          errorMessage: errors | getErrorMessage("organisation-type")
         }) }}
 
         {{ govukButton({
-          text: "Update organisation details"
+          text: "Update organisation details" if organisation.id else "Continue"
         }) }}
 
       </form>

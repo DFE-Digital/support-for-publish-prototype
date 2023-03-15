@@ -1,0 +1,200 @@
+{% extends "_layout.njk" %}
+
+{% set primaryNavId = "organisations" %}
+
+{% set title = "Check your answers" %}
+{% set caption = "Add organisation" %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% include "_includes/page-heading.njk" %}
+
+      <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+{{organisation|dump|safe}}
+        {% set addressHtml %}
+          <p class="govuk-body">
+            {% if organisation.address.addressLine1.length %}
+              {{ organisation.address.addressLine1 }}<br>
+            {% endif %}
+            {% if organisation.address.addressLine2.length %}
+              {{ organisation.address.addressLine2 }}<br>
+            {% endif %}
+            {% if organisation.address.town.length %}
+              {{ organisation.address.town }}<br>
+            {% endif %}
+            {% if organisation.address.county.length %}
+              {{ organisation.address.county }}<br>
+            {% endif %}
+            {% if organisation.address.postcode.length %}
+              {{ organisation.address.postcode | upper }}<br>
+            {% endif %}
+          </p>
+        {% endset %}
+
+        {{ govukSummaryList({
+          rows: [
+            {
+              key: {
+                text: "Provider name"
+              },
+              value: {
+                text: organisation.name
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "name"
+                  }
+                ]
+              }
+            },
+            {
+              key: {
+                text: "Provider code"
+              },
+              value: {
+                text: organisation.code
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "provider code"
+                  }
+                ]
+              }
+            },
+            {
+              key: {
+                text: "Unique reference number (URN)"
+              },
+              value: {
+                text: organisation.urn if organisation.urn else "Not entered",
+                classes: "govuk-hint" if not organisation.urn
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "unique reference number (URN)"
+                  }
+                ]
+              }
+            },
+            {
+              key: {
+                text: "UK provider reference number (UKPRN)"
+              },
+              value: {
+                text: organisation.ukprn if organisation.ukprn else "Not entered",
+                classes: "govuk-hint" if not organisation.ukprn
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "UK provider reference number (UKPRN)"
+                  }
+                ]
+              }
+            },
+            {
+              key: {
+                text: "Is the organisation an accredited provider?"
+              },
+              value: {
+                text: organisation.isAccreditedBody | capitalize
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "if the organisation is an accredited provider"
+                  }
+                ]
+              }
+            },
+            {
+              key: {
+                text: "Accredited provider ID"
+              },
+              value: {
+                text: organisation.accreditedProviderId
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "accredited provider ID"
+                  }
+                ]
+              }
+            } if organisation.isAccreditedBody == "yes",
+            {
+              key: {
+                text: "Provider type"
+              },
+              value: {
+                text: organisation.type | getProviderTypeLabel
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "provider type"
+                  }
+                ]
+              }
+            },
+            {
+              key: {
+                text: "Address"
+              },
+              value: {
+                html: addressHtml
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "/address?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "address"
+                  }
+                ]
+              }
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Add organisation"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="{{ actions.cancel }}">Cancel</a>
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}
