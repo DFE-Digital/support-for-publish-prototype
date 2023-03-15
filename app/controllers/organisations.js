@@ -393,11 +393,12 @@ exports.new_check_get = (req, res) => {
 }
 
 exports.new_check_post = (req, res) => {
+  organisationModel.insertOne({
+    organisation: req.session.data.organisation
+  })
 
-    // organisationModel.insertOne({
-    //   organisation: req.session.data.organisation
-    // })
+  delete req.session.data.organisation
 
-    req.flash('success', 'Organisation added')
-    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`)
+  req.flash('success', 'Organisation added')
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`)
 }
