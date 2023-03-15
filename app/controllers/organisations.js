@@ -157,7 +157,7 @@ exports.edit_post = (req, res) => {
 
   const errors = []
 
-  if (!req.session.data.organisation.name.length) {
+  if (!organisation.name.length) {
     const error = {}
     error.fieldName = 'organisation-name'
     error.href = '#organisation-name'
@@ -165,11 +165,35 @@ exports.edit_post = (req, res) => {
     errors.push(error)
   }
 
-  if (!req.session.data.organisation.code.length) {
+  if (!organisation.code.length) {
     const error = {}
     error.fieldName = 'organisation-code'
     error.href = '#organisation-code'
     error.text = 'Enter a provider code'
+    errors.push(error)
+  }
+
+  if (!organisation.isAccreditedBody) {
+    const error = {}
+    error.fieldName = 'organisation-is-accredited-body'
+    error.href = '#organisation-is-accredited-body'
+    error.text = 'Select if the organisation is an accredited provider'
+    errors.push(error)
+  } else if (organisation.isAccreditedBody === 'yes') {
+    if (!organisation.accreditedProviderId.length) {
+      const error = {}
+      error.fieldName = 'organisation-accredited-provider-id'
+      error.href = '#organisation-accredited-provider-id'
+      error.text = 'Enter an accredited provider ID'
+      errors.push(error)
+    }
+  }
+
+  if (!organisation.type) {
+    const error = {}
+    error.fieldName = 'organisation-type'
+    error.href = '#organisation-type'
+    error.text = 'Select a provider type'
     errors.push(error)
   }
 
@@ -185,6 +209,10 @@ exports.edit_post = (req, res) => {
       errors
     })
   } else {
+    if (organisation.isAccreditedBody === 'no') {
+      delete organisation.accreditedProviderId
+    }
+
     organisationModel.updateOne({
       organisationId: req.params.organisationId,
       organisation

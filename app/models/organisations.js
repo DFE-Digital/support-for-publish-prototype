@@ -164,6 +164,7 @@ exports.updateOne = (params) => {
         }
       } else {
         organisation.isAccreditedBody = false
+        delete organisation.accreditedProviderId
       }
     }
 
