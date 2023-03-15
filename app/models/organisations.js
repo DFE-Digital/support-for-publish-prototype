@@ -147,22 +147,28 @@ exports.updateOne = (params) => {
       organisation.code = params.organisation.code
     }
 
-    if (params.organisation.type !== undefined) {
-      organisation.type = params.organisation.type
-
-      if (organisation.type === 'lead_school') {
-        organisation.isAccreditedBody = false
-      } else {
-        organisation.isAccreditedBody = true
-      }
+    if (params.organisation.ukprn !== undefined) {
+      organisation.ukprn = params.organisation.ukprn
     }
 
     if (params.organisation.urn !== undefined) {
       organisation.urn = params.organisation.urn
     }
 
-    if (params.organisation.ukprn !== undefined) {
-      organisation.ukprn = params.organisation.ukprn
+    if (params.organisation.isAccreditedBody !== undefined) {
+      if (params.organisation.isAccreditedBody === 'yes') {
+        organisation.isAccreditedBody = true
+
+        if (params.organisation.accreditedProviderId !== undefined) {
+          organisation.accreditedProviderId = params.organisation.accreditedProviderId
+        }
+      } else {
+        organisation.isAccreditedBody = false
+      }
+    }
+
+    if (params.organisation.type !== undefined) {
+      organisation.type = params.organisation.type
     }
 
     if (params.organisation.trainWithUs !== undefined) {
@@ -175,7 +181,7 @@ exports.updateOne = (params) => {
 
     if (params.organisation.contact !== undefined) {
       if (params.organisation.contact.email !== undefined) {
-        organisation.contact.email = params.organisation.contact.email
+        organisation.contact.email = params.organisation.contact.email.toLowerCase()
       }
 
       if (params.organisation.contact.telephone !== undefined) {
@@ -183,7 +189,7 @@ exports.updateOne = (params) => {
       }
 
       if (params.organisation.contact.website !== undefined) {
-        organisation.contact.website = params.organisation.contact.website
+        organisation.contact.website = params.organisation.contact.website.toLowerCase()
       }
     }
 
@@ -205,7 +211,7 @@ exports.updateOne = (params) => {
       }
 
       if (params.organisation.address.postcode !== undefined) {
-        organisation.address.postcode = params.organisation.address.postcode
+        organisation.address.postcode = params.organisation.address.postcode.toUpperCase()
       }
     }
 
