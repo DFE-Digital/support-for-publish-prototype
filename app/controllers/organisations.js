@@ -5,6 +5,7 @@ const cycleHelper = require('../helpers/cycles')
 const organisationHelper = require('../helpers/organisations')
 const paginationHelper = require('../helpers/pagination')
 const utilsHelper = require('../helpers/utils')
+const validationHelper = require("../helpers/validators")
 
 exports.list = (req, res) => {
   // Filters
@@ -68,6 +69,7 @@ exports.list = (req, res) => {
     keywords,
     actions: {
       view: `/cycles/${req.params.cycleId}/organisations`,
+      new: `/cycles/${req.params.cycleId}/organisations/new`,
       filters: {
         apply: `/cycles/${req.params.cycleId}/organisations`,
         remove: `/cycles/${req.params.cycleId}/organisations/remove-all-filters`
@@ -141,7 +143,7 @@ exports.edit_get = (req, res) => {
 
 exports.edit_post = (req, res) => {
   let organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  organisation = req.body.organisation
+  organisation = req.session.data.organisation
 
   let selectedProviderType
   if (organisation.type) {
@@ -152,7 +154,7 @@ exports.edit_post = (req, res) => {
 
   const errors = []
 
-  if (!req.body.organisation.name.length) {
+  if (!req.session.data.organisation.name.length) {
     const error = {}
     error.fieldName = 'organisation-name'
     error.href = '#organisation-name'
@@ -160,7 +162,7 @@ exports.edit_post = (req, res) => {
     errors.push(error)
   }
 
-  if (!req.body.organisation.code.length) {
+  if (!req.session.data.organisation.code.length) {
     const error = {}
     error.fieldName = 'organisation-code'
     error.href = '#organisation-code'
@@ -188,4 +190,214 @@ exports.edit_post = (req, res) => {
     req.flash('success', 'Organisation details updated')
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`)
   }
+}
+
+/// ------------------------------------------------------------------------ ///
+/// ADD ORGANISATION
+/// ------------------------------------------------------------------------ ///
+
+exports.new_get = (req, res) => {
+  let save = `/cycles/${req.params.cycleId}/organisations/new`
+  let back = `/cycles/${req.params.cycleId}/organisations`
+
+  if (req.query.referrer === 'check') {
+    save += '?referrer=check'
+    back = `/cycles/${req.params.cycleId}/organisations/new/check`
+  }
+
+  let selectedProviderType
+  if (req.session.data?.organisation?.type) {
+    selectedProviderType = req.session.data.organisation.type
+  }
+
+  const providerTypeItems = organisationHelper.getProviderTypeOptions(selectedProviderType)
+
+  res.render('../views/organisations/edit', {
+    organisation: req.session.data.organisation,
+    providerTypeItems,
+    actions: {
+      save,
+      back,
+      cancel: `/cycles/${req.params.cycleId}/organisations`
+    }
+  })
+}
+
+exports.new_post = (req, res) => {
+  let save = `/cycles/${req.params.cycleId}/organisations/new`
+  let back = `/cycles/${req.params.cycleId}/organisations`
+
+  if (req.query.referrer === 'check') {
+    save += '?referrer=check'
+    back = `/cycles/${req.params.cycleId}/organisations/new/check`
+  }
+
+  let selectedProviderType
+  if (req.session.data?.organisation?.type) {
+    selectedProviderType = req.session.data.organisation.type
+  }
+
+  const providerTypeItems = organisationHelper.getProviderTypeOptions(selectedProviderType)
+
+  const errors = []
+
+  if (!req.session.data.organisation.name.length) {
+    const error = {}
+    error.fieldName = 'organisation-name'
+    error.href = '#organisation-name'
+    error.text = 'Enter a name'
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.code.length) {
+    const error = {}
+    error.fieldName = 'organisation-code'
+    error.href = '#organisation-code'
+    error.text = 'Enter a provider code'
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.isAccreditedBody) {
+    const error = {}
+    error.fieldName = 'organisation-is-accredited-body'
+    error.href = '#organisation-is-accredited-body'
+    error.text = 'Select if the organisation is an accredited provider'
+    errors.push(error)
+  } else if (req.session.data.organisation.isAccreditedBody === 'yes') {
+    if (!req.session.data.organisation.accreditedProviderId.length) {
+      const error = {}
+      error.fieldName = 'organisation-accredited-provider-id'
+      error.href = '#organisation-accredited-provider-id'
+      error.text = 'Enter an accredited provider ID'
+      errors.push(error)
+    }
+  }
+
+  if (!req.session.data.organisation.type) {
+    const error = {}
+    error.fieldName = 'organisation-type'
+    error.href = '#organisation-type'
+    error.text = 'Select a provider type'
+    errors.push(error)
+  }
+
+  if (errors.length) {
+    res.render('../views/organisations/edit', {
+      organisation: req.session.data.organisation,
+      providerTypeItems,
+      actions: {
+        save,
+        back,
+        cancel: `/cycles/${req.params.cycleId}/organisations`
+      },
+      errors
+    })
+  } else {
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/new/address`)
+  }
+}
+
+exports.new_address_get = (req, res) => {
+  let save = `/cycles/${req.params.cycleId}/organisations/new/address`
+  let back = `/cycles/${req.params.cycleId}/organisations/new`
+
+  if (req.query.referrer === 'check') {
+    save += '?referrer=check'
+    back = `/cycles/${req.params.cycleId}/organisations/new/check`
+  }
+
+  res.render('../views/organisations/address', {
+    organisation: req.session.data.organisation,
+    actions: {
+      save,
+      back,
+      cancel: `/cycles/${req.params.cycleId}/organisations`
+    }
+  })
+}
+
+exports.new_address_post = (req, res) => {
+  let save = `/cycles/${req.params.cycleId}/organisations/new/address`
+  let back = `/cycles/${req.params.cycleId}/organisations/new`
+
+  if (req.query.referrer === 'check') {
+    save += '?referrer=check'
+    back = `/cycles/${req.params.cycleId}/organisations/new/check`
+  }
+
+  const errors = []
+
+  if (!req.session.data.organisation.address.addressLine1.length) {
+    const error = {}
+    error.fieldName = "address-line-1"
+    error.href = "#address-line-1"
+    error.text = "Enter address line 1"
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.address.town.length) {
+    const error = {}
+    error.fieldName = "address-town"
+    error.href = "#address-town"
+    error.text = "Enter a town or city"
+    errors.push(error)
+  }
+
+  if (!req.session.data.organisation.address.postcode.length) {
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter postcode"
+    errors.push(error)
+  } else if (
+    !validationHelper.isValidPostcode(
+      req.session.data.organisation.address.postcode
+    )
+  ) {
+    const error = {}
+    error.fieldName = "address-postcode"
+    error.href = "#address-postcode"
+    error.text = "Enter a real postcode"
+    errors.push(error)
+  }
+
+  if (errors.length) {
+    res.render('../views/organisations/address', {
+      organisation: req.session.data.organisation,
+      actions: {
+        save,
+        back,
+        cancel: `/cycles/${req.params.cycleId}/organisations`
+      },
+      errors
+    })
+  } else {
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/new/check`)
+  }
+}
+
+exports.new_check_get = (req, res) => {
+  if (req.session.data.organisation.isAccreditedBody === 'no') {
+    delete req.session.data.organisation.accreditedProviderId
+  }
+
+  res.render('../views/organisations/check', {
+    organisation: req.session.data.organisation,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/new/check`,
+      back: `/cycles/${req.params.cycleId}/organisations/new/address`,
+      cancel: `/cycles/${req.params.cycleId}/organisations`,
+      change: `/cycles/${req.params.cycleId}/organisations/new`
+    }
+  })
+}
+
+exports.new_check_post = (req, res) => {
+
+    // organisationModel.insertOne({
+    //   organisation: req.session.data.organisation
+    // })
+
+    req.flash('success', 'Organisation added')
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`)
 }
