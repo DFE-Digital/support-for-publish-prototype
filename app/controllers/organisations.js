@@ -1,5 +1,6 @@
 // const courseModel = require('../models/courses')
 const organisationModel = require('../models/organisations')
+const schoolModel = require('../models/schools')
 
 const cycleHelper = require('../helpers/cycles')
 const organisationHelper = require('../helpers/organisations')
@@ -463,6 +464,26 @@ exports.new_post = (req, res) => {
 }
 
 exports.new_contact_details_get = (req, res) => {
+  let school = {}
+
+  if (req.session.data.organisation?.urn.length) {
+    school = schoolModel.findOne({
+      urn: req.session.data.organisation.urn
+    })
+
+    if (!req.session.data.organisation.address) {
+      if (school?.address) {
+        req.session.data.organisation.address = school.address
+      }
+    }
+
+    if (!req.session.data.organisation.contact) {
+      if (school?.contact) {
+        req.session.data.organisation.contact = school.contact
+      }
+    }
+  }
+
   let save = `/cycles/${req.params.cycleId}/organisations/new/contact`
   let back = `/cycles/${req.params.cycleId}/organisations/new`
 
