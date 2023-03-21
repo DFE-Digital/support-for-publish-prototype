@@ -79,24 +79,6 @@
             },
             {
               key: {
-                text: "Unique reference number (URN)"
-              },
-              value: {
-                text: organisation.urn if organisation.urn else "Not entered",
-                classes: "govuk-hint" if not organisation.urn
-              },
-              actions: {
-                items: [
-                  {
-                    href: actions.change + "?referrer=check",
-                    text: "Change",
-                    visuallyHiddenText: "unique reference number (URN)"
-                  }
-                ]
-              }
-            },
-            {
-              key: {
                 text: "UK provider reference number (UKPRN)"
               },
               value: {
@@ -157,13 +139,31 @@
               actions: {
                 items: [
                   {
-                    href: actions.change,
+                    href: actions.change + "?referrer=check",
                     text: "Change",
                     visuallyHiddenText: "provider type"
                   }
                 ]
               }
-            }
+            },
+            {
+              key: {
+                text: "Unique reference number (URN)"
+              },
+              value: {
+                text: organisation.urn if organisation.urn else "Not entered",
+                classes: "govuk-hint" if not organisation.urn
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "?referrer=check",
+                    text: "Change",
+                    visuallyHiddenText: "unique reference number (URN)"
+                  }
+                ]
+              }
+            } if organisation.type == "lead_school"
           ]
         }) }}
 
