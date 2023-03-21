@@ -107,24 +107,6 @@
           },
           {
             key: {
-              text: "Unique reference number (URN)"
-            },
-            value: {
-              text: organisation.urn if organisation.urn else "Not entered",
-              classes: "govuk-hint" if not organisation.urn
-            },
-            actions: {
-              items: [
-                {
-                  href: actions.change,
-                  text: "Change",
-                  visuallyHiddenText: "unique reference number (URN)"
-                }
-              ]
-            }
-          },
-          {
-            key: {
               text: "Is the organisation an accredited provider?"
             },
             value: {
@@ -174,7 +156,25 @@
                 }
               ]
             }
-          }
+          },
+          {
+            key: {
+              text: "Unique reference number (URN)"
+            },
+            value: {
+              text: organisation.urn if organisation.urn else "Not entered",
+              classes: "govuk-hint" if not organisation.urn
+            },
+            actions: {
+              items: [
+                {
+                  href: actions.change,
+                  text: "Change",
+                  visuallyHiddenText: "unique reference number (URN)"
+                }
+              ]
+            }
+          } if organisation.type == 'lead_school'
         ]
       }) }}
 
