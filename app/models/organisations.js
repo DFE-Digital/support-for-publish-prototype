@@ -58,8 +58,10 @@ exports.insertOne = (params) => {
     organisation.ukprn = params.organisation.ukprn
   }
 
-  if (params.organisation.urn) {
-    organisation.urn = params.organisation.urn
+  if (params.organisation.type === 'lead_school') {
+    if (params.organisation.urn) {
+      organisation.urn = params.organisation.urn
+    }
   }
 
   organisation.isAccreditedBody = params.organisation.isAccreditedBody
@@ -152,7 +154,9 @@ exports.updateOne = (params) => {
     }
 
     if (params.organisation.urn !== undefined) {
-      organisation.urn = params.organisation.urn
+      if (params.organisation?.type === 'lead_school') {
+          organisation.urn = params.organisation.urn
+      }
     }
 
     if (params.organisation.isAccreditedBody !== undefined) {

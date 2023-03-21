@@ -173,6 +173,14 @@ exports.edit_post = (req, res) => {
     errors.push(error)
   }
 
+  if (!organisation.ukprn.length) {
+    const error = {}
+    error.fieldName = 'organisation-ukprn'
+    error.href = '#organisation-ukprn'
+    error.text = 'Enter a UK provider reference number (UKPRN)'
+    errors.push(error)
+  }
+
   if (!organisation.isAccreditedBody) {
     const error = {}
     error.fieldName = 'organisation-is-accredited-body'
@@ -195,6 +203,14 @@ exports.edit_post = (req, res) => {
     error.href = '#organisation-type'
     error.text = 'Select a provider type'
     errors.push(error)
+  } else if (organisation.type === 'lead_school') {
+    if (!organisation.urn.length) {
+      const error = {}
+      error.fieldName = 'organisation-urn'
+      error.href = '#organisation-urn'
+      error.text = 'Enter a unique reference number (URN)'
+      errors.push(error)
+    }
   }
 
   if (errors.length) {
@@ -386,6 +402,14 @@ exports.new_post = (req, res) => {
     errors.push(error)
   }
 
+  if (!req.session.data.organisation.ukprn.length) {
+    const error = {}
+    error.fieldName = 'organisation-ukprn'
+    error.href = '#organisation-ukprn'
+    error.text = 'Enter a UK provider reference number (UKPRN)'
+    errors.push(error)
+  }
+
   if (!req.session.data.organisation.isAccreditedBody) {
     const error = {}
     error.fieldName = 'organisation-is-accredited-body'
@@ -408,6 +432,14 @@ exports.new_post = (req, res) => {
     error.href = '#organisation-type'
     error.text = 'Select a provider type'
     errors.push(error)
+  } else if (req.session.data.organisation.type === 'lead_school') {
+    if (!req.session.data.organisation.urn.length) {
+      const error = {}
+      error.fieldName = 'organisation-urn'
+      error.href = '#organisation-urn'
+      error.text = 'Enter a unique reference number (URN)'
+      errors.push(error)
+    }
   }
 
   if (errors.length) {
@@ -460,21 +492,21 @@ exports.new_contact_details_post = (req, res) => {
 
   const errors = []
 
-  // if (!req.session.data.organisation.contact.email.length) {
-  //   const error = {}
-  //   error.fieldName = 'organisation-email'
-  //   error.href = '#organisation-email'
-  //   error.text = 'Enter an email address'
-  //   errors.push(error)
-  // }
+  if (!req.session.data.organisation.contact.email.length) {
+    const error = {}
+    error.fieldName = 'organisation-email'
+    error.href = '#organisation-email'
+    error.text = 'Enter an email address'
+    errors.push(error)
+  }
 
-  // if (!req.session.data.organisation.contact.telephone.length) {
-  //   const error = {}
-  //   error.fieldName = 'organisation-telephone'
-  //   error.href = '#organisation-telephone'
-  //   error.text = 'Enter a telephone number'
-  //   errors.push(error)
-  // }
+  if (!req.session.data.organisation.contact.telephone.length) {
+    const error = {}
+    error.fieldName = 'organisation-telephone'
+    error.href = '#organisation-telephone'
+    error.text = 'Enter a telephone number'
+    errors.push(error)
+  }
 
   if (!req.session.data.organisation.contact.website.length) {
     const error = {}
@@ -615,6 +647,10 @@ exports.new_contact_details_post = (req, res) => {
 exports.new_check_get = (req, res) => {
   if (req.session.data.organisation.isAccreditedBody === 'no') {
     delete req.session.data.organisation.accreditedProviderId
+  }
+
+  if (req.session.data.organisation.type !== 'lead_school') {
+    delete req.session.data.organisation.urn
   }
 
   res.render('../views/organisations/check', {
