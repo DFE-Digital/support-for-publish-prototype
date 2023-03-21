@@ -38,23 +38,32 @@
             text: "Provider name",
             classes: "govuk-label--s"
           },
+          hint: {
+            text: "The name that will appear on Find"
+          },
           autocomplete: "organization",
           spellcheck: false,
           errorMessage: errors | getErrorMessage("organisation-name"),
           value: organisation.name
         }) }}
 
-        {{ govukInput({
-          id: "organisation-code",
-          name: "organisation[code]",
-          label: {
-            text: "Provider code",
-            classes: "govuk-label--s"
-          },
-          classes: "govuk-input--width-10",
-          errorMessage: errors | getErrorMessage("organisation-code"),
-          value: organisation.code
-        }) }}
+        {% if organisation.id %}
+          <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">Provider code</p>
+          <p class="govuk-body">{{ organisation.code }}</p>
+          <input type="hidden" name="organisation[code]" value="{{ organisation.code }}">
+        {% else %}
+          {{ govukInput({
+            id: "organisation-code",
+            name: "organisation[code]",
+            label: {
+              text: "Provider code",
+              classes: "govuk-label--s"
+            },
+            classes: "govuk-input--width-10",
+            errorMessage: errors | getErrorMessage("organisation-code"),
+            value: organisation.code
+          }) }}
+        {% endif %}
 
         {{ govukInput({
           id: "organisation-ukprn",
