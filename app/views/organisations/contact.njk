@@ -30,6 +30,16 @@
 
       {% include "_includes/page-heading.njk" %}
 
+      {% if organisation.type == "lead_school" %}
+        {% set insetHtml %}
+          Contact details provided by <a class="govuk-hint" href="https://www.get-information-schools.service.gov.uk/" target="_blank">Get information about schools (opens in new tab)</a>
+        {% endset %}
+
+        {{ govukInsetText({
+          html: insetHtml
+        }) }}
+      {% endif %}
+
       <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
         {{ govukInput({
