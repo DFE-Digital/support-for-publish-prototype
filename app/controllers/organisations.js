@@ -259,27 +259,57 @@ exports.edit_contact_details_post = (req, res) => {
 
   const errors = []
 
-  // if (!req.session.data.organisation.contact.email.length) {
-  //   const error = {}
-  //   error.fieldName = 'organisation-email'
-  //   error.href = '#organisation-email'
-  //   error.text = 'Enter an email address'
-  //   errors.push(error)
-  // }
+  if (!req.session.data.organisation.contact.email.length) {
+    const error = {}
+    error.fieldName = 'organisation-email'
+    error.href = '#organisation-email'
+    error.text = 'Enter an email address'
+    errors.push(error)
+  } else if (
+    !validationHelper.isValidEmail(
+      req.session.data.organisation.contact.email
+    )
+  ) {
+    const error = {}
+    error.fieldName = 'organisation-email'
+    error.href = '#organisation-email'
+    error.text = 'Enter an email address in the correct format, like name@example.com'
+    errors.push(error)
+  }
 
-  // if (!req.session.data.organisation.contact.telephone.length) {
-  //   const error = {}
-  //   error.fieldName = 'organisation-telephone'
-  //   error.href = '#organisation-telephone'
-  //   error.text = 'Enter a telephone number'
-  //   errors.push(error)
-  // }
+  if (!req.session.data.organisation.contact.telephone.length) {
+    const error = {}
+    error.fieldName = 'organisation-telephone'
+    error.href = '#organisation-telephone'
+    error.text = 'Enter a telephone number'
+    errors.push(error)
+  } else if (
+    !validationHelper.isValidTelephone(
+      req.session.data.organisation.contact.telephone
+    )
+  ) {
+    const error = {}
+    error.fieldName = 'organisation-telephone'
+    error.href = '#organisation-telephone'
+    error.text = 'Enter a real telephone number'
+    errors.push(error)
+  }
 
   if (!req.session.data.organisation.contact.website.length) {
     const error = {}
     error.fieldName = 'organisation-website'
     error.href = '#organisation-website'
     error.text = 'Enter a website'
+    errors.push(error)
+  } else if (
+    !validationHelper.isValidURL(
+      req.session.data.organisation.contact.website
+    )
+  ) {
+    const error = {}
+    error.fieldName = 'organisation-website'
+    error.href = '#organisation-website'
+    error.text = 'Enter a website address in the correct format, like https://www.example.com'
     errors.push(error)
   }
 
