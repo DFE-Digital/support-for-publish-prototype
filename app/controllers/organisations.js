@@ -242,6 +242,14 @@ exports.edit_post = (req, res) => {
       error.text = 'Enter a valid unique reference number (URN)'
       errors.push(error)
     }
+
+    if (organisation.isAccreditedBody) {
+      const error = {}
+      error.fieldName = 'organisation-type'
+      error.href = '#organisation-type'
+      error.text = 'Accredited provider cannot be a school'
+      errors.push(error)
+    }
   }
 
   if (errors.length) {
@@ -529,6 +537,14 @@ exports.new_post = (req, res) => {
       error.fieldName = 'organisation-urn'
       error.href = '#organisation-urn'
       error.text = 'Enter a valid unique reference number (URN)'
+      errors.push(error)
+    }
+
+    if (req.session.data.organisation.isAccreditedBody) {
+      const error = {}
+      error.fieldName = 'organisation-type'
+      error.href = '#organisation-type'
+      error.text = 'Accredited provider cannot be a school'
       errors.push(error)
     }
   }
