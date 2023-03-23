@@ -33,3 +33,34 @@ exports.isValidTelephone = (telephone) => {
   }
   return valid
 }
+
+exports.isValidProviderCode = (code) => {
+  const regex = /^[a-zA-Z0-9]{3}$/
+  let valid = true
+  if (!code || !regex.test(code)) {
+    valid = false
+  }
+  return valid
+}
+
+exports.isValidURN = (urn) => {
+  const regex = /^[0-9]{6}$/
+  let valid = true
+  if (!urn || !regex.test(urn)) {
+    valid = false
+  }
+  return valid
+}
+
+exports.isValidUKPRN = (ukprn) => {
+  const regex = /^1\d{7}$/
+  let valid = true
+  if (!ukprn || !regex.test(ukprn)) {
+    valid = false
+  }
+  return valid
+}
+
+exports.isValidAccreditedBodyId = (accreditedBodyId) => {
+
+}
