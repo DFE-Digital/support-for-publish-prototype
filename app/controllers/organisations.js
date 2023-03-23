@@ -215,6 +215,17 @@ exports.edit_post = (req, res) => {
       error.href = '#organisation-accredited-provider-id'
       error.text = 'Enter an accredited provider ID'
       errors.push(error)
+    } else if (
+      !validationHelper.isValidAccreditedProviderId(
+        organisation.accreditedProviderId,
+        organisation.type
+      )
+    ) {
+      const error = {}
+      error.fieldName = 'organisation-accredited-provider-id'
+      error.href = '#organisation-accredited-provider-id'
+      error.text = 'Enter a valid accredited provider ID'
+      errors.push(error)
     }
   }
 
@@ -225,30 +236,30 @@ exports.edit_post = (req, res) => {
     error.text = 'Select a provider type'
     errors.push(error)
   } else if (organisation.type === 'lead_school') {
-    if (!organisation.urn.length) {
-      const error = {}
-      error.fieldName = 'organisation-urn'
-      error.href = '#organisation-urn'
-      error.text = 'Enter a unique reference number (URN)'
-      errors.push(error)
-    } else if (
-      !validationHelper.isValidURN(
-        organisation.urn
-      )
-    ) {
-      const error = {}
-      error.fieldName = 'organisation-urn'
-      error.href = '#organisation-urn'
-      error.text = 'Enter a valid unique reference number (URN)'
-      errors.push(error)
-    }
-
     if (organisation.isAccreditedBody) {
       const error = {}
       error.fieldName = 'organisation-type'
       error.href = '#organisation-type'
       error.text = 'Accredited provider cannot be a school'
       errors.push(error)
+    } else {
+      if (!organisation.urn.length) {
+        const error = {}
+        error.fieldName = 'organisation-urn'
+        error.href = '#organisation-urn'
+        error.text = 'Enter a unique reference number (URN)'
+        errors.push(error)
+      } else if (
+        !validationHelper.isValidURN(
+          organisation.urn
+        )
+      ) {
+        const error = {}
+        error.fieldName = 'organisation-urn'
+        error.href = '#organisation-urn'
+        error.text = 'Enter a valid unique reference number (URN)'
+        errors.push(error)
+      }
     }
   }
 
@@ -512,6 +523,17 @@ exports.new_post = (req, res) => {
       error.href = '#organisation-accredited-provider-id'
       error.text = 'Enter an accredited provider ID'
       errors.push(error)
+    } else if (
+      !validationHelper.isValidAccreditedProviderId(
+        req.session.data.organisation.accreditedProviderId,
+        req.session.data.organisation.type
+      )
+    ) {
+      const error = {}
+      error.fieldName = 'organisation-accredited-provider-id'
+      error.href = '#organisation-accredited-provider-id'
+      error.text = 'Enter a valid accredited provider ID'
+      errors.push(error)
     }
   }
 
@@ -522,30 +544,30 @@ exports.new_post = (req, res) => {
     error.text = 'Select a provider type'
     errors.push(error)
   } else if (req.session.data.organisation.type === 'lead_school') {
-    if (!req.session.data.organisation.urn.length) {
-      const error = {}
-      error.fieldName = 'organisation-urn'
-      error.href = '#organisation-urn'
-      error.text = 'Enter a unique reference number (URN)'
-      errors.push(error)
-    } else if (
-      !validationHelper.isValidURN(
-        req.session.data.organisation.urn
-      )
-    ) {
-      const error = {}
-      error.fieldName = 'organisation-urn'
-      error.href = '#organisation-urn'
-      error.text = 'Enter a valid unique reference number (URN)'
-      errors.push(error)
-    }
-
     if (req.session.data.organisation.isAccreditedBody) {
       const error = {}
       error.fieldName = 'organisation-type'
       error.href = '#organisation-type'
       error.text = 'Accredited provider cannot be a school'
       errors.push(error)
+    } else {
+      if (!req.session.data.organisation.urn.length) {
+        const error = {}
+        error.fieldName = 'organisation-urn'
+        error.href = '#organisation-urn'
+        error.text = 'Enter a unique reference number (URN)'
+        errors.push(error)
+      } else if (
+        !validationHelper.isValidURN(
+          req.session.data.organisation.urn
+        )
+      ) {
+        const error = {}
+        error.fieldName = 'organisation-urn'
+        error.href = '#organisation-urn'
+        error.text = 'Enter a valid unique reference number (URN)'
+        errors.push(error)
+      }
     }
   }
 

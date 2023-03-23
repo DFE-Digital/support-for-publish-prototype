@@ -43,11 +43,11 @@ exports.isValidProviderCode = (code) => {
   return valid
 }
 
-// ^ matches the start of the string
-// \d matches any digit (equivalent to [0-9])
-// {5,6} quantifier matches the preceding \d between 5 and 6 times, inclusive
-// $ matches the end of the string
 exports.isValidURN = (urn) => {
+  // ^ matches the start of the string
+  // \d matches any digit (equivalent to [0-9])
+  // {5,6} quantifier matches the preceding \d between 5 and 6 times, inclusive
+  // $ matches the end of the string
   const regex = /^\d{5,6}$/
   let valid = true
   if (!urn || !regex.test(urn)) {
@@ -56,12 +56,12 @@ exports.isValidURN = (urn) => {
   return valid
 }
 
-// ^ matches the start of the string
-// 1 matches the literal character 1
-// \d matches any digit (equivalent to [0-9])
-// {7} quantifier matches the preceding \d exactly 7 times
-// $ matches the end of the string
 exports.isValidUKPRN = (ukprn) => {
+  // ^ matches the start of the string
+  // 1 matches the literal character 1
+  // \d matches any digit (equivalent to [0-9])
+  // {7} quantifier matches the preceding \d exactly 7 times
+  // $ matches the end of the string
   const regex = /^1\d{7}$/
   let valid = true
   if (!ukprn || !regex.test(ukprn)) {
@@ -70,6 +70,27 @@ exports.isValidUKPRN = (ukprn) => {
   return valid
 }
 
-exports.isValidAccreditedBodyId = (accreditedBodyId) => {
+exports.isValidAccreditedProviderId = (accreditedProviderId, providerType = null) => {
+  // ^ matches the start of the string
+  // [15] matches either the character 1 or 5
+  // \d matches any digit (equivalent to [0-9])
+  // {3} quantifier matches the preceding \d exactly 3 times
+  // $ matches the end of the string
+  let regex = /^[15]\d{3}$/
 
+  if (providerType === 'hei') {
+    // if HEI, accredited provider IDs start with a 1
+    regex = /^1\d{3}$/
+  } else if (providerType === 'scitt') {
+    // if SCITT, accredited provider IDs start with a 5
+    regex = /^5\d{3}$/
+  }
+
+  let valid = true
+
+  if (!accreditedProviderId || !regex.test(accreditedProviderId)) {
+    valid = false
+  }
+
+  return valid
 }
