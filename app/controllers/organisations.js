@@ -172,6 +172,16 @@ exports.edit_post = (req, res) => {
     error.href = '#organisation-code'
     error.text = 'Enter a provider code'
     errors.push(error)
+  } else if (
+    !validationHelper.isValidProviderCode(
+      organisation.code
+    )
+  ) {
+    const error = {}
+    error.fieldName = 'organisation-code'
+    error.href = '#organisation-code'
+    error.text = 'Enter a valid provider code'
+    errors.push(error)
   }
 
   if (!organisation.ukprn.length) {
@@ -179,6 +189,16 @@ exports.edit_post = (req, res) => {
     error.fieldName = 'organisation-ukprn'
     error.href = '#organisation-ukprn'
     error.text = 'Enter a UK provider reference number (UKPRN)'
+    errors.push(error)
+  } else if (
+    !validationHelper.isValidUKPRN(
+      organisation.ukprn
+    )
+  ) {
+    const error = {}
+    error.fieldName = 'organisation-ukprn'
+    error.href = '#organisation-ukprn'
+    error.text = 'Enter a valid UK provider reference number (UKPRN)'
     errors.push(error)
   }
 
@@ -259,7 +279,7 @@ exports.edit_contact_details_post = (req, res) => {
 
   const errors = []
 
-  if (!req.session.data.organisation.contact.email.length) {
+  if (!organisation.contact.email.length) {
     const error = {}
     error.fieldName = 'organisation-email'
     error.href = '#organisation-email'
@@ -267,7 +287,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   } else if (
     !validationHelper.isValidEmail(
-      req.session.data.organisation.contact.email
+      organisation.contact.email
     )
   ) {
     const error = {}
@@ -277,7 +297,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   }
 
-  if (!req.session.data.organisation.contact.telephone.length) {
+  if (!organisation.contact.telephone.length) {
     const error = {}
     error.fieldName = 'organisation-telephone'
     error.href = '#organisation-telephone'
@@ -285,7 +305,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   } else if (
     !validationHelper.isValidTelephone(
-      req.session.data.organisation.contact.telephone
+      organisation.contact.telephone
     )
   ) {
     const error = {}
@@ -295,7 +315,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   }
 
-  if (!req.session.data.organisation.contact.website.length) {
+  if (!organisation.contact.website.length) {
     const error = {}
     error.fieldName = 'organisation-website'
     error.href = '#organisation-website'
@@ -303,7 +323,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   } else if (
     !validationHelper.isValidURL(
-      req.session.data.organisation.contact.website
+      organisation.contact.website
     )
   ) {
     const error = {}
@@ -313,7 +333,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   }
 
-  if (!req.session.data.organisation.address.addressLine1.length) {
+  if (!organisation.address.addressLine1.length) {
     const error = {}
     error.fieldName = "address-line-1"
     error.href = "#address-line-1"
@@ -321,7 +341,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   }
 
-  if (!req.session.data.organisation.address.town.length) {
+  if (!organisation.address.town.length) {
     const error = {}
     error.fieldName = "address-town"
     error.href = "#address-town"
@@ -329,7 +349,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   }
 
-  if (!req.session.data.organisation.address.postcode.length) {
+  if (!organisation.address.postcode.length) {
     const error = {}
     error.fieldName = "address-postcode"
     error.href = "#address-postcode"
@@ -337,7 +357,7 @@ exports.edit_contact_details_post = (req, res) => {
     errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(
-      req.session.data.organisation.address.postcode
+      organisation.address.postcode
     )
   ) {
     const error = {}
@@ -431,6 +451,16 @@ exports.new_post = (req, res) => {
     error.href = '#organisation-code'
     error.text = 'Enter a provider code'
     errors.push(error)
+  } else if (
+    !validationHelper.isValidProviderCode(
+      req.session.data.organisation.code
+    )
+  ) {
+    const error = {}
+    error.fieldName = 'organisation-code'
+    error.href = '#organisation-code'
+    error.text = 'Enter a valid provider code'
+    errors.push(error)
   }
 
   if (!req.session.data.organisation.ukprn.length) {
@@ -438,6 +468,16 @@ exports.new_post = (req, res) => {
     error.fieldName = 'organisation-ukprn'
     error.href = '#organisation-ukprn'
     error.text = 'Enter a UK provider reference number (UKPRN)'
+    errors.push(error)
+  } else if (
+    !validationHelper.isValidUKPRN(
+      req.session.data.organisation.ukprn
+    )
+  ) {
+    const error = {}
+    error.fieldName = 'organisation-ukprn'
+    error.href = '#organisation-ukprn'
+    error.text = 'Enter a valid UK provider reference number (UKPRN)'
     errors.push(error)
   }
 
