@@ -29,6 +29,12 @@ exports.findMany = (params) => {
     )
   }
 
+  if (params.code?.length) {
+    organisations = organisations.filter(organisation =>
+      organisation.code.toLowerCase() === params.code.toLowerCase()
+    )
+  }
+
   return organisations
 }
 

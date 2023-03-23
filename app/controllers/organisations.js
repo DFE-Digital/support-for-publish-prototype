@@ -479,16 +479,28 @@ exports.new_post = (req, res) => {
     error.href = '#organisation-code'
     error.text = 'Enter a provider code'
     errors.push(error)
-  } else if (
-    !validationHelper.isValidProviderCode(
-      req.session.data.organisation.code
-    )
-  ) {
-    const error = {}
-    error.fieldName = 'organisation-code'
-    error.href = '#organisation-code'
-    error.text = 'Enter a valid provider code'
-    errors.push(error)
+  } else {
+    if (
+      !validationHelper.isValidProviderCode(
+        req.session.data.organisation.code
+      )
+    ) {
+      const error = {}
+      error.fieldName = 'organisation-code'
+      error.href = '#organisation-code'
+      error.text = 'Enter a valid provider code'
+      errors.push(error)
+    } else if (
+      organisationHelper.existsProviderCode(
+        req.session.data.organisation.code
+      )
+    ) {
+      const error = {}
+      error.fieldName = 'organisation-code'
+      error.href = '#organisation-code'
+      error.text = 'Provider code already in use'
+      errors.push(error)
+    }
   }
 
   if (!req.session.data.organisation.ukprn.length) {
