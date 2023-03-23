@@ -2,7 +2,6 @@
 const organisationModel = require('../models/organisations')
 const schoolModel = require('../models/schools')
 
-const cycleHelper = require('../helpers/cycles')
 const organisationHelper = require('../helpers/organisations')
 const paginationHelper = require('../helpers/pagination')
 const utilsHelper = require('../helpers/utils')
