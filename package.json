@@ -57,7 +57,7 @@
     "weighted": "^1.0.0"
   },
   "devDependencies": {
-    "glob": "^8.0.1",
+    "glob": "^9.3.2",
     "jest": "^28.0.3",
     "standard": "^17.0.0",
     "supertest": "^6.1.6"
