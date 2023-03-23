@@ -162,7 +162,7 @@ exports.edit_post = (req, res) => {
     const error = {}
     error.fieldName = 'organisation-name'
     error.href = '#organisation-name'
-    error.text = 'Enter a name'
+    error.text = 'Enter a provider name'
     errors.push(error)
   }
 
@@ -421,7 +421,7 @@ exports.new_post = (req, res) => {
     const error = {}
     error.fieldName = 'organisation-name'
     error.href = '#organisation-name'
-    error.text = 'Enter a name'
+    error.text = 'Enter a provider name'
     errors.push(error)
   }
 
