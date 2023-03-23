@@ -231,6 +231,16 @@ exports.edit_post = (req, res) => {
       error.href = '#organisation-urn'
       error.text = 'Enter a unique reference number (URN)'
       errors.push(error)
+    } else if (
+      !validationHelper.isValidURN(
+        organisation.urn
+      )
+    ) {
+      const error = {}
+      error.fieldName = 'organisation-urn'
+      error.href = '#organisation-urn'
+      error.text = 'Enter a valid unique reference number (URN)'
+      errors.push(error)
     }
   }
 
@@ -509,6 +519,16 @@ exports.new_post = (req, res) => {
       error.fieldName = 'organisation-urn'
       error.href = '#organisation-urn'
       error.text = 'Enter a unique reference number (URN)'
+      errors.push(error)
+    } else if (
+      !validationHelper.isValidURN(
+        req.session.data.organisation.urn
+      )
+    ) {
+      const error = {}
+      error.fieldName = 'organisation-urn'
+      error.href = '#organisation-urn'
+      error.text = 'Enter a valid unique reference number (URN)'
       errors.push(error)
     }
   }

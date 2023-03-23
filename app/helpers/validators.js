@@ -43,8 +43,12 @@ exports.isValidProviderCode = (code) => {
   return valid
 }
 
+// ^ matches the start of the string
+// \d matches any digit (equivalent to [0-9])
+// {5,6} quantifier matches the preceding \d between 5 and 6 times, inclusive
+// $ matches the end of the string
 exports.isValidURN = (urn) => {
-  const regex = /^[0-9]{6}$/
+  const regex = /^\d{5,6}$/
   let valid = true
   if (!urn || !regex.test(urn)) {
     valid = false
@@ -52,6 +56,11 @@ exports.isValidURN = (urn) => {
   return valid
 }
 
+// ^ matches the start of the string
+// 1 matches the literal character 1
+// \d matches any digit (equivalent to [0-9])
+// {7} quantifier matches the preceding \d exactly 7 times
+// $ matches the end of the string
 exports.isValidUKPRN = (ukprn) => {
   const regex = /^1\d{7}$/
   let valid = true
