@@ -32,11 +32,11 @@
         id: "users",
         name: "upload[raw]",
         label: {
-          text: "Location details",
+          text: "School details",
           classes: "govuk-label--s"
         },
         hint: {
-          text: "Enter the location name, unique reference number and address. Separate each location item with a tab or comma and use a new line for each location. You can also copy and paste directly from a spreadsheet as long as it is formatted correctly."
+          text: "Enter the school name, unique reference number and address. Separate each school item with a tab or comma and use a new line for each school. You can also copy and paste directly from a spreadsheet as long as it is formatted correctly."
         },
         errorMessage: errors | getErrorMessage("raw"),
         value: data.upload.raw
@@ -56,10 +56,10 @@
       How to format the data
     </h2>
     <p class="govuk-body">
-      Enter the location name, unique reference number and address. The order is important. You need to include:
+      Enter the school name, unique reference number and address. The order is important. You need to include:
     </p>
     <ul class="govuk-list govuk-list--bullet">
-      <li>location name</li>
+      <li>school name</li>
       <li>unique reference number</li>
       <li>address line 1</li>
       <li>address line 2</li>
@@ -71,7 +71,7 @@
       Copying from a <abbr title="comma separated values">CSV</abbr>
     </h3>
     <p class="govuk-body">
-      Separate each location item with a comma and use a new line for each location. For example:
+      Separate each school item with a comma and use a new line for each school. For example:
     </p>
 <pre><code>All Saints Catholic College,139735,Birch Lane,,Dukinfield,,SK16 5AP
 Blessed Thomas Holford Catholic College,106376,Urban Road,,Altrincham,,WA15 8HT
