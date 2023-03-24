@@ -1,7 +1,7 @@
 {% extends "_layout.njk" %}
 
 {% set primaryNavId = "organisations" %}
-{% set subNavId = "locations" %}
+{% set subNavId = "schools" %}
 
 {% set title = organisation.name + " (" + organisation.code + ")" %}
 
@@ -39,7 +39,7 @@
         <table class="govuk-table app-table--vertical-align-middle">
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-              <th class="govuk-table__header">Name</th>
+              <th class="govuk-table__header">School name</th>
               <th class="govuk-table__header">Location code</th>
               <th class="govuk-table__header">
                 <abbr class="app-!-text-decoration-underline-dotted" title="Unique reference number">
@@ -69,7 +69,7 @@
 
         </table>
       {% else %}
-        <p class="govuk-body">There are no locations for {{ organisation.name if organisation.name else "your organisation" }}.</p>
+        <p class="govuk-body">There are no schools for {{ organisation.name if organisation.name else "your organisation" }}.</p>
       {% endif %}
 
     </div>

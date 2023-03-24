@@ -1,10 +1,10 @@
 {% extends "_layout.njk" %}
 
 {% set primaryNavId = "organisations" %}
-{% set subNavId = "locations" %}
+{% set subNavId = "schools" %}
 
 {% set title = "Check your answers" %}
-{% set caption = "Add location - " + organisation.name + " (" + organisation.code + ")" %}
+{% set caption = "Add school - " + organisation.name + " (" + organisation.code + ")" %}
 
 {% block beforeContent %}
 {{ govukBackLink({
@@ -46,7 +46,7 @@
           rows: [
             {
               key: {
-                text: "Name"
+                text: "School name"
               },
               value: {
                 text: location.name
