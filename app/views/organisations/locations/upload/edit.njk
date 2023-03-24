@@ -1,12 +1,12 @@
 {% extends "_layout.njk" %}
 
 {% set primaryNavId = "organisations" %}
-{% set subNavId = "locations" %}
+{% set subNavId = "schools" %}
 
 {% if location.code %}
   {% set title = location.name %}
 {% else %}
-  {% set title = "Add location (" + currentLocationNum + " of " + locationCount + ")" %}
+  {% set title = "Add schools (" + currentLocationNum + " of " + locationCount + ")" %}
 {% endif %}
 
 {% set caption = organisation.name + " (" + organisation.code + ")" %}
@@ -37,7 +37,7 @@
           id: "location-name",
           name: "location[name]",
           label: {
-            text: "Name",
+            text: "School name",
             classes: "govuk-label--s"
           },
           errorMessage: errors | getErrorMessage("location-name"),
@@ -50,6 +50,9 @@
           label: {
             text: "Unique reference number (URN) (optional)",
             classes: "govuk-label--s"
+          },
+          formGroup: {
+            classes: "govuk-!-margin-bottom-2"
           },
           errorMessage: errors | getErrorMessage("location-urn"),
           value: location.urn
@@ -84,9 +87,21 @@
               text: "Address line 2 (optional)",
               classes: "govuk-label--s"
             },
-            autocomplete: "address-line1",
+            autocomplete: "address-line2",
             errorMessage: errors | getErrorMessage("address-line-2"),
             value: location.address.addressLine2 if location.address.addressLine2 else location.addressLine2
+          }) }}
+
+          {{ govukInput({
+            id: "address-line-3",
+            name: "location[address][addressLine3]",
+            label: {
+              text: "Address line 3 (optional)",
+              classes: "govuk-label--s"
+            },
+            autocomplete: "address-line3",
+            errorMessage: errors | getErrorMessage("address-line-3"),
+            value: location.address.addressLine3 if location.address.addressLine3 else location.addressLine3
           }) }}
 
           {{ govukInput({

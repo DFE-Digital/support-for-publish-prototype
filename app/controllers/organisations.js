@@ -235,7 +235,7 @@ exports.edit_post = (req, res) => {
     error.text = 'Select a provider type'
     errors.push(error)
   } else if (organisation.type === 'lead_school') {
-    if (organisation.isAccreditedBody) {
+    if (organisation.isAccreditedBody === 'yes') {
       const error = {}
       error.fieldName = 'organisation-type'
       error.href = '#organisation-type'
@@ -555,7 +555,7 @@ exports.new_post = (req, res) => {
     error.text = 'Select a provider type'
     errors.push(error)
   } else if (req.session.data.organisation.type === 'lead_school') {
-    if (req.session.data.organisation.isAccreditedBody) {
+    if (req.session.data.organisation.isAccreditedBody === 'yes') {
       const error = {}
       error.fieldName = 'organisation-type'
       error.href = '#organisation-type'

@@ -1,7 +1,7 @@
 {% extends "_layout.njk" %}
 
 {% set primaryNavId = "organisations" %}
-{% set subNavId = "locations" %}
+{% set subNavId = "schools" %}
 
 {% set title = location.name %}
 {% set caption = organisation.name + " (" + organisation.code + ")" %}
@@ -30,6 +30,9 @@
           {% if location.address.addressLine2.length %}
             {{ location.address.addressLine2 }}<br>
           {% endif %}
+          {% if location.address.addressLine3.length %}
+            {{ location.address.addressLine3 }}<br>
+          {% endif %}
           {% if location.address.town.length %}
             {{ location.address.town }}<br>
           {% endif %}
@@ -46,7 +49,7 @@
         rows: [
           {
             key: {
-              text: "Name"
+              text: "School name"
             },
             value: {
               text: location.name
@@ -63,7 +66,7 @@
           },
           {
             key: {
-              text: "Location code"
+              text: "School code"
             },
             value: {
               text: "- (dash)" if location.code == "-" else location.code
@@ -73,7 +76,7 @@
                 {
                   href: actions.change + "?referrer=change",
                   text: "Change",
-                  visuallyHiddenText: "location code"
+                  visuallyHiddenText: "school code"
                 }
               ]
             } if 1 == 0
@@ -117,7 +120,7 @@
       }) }}
 
       <p class="govuk-body">
-        <a class="govuk-link app-link--destructive" href="{{ actions.delete }}">Remove location</a>
+        <a class="govuk-link app-link--destructive" href="{{ actions.delete }}">Remove school</a>
       </p>
 
     </div>

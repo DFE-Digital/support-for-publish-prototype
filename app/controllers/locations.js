@@ -113,7 +113,7 @@ exports.new_post = (req, res) => {
     const error = {}
     error.fieldName = "location-name"
     error.href = "#location-name"
-    error.text = "Enter a name"
+    error.text = "Enter a school name"
     errors.push(error)
   }
 
@@ -190,7 +190,7 @@ exports.new_check_post = (req, res) => {
 
   delete req.session.data.location
 
-  req.flash('success', 'Location added')
+  req.flash('success', 'School added')
 
   if (req.session.data.button.submit === 'continue') {
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`)
@@ -228,7 +228,7 @@ exports.edit_post = (req, res) => {
     locationId: req.params.locationId
   })
 
-  location = req.session.data.location
+  location = {...location, ...req.session.data.location}
 
   const errors = []
 
@@ -236,7 +236,7 @@ exports.edit_post = (req, res) => {
     const error = {}
     error.fieldName = "location-name"
     error.href = "#location-name"
-    error.text = "Enter a name"
+    error.text = "Enter a school name"
     errors.push(error)
   }
 
@@ -294,7 +294,7 @@ exports.edit_post = (req, res) => {
 
     delete req.session.data.location
 
-    req.flash('success', 'Location updated')
+    req.flash('success', 'School updated')
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`)
   }
 }
@@ -327,7 +327,7 @@ exports.delete_post = (req, res) => {
     locationId: req.params.locationId
   })
 
-  req.flash('success', 'Location removed')
+  req.flash('success', 'School removed')
   res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
 }
 
@@ -359,7 +359,7 @@ exports.new_multiple_post = (req, res) => {
     const error = {}
     error.fieldName = 'raw'
     error.href = '#raw'
-    error.text = 'Enter location details'
+    error.text = 'Enter school details'
     errors.push(error)
   }
 
@@ -447,7 +447,7 @@ exports.new_multiple_edit_post = (req, res) => {
     const error = {}
     error.fieldName = 'location-name'
     error.href = '#location-name'
-    error.text = 'Enter a location name'
+    error.text = 'Enter a school name'
     errors.push(error)
   }
 
@@ -564,9 +564,9 @@ exports.new_multiple_check_get = (req, res) => {
 exports.new_multiple_check_post = (req, res) => {
   locationModel.insertMany(req.params.organisationId, req.session.data.locations)
   if (req.session.data.locations.length === 1) {
-    req.flash('success', `Location ${req.session.data.locations[0].name} added`)
+    req.flash('success', `School added`)
   } else {
-    req.flash('success', `${req.session.data.locations.length} locations added`)
+    req.flash('success', `${req.session.data.locations.length} schools added`)
   }
   delete req.session.data.locations
   delete req.session.data.upload

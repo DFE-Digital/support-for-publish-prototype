@@ -1,14 +1,14 @@
 {% extends "_layout.njk" %}
 
 {% set primaryNavId = "organisations" %}
-{% set subNavId = "locations" %}
+{% set subNavId = "schools" %}
 
 {% set caption = location.name + " - " + organisation.name + " (" + organisation.code + ")" %}
 
 {% if hasCourses %}
-  {% set title = "You cannot remove this location" %}
+  {% set title = "You cannot remove this school" %}
 {% else %}
-  {% set title = "Are you sure you want to remove this location?" %}
+  {% set title = "Are you sure you want to remove this school?" %}
 {% endif %}
 
 {% block beforeContent %}
@@ -31,13 +31,13 @@
 
         {% if hasCourses %}
 
-          <p class="govuk-body">{{ location.name }} is a location for courses run by {{ organisation.name }}.</p>
-          <p class="govuk-body">To remove {{ location.name }}, you must first remove the location for those courses.</p>
+          <p class="govuk-body">{{ location.name }} is a school placement for courses run by {{ organisation.name }}.</p>
+          <p class="govuk-body">To remove {{ location.name }}, you must first remove the school placement for those courses.</p>
 
         {% else %}
 
           {{ govukButton({
-            text: "Remove location",
+            text: "Remove school",
             classes: "govuk-button--warning"
           }) }}
 
