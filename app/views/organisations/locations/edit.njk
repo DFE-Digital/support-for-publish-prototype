@@ -3,7 +3,7 @@
 {% set primaryNavId = "organisations" %}
 {% set subNavId = "schools" %}
 
-{% if location.code %}
+{% if location.id %}
   {% set title = location.name %}
 {% else %}
   {% set title = "Add school" %}
@@ -46,7 +46,7 @@
           value: location.name
         }) }}
 
-        {% if location.code %}
+        {% if location.id %}
           <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">School code</p>
           <p class="govuk-body">{{ location.code }}</p>
         {% endif %}
