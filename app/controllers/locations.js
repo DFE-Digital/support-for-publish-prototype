@@ -113,7 +113,7 @@ exports.new_post = (req, res) => {
     const error = {}
     error.fieldName = "location-name"
     error.href = "#location-name"
-    error.text = "Enter a name"
+    error.text = "Enter a school name"
     errors.push(error)
   }
 
@@ -190,7 +190,7 @@ exports.new_check_post = (req, res) => {
 
   delete req.session.data.location
 
-  req.flash('success', 'Location added')
+  req.flash('success', 'School added')
 
   if (req.session.data.button.submit === 'continue') {
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`)
@@ -228,7 +228,7 @@ exports.edit_post = (req, res) => {
     locationId: req.params.locationId
   })
 
-  location = req.session.data.location
+  location = {...location, ...req.session.data.location}
 
   const errors = []
 
@@ -236,7 +236,7 @@ exports.edit_post = (req, res) => {
     const error = {}
     error.fieldName = "location-name"
     error.href = "#location-name"
-    error.text = "Enter a name"
+    error.text = "Enter a school name"
     errors.push(error)
   }
 
@@ -294,7 +294,7 @@ exports.edit_post = (req, res) => {
 
     delete req.session.data.location
 
-    req.flash('success', 'Location updated')
+    req.flash('success', 'School updated')
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}`)
   }
 }
