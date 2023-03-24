@@ -93,6 +93,18 @@
           }) }}
 
           {{ govukInput({
+            id: "address-line-3",
+            name: "location[address][addressLine3]",
+            label: {
+              text: "Address line 3 (optional)",
+              classes: "govuk-label--s"
+            },
+            autocomplete: "address-line3",
+            errorMessage: errors | getErrorMessage("address-line-3"),
+            value: location.address.addressLine3 if location.address.addressLine3 else location.addressLine3
+          }) }}
+
+          {{ govukInput({
             id: "address-town",
             name: "location[address][town]",
             label: {

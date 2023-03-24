@@ -46,6 +46,11 @@
           value: location.name
         }) }}
 
+        {% if location.code %}
+          <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">School code</p>
+          <p class="govuk-body">{{ location.code }}</p>
+        {% endif %}
+
         {{ govukInput({
           id: "location-urn",
           name: "location[urn]",
@@ -93,6 +98,18 @@
             autocomplete: "address-line2",
             errorMessage: errors | getErrorMessage("address-line-2"),
             value: location.address.addressLine2
+          }) }}
+
+          {{ govukInput({
+            id: "address-line-3",
+            name: "location[address][addressLine3]",
+            label: {
+              text: "Address line 3 (optional)",
+              classes: "govuk-label--s"
+            },
+            autocomplete: "address-line3",
+            errorMessage: errors | getErrorMessage("address-line-3"),
+            value: location.address.addressLine3
           }) }}
 
           {{ govukInput({
