@@ -21,12 +21,8 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      {% include "../_sub-navigation.njk" %}
-    </div>
-  </div>
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+      {% include "../_sub-navigation.njk" %}
 
       {{ govukButton({
         text: "Add location",
@@ -43,7 +39,7 @@
         <table class="govuk-table app-table--vertical-align-middle">
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-              <th class="govuk-table__header govuk-!-width-one-third">Name</th>
+              <th class="govuk-table__header">Name</th>
               <th class="govuk-table__header">Location code</th>
               <th class="govuk-table__header">
                 <abbr class="app-!-text-decoration-underline-dotted" title="Unique reference number">

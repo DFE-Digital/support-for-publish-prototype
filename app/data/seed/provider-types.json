@@ -2,16 +2,16 @@
   {
     "id": "25cff1dc-9bec-4d70-86ae-7a9a3fd4165b",
     "code": "hei",
-    "name": "Higher Education Institute (HEI)"
+    "name": "Higher education institution (HEI)"
   },
   {
     "id": "a3c70069-b5ff-421b-86ad-59e8b86070f3",
     "code": "scitt",
-    "name": "School Centred Initial Teacher Training (SCITT)"
+    "name": "School centred initial teacher training (SCITT)"
   },
   {
     "id": "e3a54e80-88db-4d36-8f37-63898f781b4f",
     "code": "lead_school",
-    "name": "Lead school"
+    "name": "School"
   }
 ]

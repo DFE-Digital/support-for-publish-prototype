@@ -110,3 +110,19 @@ exports.getProviderTypeLabel = (code) => {
 
   return label
 }
+
+exports.existsProviderCode = (code) => {
+  let exists = false
+
+  if (code) {
+    const organisations = organisationModel.findMany({
+      code
+    })
+
+    if (organisations.length) {
+      exists = true
+    }
+  }
+
+  return exists
+}
