@@ -114,6 +114,10 @@ exports.insertOne = (params) => {
         location.address.addressLine2 = params.location.address.addressLine2
       }
 
+      if (params.location.address.addressLine3.length) {
+        location.address.addressLine3 = params.location.address.addressLine3
+      }
+
       if (params.location.address.town.length) {
         location.address.town = params.location.address.town
       }
@@ -157,9 +161,9 @@ exports.updateOne = (params) => {
       delete location.urn
     }
 
-    if (params.location.code) {
-      location.code = ''
-    }
+    // if (params.location.code) {
+    //   location.code = ''
+    // }
 
     if (params.location.address !== undefined) {
       if (params.location.address.addressLine1.length) {
@@ -170,6 +174,12 @@ exports.updateOne = (params) => {
         location.address.addressLine2 = params.location.address.addressLine2
       } else {
         delete location.address.addressLine2
+      }
+
+      if (params.location.address.addressLine3.length) {
+        location.address.addressLine3 = params.location.address.addressLine3
+      } else {
+        delete location.address.addressLine3
       }
 
       if (params.location.address.town.length) {
