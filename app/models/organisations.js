@@ -58,7 +58,7 @@ exports.insertOne = (params) => {
 
   organisation.name = params.organisation.name
 
-  organisation.code = params.organisation.code
+  organisation.code = params.organisation.code.toUpperCase()
 
   if (params.organisation.ukprn) {
     organisation.ukprn = params.organisation.ukprn
