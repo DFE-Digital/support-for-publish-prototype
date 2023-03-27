@@ -295,9 +295,11 @@ exports.edit_post = (req, res) => {
 
 exports.edit_contact_details_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const currentOrganisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
   res.render('../views/organisations/contact', {
     organisation,
+    currentOrganisation,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit/contact`,
       back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
@@ -309,6 +311,8 @@ exports.edit_contact_details_get = (req, res) => {
 exports.edit_contact_details_post = (req, res) => {
   let organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
   organisation = req.session.data.organisation
+
+  const currentOrganisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
   const errors = []
 
@@ -403,6 +407,7 @@ exports.edit_contact_details_post = (req, res) => {
   if (errors.length) {
     res.render('../views/organisations/contact', {
       organisation,
+      currentOrganisation,
       actions: {
         save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit/contact`,
         back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
