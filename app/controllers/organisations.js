@@ -125,7 +125,6 @@ exports.show = (req, res) => {
 
 exports.edit_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  const currentOrganisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
   let selectedProviderType
   if (organisation.type) {
@@ -136,7 +135,7 @@ exports.edit_get = (req, res) => {
 
   res.render('../views/organisations/edit', {
     organisation,
-    currentOrganisation,
+    currentOrganisation: organisation,
     providerTypeItems,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`,
@@ -295,11 +294,10 @@ exports.edit_post = (req, res) => {
 
 exports.edit_contact_details_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
-  const currentOrganisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
   res.render('../views/organisations/contact', {
     organisation,
-    currentOrganisation,
+    currentOrganisation: organisation,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit/contact`,
       back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
