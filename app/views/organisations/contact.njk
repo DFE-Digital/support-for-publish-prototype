@@ -4,8 +4,8 @@
 
 {% set title = "Contact details" %}
 
-{% if organisation.id %}
-  {% set caption = organisation.name %}
+{% if currentOrganisation.id %}
+  {% set title = currentOrganisation.name + " (" + currentOrganisation.code + ")" %}
 {% else %}
   {% set caption = "Add organisation" %}
 {% endif %}
@@ -171,7 +171,7 @@
         {% endcall %}
 
         {{ govukButton({
-          text: "Update contact details" if organisation.id else "Continue"
+          text: "Update contact details" if currentOrganisation.id else "Continue"
         }) }}
 
       </form>

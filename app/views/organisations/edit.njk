@@ -2,8 +2,8 @@
 
 {% set primaryNavId = "organisations" %}
 
-{% if organisation.id %}
-  {% set title = organisation.name %}
+{% if currentOrganisation.id %}
+  {% set title = currentOrganisation.name + " (" + currentOrganisation.code + ")" %}
 {% else %}
   {% set title = "Organisation details" %}
   {% set caption = "Add organisation" %}
@@ -46,8 +46,8 @@
 
         {% if organisation.id %}
           <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">Provider code</p>
-          <p class="govuk-body">{{ organisation.code }}</p>
-          <input type="hidden" name="organisation[code]" value="{{ organisation.code }}">
+          <p class="govuk-body">{{ currentOrganisation.code }}</p>
+          <input type="hidden" name="organisation[code]" value="{{ currentOrganisation.code }}">
         {% else %}
           {{ govukInput({
             id: "organisation-code",
@@ -169,7 +169,7 @@
         }) }}
 
         {{ govukButton({
-          text: "Update organisation details" if organisation.id else "Continue"
+          text: "Update organisation details" if currentOrganisation.id else "Continue"
         }) }}
 
       </form>

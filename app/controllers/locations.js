@@ -213,6 +213,7 @@ exports.edit_get = (req, res) => {
   res.render('../views/organisations/locations/edit', {
     organisation,
     location,
+    currentLocation: location,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
       back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
@@ -229,6 +230,11 @@ exports.edit_post = (req, res) => {
   })
 
   location = {...location, ...req.session.data.location}
+
+  const currentLocation = locationModel.findOne({
+    organisationId: req.params.organisationId,
+    locationId: req.params.locationId
+  })
 
   const errors = []
 
@@ -278,6 +284,7 @@ exports.edit_post = (req, res) => {
     res.render('../views/organisations/locations/edit', {
       organisation,
       location,
+      currentLocation,
       actions: {
         save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/${req.params.locationId}/edit`,
         back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,

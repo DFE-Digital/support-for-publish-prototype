@@ -135,6 +135,7 @@ exports.edit_get = (req, res) => {
 
   res.render('../views/organisations/edit', {
     organisation,
+    currentOrganisation: organisation,
     providerTypeItems,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`,
@@ -147,6 +148,8 @@ exports.edit_get = (req, res) => {
 exports.edit_post = (req, res) => {
   let organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
   organisation = req.session.data.organisation
+
+  const currentOrganisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
   let selectedProviderType
   if (organisation.type) {
@@ -265,6 +268,7 @@ exports.edit_post = (req, res) => {
   if (errors.length) {
     res.render('../views/organisations/edit', {
       organisation,
+      currentOrganisation,
       providerTypeItems,
       actions: {
         save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`,
@@ -293,6 +297,7 @@ exports.edit_contact_details_get = (req, res) => {
 
   res.render('../views/organisations/contact', {
     organisation,
+    currentOrganisation: organisation,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit/contact`,
       back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,
@@ -304,6 +309,8 @@ exports.edit_contact_details_get = (req, res) => {
 exports.edit_contact_details_post = (req, res) => {
   let organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
   organisation = req.session.data.organisation
+
+  const currentOrganisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
   const errors = []
 
@@ -398,6 +405,7 @@ exports.edit_contact_details_post = (req, res) => {
   if (errors.length) {
     res.render('../views/organisations/contact', {
       organisation,
+      currentOrganisation,
       actions: {
         save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit/contact`,
         back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}`,

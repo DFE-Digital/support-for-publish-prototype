@@ -3,8 +3,8 @@
 {% set primaryNavId = "organisations" %}
 {% set subNavId = "schools" %}
 
-{% if location.id %}
-  {% set title = location.name %}
+{% if currentLocation.id %}
+  {% set title = currentLocation.name %}
 {% else %}
   {% set title = "Add school" %}
 {% endif %}
@@ -46,9 +46,9 @@
           value: location.name
         }) }}
 
-        {% if location.id %}
+        {% if currentLocation.id %}
           <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">School code</p>
-          <p class="govuk-body">{{ location.code }}</p>
+          <p class="govuk-body">{{ currentLocation.code }}</p>
         {% endif %}
 
         {{ govukInput({
@@ -153,7 +153,7 @@
         {% endcall %}
 
         {{ govukButton({
-          text: "Update school" if location.id else "Continue"
+          text: "Update school" if currentLocation.id else "Continue"
         }) }}
 
       </form>
