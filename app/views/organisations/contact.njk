@@ -30,7 +30,7 @@
 
       {% include "_includes/page-heading.njk" %}
 
-      {% if organisation.type == "lead_school" %}
+      {% if organisation.type == "lead_school" and hasGIAS %}
         {% set insetHtml %}
           Contact details provided by <a class="govuk-hint" href="https://www.get-information-schools.service.gov.uk/" target="_blank">Get information about schools (opens in new tab)</a>
         {% endset %}

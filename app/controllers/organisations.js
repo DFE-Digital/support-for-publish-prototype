@@ -612,8 +612,13 @@ exports.new_post = (req, res) => {
 
 exports.new_contact_details_get = (req, res) => {
   let school = {}
+  let hasGIAS = false
 
   if (req.session.data.organisation?.urn.length) {
+    // clear out old data
+    delete req.session.data.organisation.address
+    delete req.session.data.organisation.contact
+
     school = schoolModel.findOne({
       urn: req.session.data.organisation.urn
     })
@@ -629,6 +634,10 @@ exports.new_contact_details_get = (req, res) => {
         req.session.data.organisation.contact = school.contact
       }
     }
+
+    if (school) {
+      hasGIAS = true
+    }
   }
 
   let save = `/cycles/${req.params.cycleId}/organisations/new/contact`
@@ -641,6 +650,7 @@ exports.new_contact_details_get = (req, res) => {
 
   res.render('../views/organisations/contact', {
     organisation: req.session.data.organisation,
+    hasGIAS,
     actions: {
       save,
       back,
@@ -650,6 +660,18 @@ exports.new_contact_details_get = (req, res) => {
 }
 
 exports.new_contact_details_post = (req, res) => {
+  let hasGIAS = false
+
+  if (req.session.data.organisation?.urn.length) {
+    const school = schoolModel.findOne({
+      urn: req.session.data.organisation.urn
+    })
+
+    if (school) {
+      hasGIAS = true
+    }
+  }
+
   let save = `/cycles/${req.params.cycleId}/organisations/new/contact`
   let back = `/cycles/${req.params.cycleId}/organisations/new`
 
@@ -751,6 +773,7 @@ exports.new_contact_details_post = (req, res) => {
   if (errors.length) {
     res.render('../views/organisations/contact', {
       organisation: req.session.data.organisation,
+      hasGIAS,
       actions: {
         save,
         back,
