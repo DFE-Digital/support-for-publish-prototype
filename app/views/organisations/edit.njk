@@ -3,7 +3,7 @@
 {% set primaryNavId = "organisations" %}
 
 {% if currentOrganisation.id %}
-  {% set title = currentOrganisation.name %}
+  {% set title = currentOrganisation.name + " (" + currentOrganisation.code + ")" %}
 {% else %}
   {% set title = "Organisation details" %}
   {% set caption = "Add organisation" %}

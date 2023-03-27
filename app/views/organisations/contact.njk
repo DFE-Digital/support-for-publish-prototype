@@ -5,7 +5,7 @@
 {% set title = "Contact details" %}
 
 {% if currentOrganisation.id %}
-  {% set caption = currentOrganisation.name %}
+  {% set title = currentOrganisation.name + " (" + currentOrganisation.code + ")" %}
 {% else %}
   {% set caption = "Add organisation" %}
 {% endif %}
