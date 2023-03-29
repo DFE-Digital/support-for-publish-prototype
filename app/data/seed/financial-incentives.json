@@ -1,0 +1,597 @@
+[
+  {
+    "id": "732c32fd-cad6-4cb3-a728-851686921024",
+    "academicYear": "2021",
+    "subjectCode": "03",
+    "amount": "6000",
+    "type": "bursary"
+  },
+  {
+    "id": "b60835be-e26b-4293-a437-963bce0724e0",
+    "academicYear": "2021",
+    "subjectCode": "08",
+    "amount": "9000",
+    "type": "bursary"
+  },
+  {
+    "id": "d999f350-3c69-4fa5-b2cf-a3eeeb59de1f",
+    "academicYear": "2021",
+    "subjectCode": "11",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "cd698279-efac-4bc8-b63e-501759ddf109",
+    "academicYear": "2021",
+    "subjectCode": "11",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "6e9f430e-e6c2-46cd-abd8-59bc1fd1af60",
+    "academicYear": "2021",
+    "subjectCode": "15",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "6df4e3cc-3322-4102-a30a-d886016bf89d",
+    "academicYear": "2021",
+    "subjectCode": "15",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "722166bb-218f-40b9-b57b-6c326a4742e6",
+    "academicYear": "2021",
+    "subjectCode": "16",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "29495f1b-c20e-4e8b-bdd5-0bfe6345c422",
+    "academicYear": "2021",
+    "subjectCode": "16",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "b6e5cd09-4cc1-4b66-b5ae-e5fe7e43eeae",
+    "academicYear": "2021",
+    "subjectCode": "17",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "733601b8-788c-4de6-a3df-9ba9415da39c",
+    "academicYear": "2021",
+    "subjectCode": "17",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "d3f68c8e-734d-4e95-aabf-b9106785a09f",
+    "academicYear": "2021",
+    "subjectCode": "18",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "e016ba06-1711-4644-b130-3543cd566606",
+    "academicYear": "2021",
+    "subjectCode": "18",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "493ce104-6412-45db-950c-521eec86ca2a",
+    "academicYear": "2021",
+    "subjectCode": "19",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "1b447a37-c3b8-4dd6-859e-ea906c702fa9",
+    "academicYear": "2021",
+    "subjectCode": "19",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "d1148d3d-fc1f-4760-8ad1-3445dae9625a",
+    "academicYear": "2021",
+    "subjectCode": "21",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "159fb4a5-b680-44fd-880a-53a74eee757c",
+    "academicYear": "2021",
+    "subjectCode": "21",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "6c2d8ff2-5c20-4ee5-8dcc-ea62ee9ee4cf",
+    "academicYear": "2021",
+    "subjectCode": "22",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "3fb90338-eb88-4bf8-86f9-121c6c7a2434",
+    "academicYear": "2021",
+    "subjectCode": "22",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "2428bf9b-653c-4fbb-b143-ee0029e646fe",
+    "academicYear": "2021",
+    "subjectCode": "24",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "34fd35e8-9ea6-40d1-8cfc-956253f812ec",
+    "academicYear": "2021",
+    "subjectCode": "24",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "90dbdf3f-526d-4177-9b3d-a6df2a023289",
+    "academicYear": "2021",
+    "subjectCode": "A0",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "1d80bc2b-4f5c-4d90-9cbe-83d07a78bbaa",
+    "academicYear": "2021",
+    "subjectCode": "A0",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "c09d9285-3182-47ab-acac-e98c48d377d1",
+    "academicYear": "2021",
+    "subjectCode": "C1",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "1e5af7b1-f215-4dd2-9c7e-405944e38812",
+    "academicYear": "2021",
+    "subjectCode": "DT",
+    "amount": "15000",
+    "type": "bursary"
+  },
+  {
+    "id": "9250f145-697c-4bd4-86ab-caac5fbcb391",
+    "academicYear": "2021",
+    "subjectCode": "F1",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "74cfe185-571d-49aa-b036-97a99abb1aef",
+    "academicYear": "2021",
+    "subjectCode": "F1",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "b1d528c4-d440-450d-9952-8960e1aaa6fd",
+    "academicYear": "2021",
+    "subjectCode": "F3",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "d017a549-b7b2-46df-8d6b-f9f3357f0e45",
+    "academicYear": "2021",
+    "subjectCode": "F3",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "60c6df74-4e21-448e-b2e3-0c6bcddb9055",
+    "academicYear": "2021",
+    "subjectCode": "F8",
+    "amount": "15000",
+    "type": "bursary"
+  },
+  {
+    "id": "912c86a3-3f4f-4874-9940-3886ed933b6f",
+    "academicYear": "2021",
+    "subjectCode": "F8",
+    "amount": "17000",
+    "type": "scholarship"
+  },
+  {
+    "id": "be086604-235e-4fd8-8270-a68de42a7e3d",
+    "academicYear": "2021",
+    "subjectCode": "G1",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "da006861-a23e-404d-9305-c04e762bac18",
+    "academicYear": "2021",
+    "subjectCode": "G1",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "a4f6f95f-95b3-455a-80fb-92f7499599c0",
+    "academicYear": "2021",
+    "subjectCode": "ML",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "a472f756-0350-4891-91d9-1c1a156535a7",
+    "academicYear": "2021",
+    "subjectCode": "ML",
+    "amount": "28000",
+    "type": "scholarship"
+  },
+  {
+    "id": "d296af08-bef6-4d02-a376-57c957385092",
+    "academicYear": "2021",
+    "subjectCode": "Q3",
+    "amount": "12000",
+    "type": "bursary"
+  },
+  {
+    "id": "1faf62b5-9ba9-48a4-901c-151561a8ceb9",
+    "academicYear": "2021",
+    "subjectCode": "Q8",
+    "amount": "26000",
+    "type": "bursary"
+  },
+  {
+    "id": "2b1b95fe-1624-4b6a-a768-73956a40564e",
+    "academicYear": "2021",
+    "subjectCode": "V1",
+    "amount": "9000",
+    "type": "bursary"
+  },
+  {
+    "id": "cd3b8199-e453-4d4a-96ea-40a358477eb5",
+    "academicYear": "2021",
+    "subjectCode": "V6",
+    "amount": "9000",
+    "type": "bursary"
+  },
+  {
+    "id": "de46ff68-5333-4ec1-9545-0b0392a0303f",
+    "academicYear": "2021",
+    "subjectCode": "W1",
+    "amount": "9000",
+    "type": "bursary"
+  },
+  {
+    "id": "337cca65-6663-4405-922d-ea35f6903080",
+    "academicYear": "2021",
+    "subjectCode": "W3",
+    "amount": "9000",
+    "type": "bursary"
+  },
+  {
+    "id": "61c4b401-6fa2-43ce-a6d2-d5169cbde4c1",
+    "academicYear": "2022",
+    "subjectCode": "11",
+    "amount": "24000",
+    "type": "bursary"
+  },
+  {
+    "id": "27135961-9568-478e-9073-c099deda844c",
+    "academicYear": "2022",
+    "subjectCode": "11",
+    "amount": "26000",
+    "type": "scholarship"
+  },
+  {
+    "id": "408dca25-1997-464c-a873-0748291fe4ce",
+    "academicYear": "2022",
+    "subjectCode": "15",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "49f3bc95-9869-4f5f-a475-02da301fbca5",
+    "academicYear": "2022",
+    "subjectCode": "16",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "a438333f-9940-4211-9822-fe3cf7671546",
+    "academicYear": "2022",
+    "subjectCode": "17",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "16c8dce1-b3e9-4aca-846e-26c7c8d5712f",
+    "academicYear": "2022",
+    "subjectCode": "18",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "b7c7f3f2-2d10-4f4d-a450-b6f5c3748d82",
+    "academicYear": "2022",
+    "subjectCode": "19",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "1773a5d5-a38b-4a28-9bfd-c7142af2dd18",
+    "academicYear": "2022",
+    "subjectCode": "21",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "44b52e45-1816-4050-9b8e-ab3abe30ac65",
+    "academicYear": "2022",
+    "subjectCode": "22",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "33386559-315b-4147-a0b9-988e703ca100",
+    "academicYear": "2022",
+    "subjectCode": "24",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "4b4a7ee9-71e3-4257-8488-0b94b55320d3",
+    "academicYear": "2022",
+    "subjectCode": "A0",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "4c5619e4-ad2a-4d30-ab40-b10b6e90a4d9",
+    "academicYear": "2022",
+    "subjectCode": "C1",
+    "amount": "7000",
+    "type": "bursary"
+  },
+  {
+    "id": "db3ff52f-df94-4571-9476-7a1e663226b3",
+    "academicYear": "2022",
+    "subjectCode": "F1",
+    "amount": "24000",
+    "type": "bursary"
+  },
+  {
+    "id": "6c8dc6c1-aee4-415e-8c5c-dab8619bc906",
+    "academicYear": "2022",
+    "subjectCode": "F1",
+    "amount": "26000",
+    "type": "scholarship"
+  },
+  {
+    "id": "6beaaa74-bb87-4544-80ee-f4336cfdf519",
+    "academicYear": "2022",
+    "subjectCode": "F3",
+    "amount": "24000",
+    "type": "bursary"
+  },
+  {
+    "id": "1eb1dd4c-9930-437c-808b-8699c832dd29",
+    "academicYear": "2022",
+    "subjectCode": "F3",
+    "amount": "26000",
+    "type": "scholarship"
+  },
+  {
+    "id": "5609ee47-a524-4416-aecc-2349245aa8d7",
+    "academicYear": "2022",
+    "subjectCode": "G1",
+    "amount": "24000",
+    "type": "bursary"
+  },
+  {
+    "id": "aac9d630-c1b1-4a7b-985c-bbd587499390",
+    "academicYear": "2022",
+    "subjectCode": "G1",
+    "amount": "26000",
+    "type": "scholarship"
+  },
+  {
+    "id": "67027836-4465-4c22-9d59-45a1f11eea59",
+    "academicYear": "2022",
+    "subjectCode": "ML",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "6fa872d5-2b05-4a61-9f7a-a12600c4380c",
+    "academicYear": "2022",
+    "subjectCode": "Q8",
+    "amount": "10000",
+    "type": "bursary"
+  },
+  {
+    "id": "fb675bf5-7df2-4ff6-8492-de8c958c87b9",
+    "academicYear": "2023",
+    "subjectCode": "11",
+    "amount": "27000",
+    "type": "bursary"
+  },
+  {
+    "id": "3fbdf050-517d-41ba-bfaa-9d46d80f2468",
+    "academicYear": "2023",
+    "subjectCode": "11",
+    "amount": "29000",
+    "type": "scholarship"
+  },
+  {
+    "id": "1b324483-2cc1-4203-9738-1f7c3bcb2088",
+    "academicYear": "2023",
+    "subjectCode": "15",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "f21eb9bd-c765-40f4-8cc0-ea7b5436e0c7",
+    "academicYear": "2023",
+    "subjectCode": "15",
+    "amount": "27000",
+    "type": "scholarship"
+  },
+  {
+    "id": "e17cbb83-475f-482e-b4cb-ee937d8ba8b0",
+    "academicYear": "2023",
+    "subjectCode": "17",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "78fe1c9c-640b-41a4-8b10-663c53f03188",
+    "academicYear": "2023",
+    "subjectCode": "17",
+    "amount": "27000",
+    "type": "scholarship"
+  },
+  {
+    "id": "8f47b7b5-7069-4e8f-bb96-ecf280740916",
+    "academicYear": "2023",
+    "subjectCode": "18",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "c608fb9d-68b6-4f4d-a4ee-6ece84a5ff57",
+    "academicYear": "2023",
+    "subjectCode": "19",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "88dd007f-d661-4030-a2b2-20e7869bea70",
+    "academicYear": "2023",
+    "subjectCode": "20",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "3f53c801-143a-4509-b3f7-a5e417a2ba6e",
+    "academicYear": "2023",
+    "subjectCode": "21",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "e18f7396-09f0-41e0-a6b0-255fe61c96e6",
+    "academicYear": "2023",
+    "subjectCode": "22",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "68fc8a25-b8f4-4dcb-ad46-976f6b3001cb",
+    "academicYear": "2023",
+    "subjectCode": "24",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "670aba67-ed11-4c89-8db7-cfc09057f040",
+    "academicYear": "2023",
+    "subjectCode": "A0",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "76605872-0ebf-4e7e-b19c-bee2f5044bfb",
+    "academicYear": "2023",
+    "subjectCode": "A1",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "f6824f8d-aec6-4107-8cef-fde6ea92fb4e",
+    "academicYear": "2023",
+    "subjectCode": "A2",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "fa8d322b-eaf5-4e7c-a2d8-6d74cb29396f",
+    "academicYear": "2023",
+    "subjectCode": "C1",
+    "amount": "20000",
+    "type": "bursary"
+  },
+  {
+    "id": "71b5769e-050b-4532-a36d-8f9592479a5c",
+    "academicYear": "2023",
+    "subjectCode": "DT",
+    "amount": "20000",
+    "type": "bursary"
+  },
+  {
+    "id": "e1b41dae-d4d0-44ce-b423-61a1957cf3de",
+    "academicYear": "2023",
+    "subjectCode": "F1",
+    "amount": "27000",
+    "type": "bursary"
+  },
+  {
+    "id": "6d81cd68-0aab-4291-a2ec-c05ab1a19b9f",
+    "academicYear": "2023",
+    "subjectCode": "F1",
+    "amount": "29000",
+    "type": "scholarship"
+  },
+  {
+    "id": "73c7e8c4-6460-42c5-91a1-9efaa0e4493c",
+    "academicYear": "2023",
+    "subjectCode": "F3",
+    "amount": "27000",
+    "type": "bursary"
+  },
+  {
+    "id": "e0c57518-9faf-4543-89ea-c58c4134c55a",
+    "academicYear": "2023",
+    "subjectCode": "F3",
+    "amount": "29000",
+    "type": "scholarship"
+  },
+  {
+    "id": "74031c17-22c5-4abb-becb-36999b2fb9c2",
+    "academicYear": "2023",
+    "subjectCode": "F8",
+    "amount": "25000",
+    "type": "bursary"
+  },
+  {
+    "id": "368d2d73-b605-4372-be6f-8a6d7bed74e4",
+    "academicYear": "2023",
+    "subjectCode": "G1",
+    "amount": "27000",
+    "type": "bursary"
+  },
+  {
+    "id": "f9938e59-393a-4219-b4f8-2f8d4c6face1",
+    "academicYear": "2023",
+    "subjectCode": "G1",
+    "amount": "29000",
+    "type": "scholarship"
+  },
+  {
+    "id": "170e713f-bc30-4166-946c-3ba5a63b9163",
+    "academicYear": "2023",
+    "subjectCode": "Q3",
+    "amount": "15000",
+    "type": "bursary"
+  }
+]
