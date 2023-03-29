@@ -172,20 +172,145 @@ exports.new_accredited_provider_post = (req, res) => {
   } else {
 
     // find the accredited provider details
-    const accreditedProvider = organisationModel.findMany({
+    const accreditedProviders = organisationModel.findMany({
       isAccreditedBody: true,
       query: req.session.data.accreditedProvider.name
     })
 
-    req.session.data.accreditedProvider.id = accreditedProvider[0].id
-    req.session.data.accreditedProvider.code = accreditedProvider[0].code
-    req.session.data.accreditedProvider.name = accreditedProvider[0].name
+    req.session.data.accreditedProvider.id = accreditedProviders[0].id
+    req.session.data.accreditedProvider.code = accreditedProviders[0].code
+    req.session.data.accreditedProvider.name = accreditedProviders[0].name
 
     if (req.query.referrer === 'check') {
       res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers/new/check`)
     } else {
       res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers/new/description`)
     }
+  }
+}
+
+exports.new_accredited_provider_choose_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const providers = organisationModel.findMany({
+    isAccreditedBody: true,
+    query: req.session.data.accreditedProvider.name
+  })
+
+  // store total number of results
+  const providerCount = providers.length
+
+  // parse the school results for use in macro
+  let providerItems = []
+  providers.forEach(provider => {
+    const item = {}
+    item.text = `${provider.name} (${provider.code})`
+    item.value = provider.id
+    providerItems.push(item)
+  })
+
+  // sort items alphabetically
+  providerItems.sort((a,b) => {
+    return a.text.localeCompare(b.text)
+  })
+
+  // only get the first 15 items
+  providerItems = providerItems.slice(0,15)
+
+  res.render("../views/organisations/accredited-providers/choose", {
+    organisation,
+    providerItems,
+    providerCount,
+    searchTerm: req.session.data.accreditedProvider.name,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers/new/choose`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers/new`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`
+    }
+  })
+}
+
+exports.new_accredited_provider_choose_post = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
+  const providers = organisationModel.findMany({
+    isAccreditedBody: true,
+    query: req.session.data.accreditedProvider.name
+  })
+
+  // store total number of results
+  const providerCount = providers.length
+
+  let selectedItem
+  if (req.session.data.accreditedProvider?.id) {
+    selectedItem = req.session.data.accreditedProvider.id
+  }
+
+  // parse the school results for use in macro
+  let providerItems = []
+  providers.forEach(provider => {
+    const item = {}
+    item.text = `${provider.name} (${provider.code})`
+    item.value = provider.id
+    item.checked = selectedItem?.includes(provider.id) ? 'checked' : ''
+    providerItems.push(item)
+  })
+
+  // sort items alphabetically
+  providerItems.sort((a,b) => {
+    return a.text.localeCompare(b.text)
+  })
+
+  // only get the first 15 items
+  providerItems = providerItems.slice(0,15)
+
+  const errors = []
+
+  if (!selectedItem) {
+    const error = {}
+    error.fieldName = 'accredited-provider'
+    error.href = '#accredited-provider'
+    error.text = 'Select an accredited provider'
+    errors.push(error)
+  } else if (
+    organisationHelper.hasAccreditedProvider(
+      req.params.organisationId,
+      req.session.data.accreditedProvider.id
+    )
+  ) {
+    const accreditedProviderName = organisationHelper.getOrganisationLabel(
+      req.session.data.accreditedProvider.id
+    )
+
+    const error = {}
+    error.fieldName = 'accredited-provider'
+    error.href = '#accredited-provider'
+    error.text = `${accreditedProviderName} has already been added`
+    errors.push(error)
+  }
+
+  if (errors.length) {
+    res.render("../views/organisations/accredited-providers/choose", {
+      organisation,
+      providerItems,
+      providerCount,
+      searchTerm: req.session.data.accreditedProvider.name,
+      actions: {
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers/new/choose`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers/new`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`
+      },
+      errors,
+    })
+  } else {
+    const organisation = organisationModel.findOne({
+      organisationId: req.session.data.accreditedProvider.id
+    })
+
+    req.session.data.accreditedProvider.id = organisation.id
+    req.session.data.accreditedProvider.code = organisation.code
+    req.session.data.accreditedProvider.name = organisation.name
+
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers/new/description`)
   }
 }
 
