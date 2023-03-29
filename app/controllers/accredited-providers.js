@@ -309,7 +309,7 @@ exports.delete_accredited_provider_get = (req, res) => {
 }
 
 exports.delete_accredited_provider_post = (req, res) => {
-  accreditedBodyModel.deleteOne({
+  accreditedProviderModel.deleteOne({
     organisationId: req.params.organisationId,
     accreditedBodyId: req.params.accreditedProviderId
   })
