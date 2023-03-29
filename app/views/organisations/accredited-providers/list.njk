@@ -29,7 +29,49 @@
         href: actions.new
       }) }}
 
-      {% if accreditedProviders.length %}
+      {% if organisation.accreditedBodies.length %}
+
+        {% for accreditedBody in organisation.accreditedBodies %}
+
+          {{ govukSummaryList({
+            card: {
+              title: {
+                text: accreditedBody.name
+              },
+              actions: {
+                items: [
+                  {
+                    href: actions.change + "/accredited-bodies/" + accreditedBody.id + "/delete",
+                    text: "Delete",
+                    visuallyHiddenText: accreditedBody.name,
+                    classes: "app-link--destructive"
+                  }
+                ]
+              }
+            },
+            rows: [
+              {
+                key: {
+                  text: "Description"
+                },
+                value: {
+                  text: (accreditedBody.description | nl2br | markdownToHtml | safe) if accreditedBody.description.length else "Not entered",
+                  classes: "govuk-hint" if not accreditedBody.description.length
+                },
+                actions: {
+                  items: [
+                    {
+                      href: actions.change + "/accredited-providers/" + accreditedBody.id + "/description?referrer=change",
+                      text: "Change",
+                      visuallyHiddenText: "accredited provider description"
+                    }
+                  ]
+                }
+              }
+            ]
+          }) }}
+
+        {% endfor %}
 
       {% else %}
         <p class="govuk-body">There are no accredited providers for {{ organisation.name if organisation.name else "your organisation" }}.</p>
