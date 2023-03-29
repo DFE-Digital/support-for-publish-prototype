@@ -94,3 +94,17 @@ exports.isValidAccreditedProviderId = (accreditedProviderId, providerType = null
 
   return valid
 }
+
+exports.isValidWordCount = (text, wordCount) => {
+  // 1. Remove start/end whitespace and new lines, and replace with a space
+  // 2. Replace two or more spaces with a single space
+  const string = text.replace(/^\s+|\s+$|\n/g, ' ').replace(/\s{2,}/g, ' ')
+
+  let valid = true
+
+  if (string.split(' ').length > wordCount) {
+    valid = false
+  }
+
+  return valid
+}
