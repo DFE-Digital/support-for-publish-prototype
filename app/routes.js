@@ -139,6 +139,15 @@ router.get('/cycles/:cycleId/organisations/:organisationId/locations', checkIsAu
 /// ACCREDITED PROVIDER ROUTES
 /// ------------------------------------------------------------------------ ///
 
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new/description', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_description_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new/description', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_description_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new/check', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_check_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new/check', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_check_post)
+
 router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/:accreditedProviderId/description', checkIsAuthenticated, accreditedProviderController.edit_description_get)
 router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/:accreditedProviderId/description', checkIsAuthenticated, accreditedProviderController.edit_description_post)
 
@@ -175,6 +184,12 @@ router.post('/cycles/:cycleId/organisations/:organisationId/delete', checkIsAuth
 router.get('/cycles/:cycleId/organisations/:organisationId', checkIsAuthenticated, organisationController.show)
 
 router.get('/cycles/:cycleId/organisations', checkIsAuthenticated, organisationController.list)
+
+/// ------------------------------------------------------------------------ ///
+/// AUTOCOMPLETE ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/accredited-provider-suggestions', accreditedProviderController.accredited_provider_suggestions_json)
 
 /// --------------------------------------------------///
 /// CYCLE ROUTES
