@@ -29,8 +29,36 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      {% include "_includes/page-heading.njk" %}
+      {% set headingHtml %}
+        {% include "_includes/page-heading.njk" %}
+      {% endset %}
 
+      <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+        {{ govukCharacterCount({
+          id: "accredited-provider-description",
+          name: "accreditedProvider[description]",
+          rows: 10,
+          maxwords: wordCount,
+          label: {
+            html: headingHtml
+          },
+          hint: {
+            text: "Tell candidates about the accredited provider. You could mention their academic specialities and achievements."
+          },
+          errorMessage: errors | getErrorMessage("accredited-provider-description"),
+          value: accreditedProvider.description
+        }) }}
+
+        {{ govukButton({
+          text: "Update description" if referrer == "change" else "Continue"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="{{ actions.cancel }}">Cancel</a>
+      </p>
 
     </div>
   </div>
