@@ -6,6 +6,7 @@ const organisationModel = require('./organisations')
 const locationModel = require('./locations')
 const subjectModel = require('./subjects')
 
+const courseHelper = require('../helpers/courses')
 const cycleHelper = require('../helpers/cycles')
 
 exports.findMany = (params) => {
@@ -98,6 +99,10 @@ exports.insertOne = (params) => {
       course.subjects = subjects
     }
 
+    if (params.course.campaign) {
+      course.campaign = params.course.campaign
+    }
+
     if (params.course.ageRange) {
       course.ageRange = params.course.ageRange
 
@@ -156,11 +161,14 @@ exports.insertOne = (params) => {
 
         location.id = cl.id
         location.name = cl.name
+        location.vacancies = course.studyMode
 
         locations.push(location)
       })
 
       course.locations = locations
+
+      course.hasVacancies = 'yes'
     }
 
     if (params.organisationId) {
@@ -274,6 +282,14 @@ exports.updateOne = (params) => {
       }
     }
 
+    if (course.subjects[0].code === 'F3') {
+      if (params.course.campaign) {
+        course.campaign = params.course.campaign
+      }
+    } else {
+      delete course.campaign
+    }
+
     if (params.course.ageRange) {
       course.ageRange = params.course.ageRange
 
@@ -326,14 +342,25 @@ exports.updateOne = (params) => {
 
     if (params.course.locations) {
       const locations = []
+      const courseLocations = course.locations
 
       params.course.locations.forEach((courseLocation, i) => {
         const location = {}
 
-        const cl = locationModel.findOne({ organisationId: params.organisationId, locationId: courseLocation })
+        const l = locationModel.findOne({ organisationId: params.organisationId, locationId: courseLocation })
 
-        location.id = cl.id
-        location.name = cl.name
+        location.id = l.id
+        location.name = l.name
+
+        // get the current course location
+        const cl = course.locations.find(location => location.id === courseLocation)
+
+        // if the location exists, keep the previous vacancy info, otherwise set new
+        if (cl) {
+          location.vacancies = cl.vacancies
+        } else {
+          location.vacancies = course.studyMode
+        }
 
         locations.push(location)
       })
@@ -408,6 +435,10 @@ exports.updateOne = (params) => {
       course.feeDetails = params.course.feeDetails
     }
 
+    if (params.course.salaryDetails !== undefined) {
+      course.salaryDetails = params.course.salaryDetails
+    }
+
     if (params.course.financialSupport !== undefined) {
       course.financialSupport = params.course.financialSupport
     }
@@ -430,6 +461,16 @@ exports.updateOne = (params) => {
 
     if (params.course.status) {
       course.status = parseInt(params.course.status)
+    } else {
+      if (courseHelper.hasVacancies(course.locations)) {
+        if (course.status === 4) {
+          course.status = 1 // published
+        }
+      } else {
+        if (course.status === 1) {
+          course.status = 4 // closed
+        }
+      }
     }
 
     course.updatedAt = new Date()
