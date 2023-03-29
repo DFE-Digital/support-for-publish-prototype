@@ -113,6 +113,7 @@ exports.show = (req, res) => {
       users: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
       courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
       locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      accreditedProviders: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`,
       change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/edit`,
       delete: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/delete`
     }
