@@ -4,7 +4,8 @@ const router = express.Router()
 const passport = require('passport')
 
 // Controller modules
-const authenticationController = require('./controllers/authentication.js')
+const accreditedProviderController = require('./controllers/accredited-providers')
+const authenticationController = require('./controllers/authentication')
 const courseController = require('./controllers/courses')
 const cycleController = require('./controllers/cycles')
 const locationController = require('./controllers/locations')
@@ -133,6 +134,12 @@ router.post('/cycles/:cycleId/organisations/:organisationId/locations/:locationI
 router.get('/cycles/:cycleId/organisations/:organisationId/locations/:locationId', checkIsAuthenticated, locationController.show)
 
 router.get('/cycles/:cycleId/organisations/:organisationId/locations', checkIsAuthenticated, locationController.list)
+
+/// ------------------------------------------------------------------------ ///
+/// ACCREDITED PROVIDER ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers', checkIsAuthenticated, accreditedProviderController.list)
 
 /// ------------------------------------------------------------------------ ///
 /// ORGANISATION ROUTES
