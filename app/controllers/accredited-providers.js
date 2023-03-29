@@ -1,5 +1,6 @@
 const organisationModel = require('../models/organisations')
 const accreditedProviderModel = require('../models/accredited-providers')
+const courseModel = require('../models/courses')
 
 const organisationHelper = require("../helpers/organisations")
 const validationHelper = require("../helpers/validators")
@@ -27,12 +28,6 @@ exports.list = (req, res) => {
     }
   })
 }
-
-/// ------------------------------------------------------------------------ ///
-/// VIEW ACCREDITED PROVIDER
-/// ------------------------------------------------------------------------ //
-
-
 
 /// ------------------------------------------------------------------------ ///
 /// EDIT ACCREDITED PROVIDER
@@ -287,7 +282,41 @@ exports.new_accredited_provider_check_post = (req, res) => {
   res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`)
 }
 
+/// ------------------------------------------------------------------------ ///
+/// DELETE ACCREDITED PROVIDER
+/// ------------------------------------------------------------------------ ///
 
+exports.delete_accredited_provider_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const accreditedProvider = organisation.accreditedBodies.find(accreditedBody => accreditedBody.id === req.params.accreditedProviderId)
+
+  const courses = courseModel
+    .findMany({ organisationId: req.params.organisationId })
+    .filter(course => course.accreditedBody.id === req.params.accreditedProviderId)
+
+  const hasCourses = !!courses.length
+
+  res.render('../views/organisations/accredited-providers/delete', {
+    organisation,
+    accreditedProvider,
+    hasCourses,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers/${req.params.accreditedProviderId}/delete`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`
+    }
+  })
+}
+
+exports.delete_accredited_provider_post = (req, res) => {
+  accreditedBodyModel.deleteOne({
+    organisationId: req.params.organisationId,
+    accreditedBodyId: req.params.accreditedProviderId
+  })
+
+  req.flash('success', 'Accredited provider deleted')
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`)
+}
 
 /// ------------------------------------------------------------------------ ///
 /// ACCREDITED PROVIDER SUGGESTIONS FOR AUTOCOMPLETE
