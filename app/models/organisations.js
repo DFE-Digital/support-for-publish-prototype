@@ -35,6 +35,16 @@ exports.findMany = (params) => {
     )
   }
 
+  if (params.query?.length) {
+    const query = params.query.toLowerCase()
+    return organisations.filter(organisation =>
+      organisation.name.toLowerCase().includes(query)
+      || organisation.code.toLowerCase().includes(query)
+      || organisation.ukprn?.toString().includes(query)
+      || organisation.address?.postcode?.toLowerCase().includes(query)
+     )
+  }
+
   return organisations
 }
 

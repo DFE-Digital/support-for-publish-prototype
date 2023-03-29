@@ -17,6 +17,10 @@
       text: "Schools",
       href: actions.locations,
       active: true if subNavId == "schools"
-    }
+    }, {
+      text: "Accredited providers",
+      href: actions.accreditedProviders,
+      active: true if subNavId == "accreditedProviders"
+    } if not organisation.isAccreditedBody
   ]
 }) }}

@@ -4,7 +4,8 @@ const router = express.Router()
 const passport = require('passport')
 
 // Controller modules
-const authenticationController = require('./controllers/authentication.js')
+const accreditedProviderController = require('./controllers/accredited-providers')
+const authenticationController = require('./controllers/authentication')
 const courseController = require('./controllers/courses')
 const cycleController = require('./controllers/cycles')
 const locationController = require('./controllers/locations')
@@ -135,6 +136,27 @@ router.get('/cycles/:cycleId/organisations/:organisationId/locations/:locationId
 router.get('/cycles/:cycleId/organisations/:organisationId/locations', checkIsAuthenticated, locationController.list)
 
 /// ------------------------------------------------------------------------ ///
+/// ACCREDITED PROVIDER ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new/description', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_description_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new/description', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_description_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new/check', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_check_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/new/check', checkIsAuthenticated, accreditedProviderController.new_accredited_provider_check_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/:accreditedProviderId/description', checkIsAuthenticated, accreditedProviderController.edit_description_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/:accreditedProviderId/description', checkIsAuthenticated, accreditedProviderController.edit_description_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers/:accreditedProviderId/delete', checkIsAuthenticated, accreditedProviderController.delete_accredited_provider_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/accredited-providers/:accreditedProviderId/delete', checkIsAuthenticated, accreditedProviderController.delete_accredited_provider_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/accredited-providers', checkIsAuthenticated, accreditedProviderController.list)
+
+/// ------------------------------------------------------------------------ ///
 /// ORGANISATION ROUTES
 /// ------------------------------------------------------------------------ ///
 
@@ -165,6 +187,12 @@ router.post('/cycles/:cycleId/organisations/:organisationId/delete', checkIsAuth
 router.get('/cycles/:cycleId/organisations/:organisationId', checkIsAuthenticated, organisationController.show)
 
 router.get('/cycles/:cycleId/organisations', checkIsAuthenticated, organisationController.list)
+
+/// ------------------------------------------------------------------------ ///
+/// AUTOCOMPLETE ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/accredited-provider-suggestions', accreditedProviderController.accredited_provider_suggestions_json)
 
 /// --------------------------------------------------///
 /// CYCLE ROUTES
