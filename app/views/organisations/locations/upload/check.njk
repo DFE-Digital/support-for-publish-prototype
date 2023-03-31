@@ -47,14 +47,14 @@
           {{ govukSummaryList({
             card: {
               title: {
-                text: "Location " + loop.index
+                text: "School " + loop.index
               },
               actions: {
                 items: [
                   {
                     href: actions.change + "?action=change&position=" + loop.index0,
                     text: "Change",
-                    visuallyHiddenText: "location " + loop.index
+                    visuallyHiddenText: "school " + loop.index
                   }
                 ]
               }
@@ -62,7 +62,7 @@
             rows: [
               {
                 key: {
-                  text: "Name"
+                  text: "School name"
                 },
                 value: {
                   text: location.name
@@ -91,7 +91,7 @@
         {% endfor %}
 
         {{ govukButton({
-          text: "Add locations"
+          text: "Add schools"
         }) }}
 
       </form>
