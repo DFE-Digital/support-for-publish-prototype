@@ -138,7 +138,7 @@ exports.new_post = (req, res) => {
     const error = {}
     error.fieldName = "address-postcode"
     error.href = "#address-postcode"
-    error.text = "Enter postcode"
+    error.text = "Enter a postcode"
     errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(
@@ -267,7 +267,7 @@ exports.edit_post = (req, res) => {
     const error = {}
     error.fieldName = "address-postcode"
     error.href = "#address-postcode"
-    error.text = "Enter postcode"
+    error.text = "Enter a postcode"
     errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(
@@ -479,7 +479,7 @@ exports.new_multiple_edit_post = (req, res) => {
     const error = {}
     error.fieldName = "address-postcode"
     error.href = "#address-postcode"
-    error.text = "Enter postcode"
+    error.text = "Enter a postcode"
     errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(

@@ -355,7 +355,7 @@ exports.edit_contact_details_post = (req, res) => {
     const error = {}
     error.fieldName = 'organisation-website'
     error.href = '#organisation-website'
-    error.text = 'Enter a website'
+    error.text = 'Enter a website address'
     errors.push(error)
   } else if (
     !validationHelper.isValidURL(
@@ -389,7 +389,7 @@ exports.edit_contact_details_post = (req, res) => {
     const error = {}
     error.fieldName = "address-postcode"
     error.href = "#address-postcode"
-    error.text = "Enter postcode"
+    error.text = "Enter a postcode"
     errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(
@@ -723,7 +723,7 @@ exports.new_contact_details_post = (req, res) => {
     const error = {}
     error.fieldName = 'organisation-website'
     error.href = '#organisation-website'
-    error.text = 'Enter a website'
+    error.text = 'Enter a website address'
     errors.push(error)
   } else if (
     !validationHelper.isValidURL(
@@ -757,7 +757,7 @@ exports.new_contact_details_post = (req, res) => {
     const error = {}
     error.fieldName = "address-postcode"
     error.href = "#address-postcode"
-    error.text = "Enter postcode"
+    error.text = "Enter a postcode"
     errors.push(error)
   } else if (
     !validationHelper.isValidPostcode(
