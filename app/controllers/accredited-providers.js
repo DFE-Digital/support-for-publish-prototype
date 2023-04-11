@@ -8,9 +8,11 @@ const validationHelper = require("../helpers/validators")
 exports.list = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
-  organisation.accreditedBodies.sort((a,b)=> {
-    return a.name.localeCompare(b.name)
-  })
+  if (organisation.accreditedBodies) {
+    organisation.accreditedBodies.sort((a,b)=> {
+      return a.name.localeCompare(b.name)
+    })
+  }
 
   // clear out the session
   delete req.session.data.accreditedProvider
