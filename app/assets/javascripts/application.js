@@ -10,6 +10,6 @@ $(document).ready(function () {
   window.GOVUKFrontend.initAll()
 })
 
-$(document).ready(function () {
-  initAutocompletes()
-})
+// $(document).ready(function () {
+//   initAutocompletes()
+// })
