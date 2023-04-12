@@ -15,9 +15,10 @@ const parseRawLocationData = (array) => {
     location.urn = row[1]
     location.addressLine1 = row[2]
     location.addressLine2 = row[3]
-    location.town = row[4]
-    location.county = row[5]
-    location.postcode = row[6]
+    location.addressLine3 = row[4]
+    location.town = row[5]
+    location.county = row[6]
+    location.postcode = row[7]
     locations.push(location)
   })
   return locations
