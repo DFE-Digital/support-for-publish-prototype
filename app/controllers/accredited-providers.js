@@ -97,7 +97,7 @@ exports.edit_description_post = (req, res) => {
       accreditedBody: accreditedProvider
     })
 
-    req.flash('success', 'Accredited provider description updated')
+    req.flash('success', 'About the accredited provider updated')
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`)
   }
 }
