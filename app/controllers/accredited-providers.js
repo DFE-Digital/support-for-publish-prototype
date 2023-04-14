@@ -441,7 +441,7 @@ exports.delete_accredited_provider_post = (req, res) => {
     accreditedBodyId: req.params.accreditedProviderId
   })
 
-  req.flash('success', 'Accredited provider deleted')
+  req.flash('success', 'Accredited provider removed')
   res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`)
 }
 
