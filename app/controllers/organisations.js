@@ -183,7 +183,7 @@ exports.edit_post = (req, res) => {
     const error = {}
     error.fieldName = 'organisation-code'
     error.href = '#organisation-code'
-    error.text = 'Enter a valid provider code'
+    error.text = 'Enter a valid provider code - it must be 3 characters and alphanumeric'
     errors.push(error)
   }
 
@@ -201,7 +201,7 @@ exports.edit_post = (req, res) => {
     const error = {}
     error.fieldName = 'organisation-ukprn'
     error.href = '#organisation-ukprn'
-    error.text = 'Enter a valid UK provider reference number (UKPRN)'
+    error.text = 'Enter a valid UK provider reference number (UKPRN) - it must be 8 digits starting with a 1, like 12345678'
     errors.push(error)
   }
 
@@ -227,7 +227,7 @@ exports.edit_post = (req, res) => {
       const error = {}
       error.fieldName = 'organisation-accredited-provider-id'
       error.href = '#organisation-accredited-provider-id'
-      error.text = 'Enter a valid accredited provider ID'
+      error.text = 'Enter a valid accredited provider ID - it must be 4 digits starting with a 1 or a 5'
       errors.push(error)
     }
   }
@@ -260,7 +260,7 @@ exports.edit_post = (req, res) => {
         const error = {}
         error.fieldName = 'organisation-urn'
         error.href = '#organisation-urn'
-        error.text = 'Enter a valid unique reference number (URN)'
+        error.text = 'Enter a valid unique reference number (URN) - it must be 5 or 6 digits long'
         errors.push(error)
       }
     }
@@ -497,7 +497,7 @@ exports.new_post = (req, res) => {
       const error = {}
       error.fieldName = 'organisation-code'
       error.href = '#organisation-code'
-      error.text = 'Enter a valid provider code'
+      error.text = 'Enter a valid provider code - it must be 3 characters and alphanumeric'
       errors.push(error)
     } else if (
       organisationHelper.existsProviderCode(
@@ -526,7 +526,7 @@ exports.new_post = (req, res) => {
     const error = {}
     error.fieldName = 'organisation-ukprn'
     error.href = '#organisation-ukprn'
-    error.text = 'Enter a valid UK provider reference number (UKPRN)'
+    error.text = 'Enter a valid UK provider reference number (UKPRN) - it must be 8 digits starting with a 1, like 12345678'
     errors.push(error)
   }
 
@@ -552,7 +552,7 @@ exports.new_post = (req, res) => {
       const error = {}
       error.fieldName = 'organisation-accredited-provider-id'
       error.href = '#organisation-accredited-provider-id'
-      error.text = 'Enter a valid accredited provider ID'
+      error.text = 'Enter a valid accredited provider ID - it must be 4 digits starting with a 1 or a 5'
       errors.push(error)
     }
   }
@@ -585,7 +585,7 @@ exports.new_post = (req, res) => {
         const error = {}
         error.fieldName = 'organisation-urn'
         error.href = '#organisation-urn'
-        error.text = 'Enter a valid unique reference number (URN)'
+        error.text = 'Enter a valid unique reference number (URN) - it must be 5 or 6 digits long'
         errors.push(error)
       }
     }
