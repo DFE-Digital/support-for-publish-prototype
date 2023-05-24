@@ -37,7 +37,7 @@ exports.list = (req, res) => {
       studySites: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
       accreditedProviders: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`,
       new: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
-      view: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+      view: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`
     }
   })
 }
@@ -57,7 +57,7 @@ exports.show = (req, res) => {
     organisation,
     studySite,
     actions: {
-      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
       change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/${req.params.studySiteId}/edit`,
       delete: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/${req.params.studySiteId}/delete`
     }
@@ -118,24 +118,32 @@ exports.new_find_post = (req, res) => {
 exports.new_edit_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
-  let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+  let studySite = {}
+  if (req.session.data.studySite) {
+    studySite = req.session.data.studySite
+  } else {
+   studySite = schoolModel.findOne({ name: req.session.data.school })
+  }
+
+  let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`
   if (req.query.referrer === 'check') {
     back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/check`
   }
 
   res.render('../views/organisations/study-sites/edit', {
     organisation,
-    studySite: req.session.data.studySite,
+    studySite,
     actions: {
-      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/edit`,
       back,
-      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`
     }
   })
 }
 
 exports.new_edit_post = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const studySite = req.session.data.studySite
 
   const errors = []
 
@@ -184,11 +192,11 @@ exports.new_edit_post = (req, res) => {
   if (errors.length) {
     res.render('../views/organisations/study-sites/edit', {
       organisation,
-      studySite: req.session.data.studySite,
+      studySite,
       actions: {
-        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
-        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
-        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/edit`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`
       },
       errors
     })
@@ -199,15 +207,16 @@ exports.new_edit_post = (req, res) => {
 
 exports.new_check_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const studySite = req.session.data.studySite
 
   res.render('../views/organisations/study-sites/check', {
     organisation,
-    studySite: req.session.data.studySite,
+    studySite,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/check`,
-      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
-      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
-      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/edit`,
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/edit`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`
     }
   })
 }
@@ -219,14 +228,10 @@ exports.new_check_post = (req, res) => {
   })
 
   delete req.session.data.studySite
+  delete req.session.data.school
 
   req.flash('success', 'Study site added')
-
-  if (req.session.data.button.submit === 'continue') {
-    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`)
-  } else {
-    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
-  }
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`)
 }
 
 /// ------------------------------------------------------------------------ ///
@@ -246,7 +251,7 @@ exports.edit_get = (req, res) => {
     currentstudySite: studySite,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/${req.params.studySiteId}/edit`,
-      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
       cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/${req.params.studySiteId}`
     }
   })
@@ -317,7 +322,7 @@ exports.edit_post = (req, res) => {
       currentStudySite,
       actions: {
         save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/${req.params.studySiteId}/edit`,
-        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
         cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/${req.params.studySiteId}`
       },
       errors
@@ -365,7 +370,7 @@ exports.delete_post = (req, res) => {
   })
 
   req.flash('success', 'Study site removed')
-  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
+  res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`)
 }
 
 /// ------------------------------------------------------------------------ ///
