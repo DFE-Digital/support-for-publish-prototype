@@ -10,6 +10,7 @@ const courseController = require('./controllers/courses')
 const cycleController = require('./controllers/cycles')
 const locationController = require('./controllers/locations')
 const organisationController = require('./controllers/organisations')
+const studySitesController = require('./controllers/study-sites')
 const userController = require('./controllers/users')
 
 // Authentication middleware
@@ -134,6 +135,29 @@ router.post('/cycles/:cycleId/organisations/:organisationId/locations/:locationI
 router.get('/cycles/:cycleId/organisations/:organisationId/locations/:locationId', checkIsAuthenticated, locationController.show)
 
 router.get('/cycles/:cycleId/organisations/:organisationId/locations', checkIsAuthenticated, locationController.list)
+
+/// ------------------------------------------------------------------------ ///
+/// STUDY SITE ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new', checkIsAuthenticated, studySiteController.new_find_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new', checkIsAuthenticated, studySiteController.new_find_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new/edit', checkIsAuthenticated, studySiteController.new_edit_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new/edit', checkIsAuthenticated, studySiteController.new_edit_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new/check', checkIsAuthenticated, studySiteController.new_check_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new/check', checkIsAuthenticated, studySiteController.new_check_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId/edit', checkIsAuthenticated, studySiteController.edit_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId/edit', checkIsAuthenticated, studySiteController.edit_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId/delete', checkIsAuthenticated, studySiteController.delete_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId/delete', checkIsAuthenticated, studySiteController.delete_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId', checkIsAuthenticated, studySiteController.show)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites', checkIsAuthenticated, studySiteController.list)
 
 /// ------------------------------------------------------------------------ ///
 /// ACCREDITED PROVIDER ROUTES
