@@ -10,7 +10,7 @@ const courseController = require('./controllers/courses')
 const cycleController = require('./controllers/cycles')
 const locationController = require('./controllers/locations')
 const organisationController = require('./controllers/organisations')
-const studySitesController = require('./controllers/study-sites')
+const studySiteController = require('./controllers/study-sites')
 const userController = require('./controllers/users')
 
 // Authentication middleware
@@ -220,6 +220,10 @@ router.get('/cycles/:cycleId/organisations', checkIsAuthenticated, organisationC
 /// ------------------------------------------------------------------------ ///
 
 router.get('/accredited-provider-suggestions', accreditedProviderController.accredited_provider_suggestions_json)
+
+// router.get('/school-suggestions', locationController.school_suggestions_json)
+
+router.get('/study-site-suggestions', studySiteController.study_site_suggestions_json)
 
 /// --------------------------------------------------///
 /// CYCLE ROUTES
