@@ -29,6 +29,7 @@ app/data/courses/
 app/data/locations/
 app/data/organisations/
 app/data/users/
+app/data/study-sites/
 
 # Ignore tracking usage data config - we want a different one for each user
 usage-data-config.json
