@@ -143,6 +143,9 @@ router.get('/cycles/:cycleId/organisations/:organisationId/locations', checkIsAu
 router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new', checkIsAuthenticated, studySiteController.new_find_get)
 router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new', checkIsAuthenticated, studySiteController.new_find_post)
 
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new/choose', checkIsAuthenticated, studySiteController.new_choose_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new/choose', checkIsAuthenticated, studySiteController.new_choose_post)
+
 router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new/edit', checkIsAuthenticated, studySiteController.new_edit_get)
 router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new/edit', checkIsAuthenticated, studySiteController.new_edit_post)
 
