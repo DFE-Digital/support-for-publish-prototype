@@ -35,7 +35,7 @@ exports.list = (req, res) => {
       courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
       locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
       studySites: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
-      accreditedProviders: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`,
+      accreditedProviders: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
       new: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
       view: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`
     }
@@ -112,6 +112,113 @@ exports.new_find_post = (req, res) => {
     res.redirect(
       `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/edit`
     )
+  }
+}
+
+exports.new_choose_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const studySites = schoolModel.findMany({
+    query: req.session.data.query
+  })
+
+  // store total number of results
+  const studySiteCount = studySites.length
+
+  // parse the school results for use in macro
+  let studySiteItems = []
+  studySites.forEach(studySite => {
+    const item = {}
+    item.text = studySite.name
+    item.value = studySite.urn
+    item.hint = {
+      text: `${studySite.address.town}, ${studySite.address.postcode}`
+    }
+    studySiteItems.push(item)
+  })
+
+  // sort items alphabetically
+  studySiteItems.sort((a,b) => {
+    return a.text.localeCompare(b.text)
+  })
+
+  // only get the first 15 items
+  studySiteItems = studySiteItems.slice(0,15)
+
+  res.render("../views/organisations/study-sites/choose", {
+    organisation,
+    studySiteItems,
+    studySiteCount,
+    searchTerm: req.session.data.query,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/choose`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`
+    }
+  })
+}
+
+exports.new_choose_post = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const studySites = schoolModel.findMany({
+    query: req.session.data.query
+  })
+
+  // store total number of results
+  const studySiteCount = studySites.length
+
+  // parse the school results for use in macro
+  let studySiteItems = []
+  studySites.forEach(studySite => {
+    const item = {}
+    item.text = studySite.name
+    item.value = studySite.urn
+    item.hint = {
+      text: `${studySite.address.town}, ${studySite.address.postcode}`
+    }
+    studySiteItems.push(item)
+  })
+
+  // sort items alphabetically
+  studySiteItems.sort((a,b) => {
+    return a.text.localeCompare(b.text)
+  })
+
+  // only get the first 15 items
+  studySiteItems = studySiteItems.slice(0,15)
+
+  const errors = []
+
+  if (!req.session.data.school) {
+    const error = {}
+    error.fieldName = 'school'
+    error.href = '#school'
+    error.text = 'Select a study site'
+    errors.push(error)
+  }
+
+  if (errors.length) {
+    res.render("../views/organisations/study-sites/choose", {
+      organisation,
+      studySiteItems,
+      studySiteCount,
+      searchTerm: req.session.data.query,
+      actions: {
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/choose`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`
+      },
+      errors,
+    })
+  } else {
+    const organisation = organisationModel.findOne({
+      organisationId: req.session.data.accreditedProvider.id
+    })
+
+    req.session.data.accreditedProvider.id = organisation.id
+    req.session.data.accreditedProvider.code = organisation.code
+    req.session.data.accreditedProvider.name = organisation.name
+
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/description`)
   }
 }
 
