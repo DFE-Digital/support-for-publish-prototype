@@ -24,20 +24,23 @@
 
         {% set addressHtml %}
           <p class="govuk-body">
-            {% if location.address.addressLine1.length %}
-              {{ location.address.addressLine1 }}<br>
+            {% if studySite.address.addressLine1.length %}
+              {{ studySite.address.addressLine1 }}<br>
             {% endif %}
-            {% if location.address.addressLine2.length %}
-              {{ location.address.addressLine2 }}<br>
+            {% if studySite.address.addressLine2.length %}
+              {{ studySite.address.addressLine2 }}<br>
             {% endif %}
-            {% if location.address.town.length %}
-              {{ location.address.town }}<br>
+            {% if studySite.address.addressLine3.length %}
+              {{ studySite.address.addressLine3 }}<br>
             {% endif %}
-            {% if location.address.county.length %}
-              {{ location.address.county }}<br>
+            {% if studySite.address.town.length %}
+              {{ studySite.address.town }}<br>
             {% endif %}
-            {% if location.address.postcode.length %}
-              {{ location.address.postcode | upper }}<br>
+            {% if studySite.address.county.length %}
+              {{ studySite.address.county }}<br>
+            {% endif %}
+            {% if studySite.address.postcode.length %}
+              {{ studySite.address.postcode | upper }}<br>
             {% endif %}
           </p>
         {% endset %}
@@ -49,7 +52,7 @@
                 text: "School name"
               },
               value: {
-                text: location.name
+                text: studySite.name
               },
               actions: {
                 items: [
@@ -66,8 +69,8 @@
                 text: "Unique reference number (URN)"
               },
               value: {
-                text: location.urn if location.urn else "Not entered",
-                classes: "govuk-hint" if not location.urn
+                text: studySite.urn if studySite.urn else "Not entered",
+                classes: "govuk-hint" if not studySite.urn
               },
               actions: {
                 items: [
@@ -100,16 +103,8 @@
         }) }}
 
         {{ govukButton({
-          name: "button[submit]",
           value: "save",
-          text: "Add school"
-        }) }}
-
-        {{ govukButton({
-          name: "button[submit]",
-          value: "continue",
-          text: "Save school and add another",
-          classes: "govuk-button--secondary"
+          text: "Add study site"
         }) }}
 
       </form>

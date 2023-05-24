@@ -3,7 +3,7 @@
 {% set primaryNavId = "organisations" %}
 {% set subNavId = "studySites" %}
 
-{% set caption = location.name + " - " + organisation.name + " (" + organisation.code + ")" %}
+{% set caption = studySite.name + " - " + organisation.name + " (" + organisation.code + ")" %}
 
 {% if hasCourses %}
   {% set title = "You cannot remove this study site" %}

@@ -3,13 +3,15 @@
 {% set primaryNavId = "organisations" %}
 {% set subNavId = "studySites" %}
 
-{% if currentLocation.id %}
-  {% set title = currentLocation.name %}
+{% if currentstudySite.id %}
+  {% set caption = organisation.name + " (" + organisation.code + ")" %}
+  {% set title = currentstudySite.name %}
 {% else %}
-  {% set title = "Add study site" %}
+  {% set caption = "Add study site - " + organisation.name + " (" + organisation.code + ")" %}
+  {% set title = "Study site details" %}
 {% endif %}
 
-{% set caption = organisation.name + " (" + organisation.code + ")" %}
+
 
 {% block pageTitle %}
   {{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
@@ -43,12 +45,12 @@
             classes: "govuk-label--s"
           },
           errorMessage: errors | getErrorMessage("location-name"),
-          value: location.name
+          value: studySite.name
         }) }}
 
-        {% if currentLocation.id %}
+        {% if currentstudySite.id %}
           <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">School code</p>
-          <p class="govuk-body">{{ currentLocation.code }}</p>
+          <p class="govuk-body">{{ currentstudySite.code }}</p>
         {% endif %}
 
         {{ govukInput({
@@ -63,7 +65,7 @@
           },
           classes: "govuk-input--width-10",
           errorMessage: errors | getErrorMessage("location-urn"),
-          value: location.urn
+          value: studySite.urn
         }) }}
 
         <p class="govuk-body govuk-!-margin-bottom-7">Find URNs on <a class="govuk-hint" href="https://www.get-information-schools.service.gov.uk/" target="_blank">Get information about schools (opens in new tab)</a></p>
@@ -85,7 +87,7 @@
             },
             autocomplete: "address-line1",
             errorMessage: errors | getErrorMessage("address-line-1"),
-            value: location.address.addressLine1
+            value: studySite.address.addressLine1
           }) }}
 
           {{ govukInput({
@@ -97,7 +99,7 @@
             },
             autocomplete: "address-line2",
             errorMessage: errors | getErrorMessage("address-line-2"),
-            value: location.address.addressLine2
+            value: studySite.address.addressLine2
           }) }}
 
           {{ govukInput({
@@ -109,7 +111,7 @@
             },
             autocomplete: "address-line3",
             errorMessage: errors | getErrorMessage("address-line-3"),
-            value: location.address.addressLine3
+            value: studySite.address.addressLine3
           }) }}
 
           {{ govukInput({
@@ -122,7 +124,7 @@
             classes: "govuk-!-width-two-thirds",
             autocomplete: "address-level2",
             errorMessage: errors | getErrorMessage("address-town"),
-            value: location.address.town
+            value: studySite.address.town
           }) }}
 
           {{ govukInput({
@@ -134,7 +136,7 @@
             },
             classes: "govuk-!-width-two-thirds",
             errorMessage: errors | getErrorMessage("address-county"),
-            value: location.address.county
+            value: studySite.address.county
           }) }}
 
           {{ govukInput({
@@ -147,13 +149,13 @@
             classes: "govuk-input--width-10",
             autocomplete: "postal-code",
             errorMessage: errors | getErrorMessage("address-postcode"),
-            value: location.address.postcode | upper
+            value: studySite.address.postcode | upper
           }) }}
 
         {% endcall %}
 
         {{ govukButton({
-          text: "Update study site" if currentLocation.id else "Continue"
+          text: "Update study site" if currentstudySite.id else "Continue"
         }) }}
 
       </form>
