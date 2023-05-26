@@ -10,6 +10,7 @@ const courseController = require('./controllers/courses')
 const cycleController = require('./controllers/cycles')
 const locationController = require('./controllers/locations')
 const organisationController = require('./controllers/organisations')
+const studySiteController = require('./controllers/study-sites')
 const userController = require('./controllers/users')
 
 // Authentication middleware
@@ -136,6 +137,32 @@ router.get('/cycles/:cycleId/organisations/:organisationId/locations/:locationId
 router.get('/cycles/:cycleId/organisations/:organisationId/locations', checkIsAuthenticated, locationController.list)
 
 /// ------------------------------------------------------------------------ ///
+/// STUDY SITE ROUTES
+/// ------------------------------------------------------------------------ ///
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new', checkIsAuthenticated, studySiteController.new_find_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new', checkIsAuthenticated, studySiteController.new_find_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new/choose', checkIsAuthenticated, studySiteController.new_choose_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new/choose', checkIsAuthenticated, studySiteController.new_choose_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new/edit', checkIsAuthenticated, studySiteController.new_edit_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new/edit', checkIsAuthenticated, studySiteController.new_edit_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/new/check', checkIsAuthenticated, studySiteController.new_check_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/new/check', checkIsAuthenticated, studySiteController.new_check_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId/edit', checkIsAuthenticated, studySiteController.edit_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId/edit', checkIsAuthenticated, studySiteController.edit_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId/delete', checkIsAuthenticated, studySiteController.delete_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId/delete', checkIsAuthenticated, studySiteController.delete_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites/:studySiteId', checkIsAuthenticated, studySiteController.show)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/study-sites', checkIsAuthenticated, studySiteController.list)
+
+/// ------------------------------------------------------------------------ ///
 /// ACCREDITED PROVIDER ROUTES
 /// ------------------------------------------------------------------------ ///
 
@@ -196,6 +223,10 @@ router.get('/cycles/:cycleId/organisations', checkIsAuthenticated, organisationC
 /// ------------------------------------------------------------------------ ///
 
 router.get('/accredited-provider-suggestions', accreditedProviderController.accredited_provider_suggestions_json)
+
+// router.get('/school-suggestions', locationController.school_suggestions_json)
+
+router.get('/study-site-suggestions', studySiteController.study_site_suggestions_json)
 
 /// --------------------------------------------------///
 /// CYCLE ROUTES

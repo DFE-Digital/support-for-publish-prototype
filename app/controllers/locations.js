@@ -1,5 +1,6 @@
 const locationModel = require('../models/locations')
 const organisationModel = require('../models/organisations')
+const schoolModel = require('../models/schools')
 
 const paginationHelper = require('../helpers/pagination')
 const validationHelper = require("../helpers/validators")
@@ -53,6 +54,7 @@ exports.list = (req, res) => {
       users: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/users`,
       courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
       locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      studySites: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
       accreditedProviders: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`,
       new: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
       upload: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/multiple/new`,
@@ -581,3 +583,20 @@ exports.new_multiple_check_post = (req, res) => {
   delete req.session.data.upload
   res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`)
 }
+
+/// ------------------------------------------------------------------------ ///
+/// SCHOOL SUGGESTIONS FOR AUTOCOMPLETE
+/// ------------------------------------------------------------------------ ///
+
+// exports.school_suggestions_json = (req, res) => {
+//   req.headers['Access-Control-Allow-Origin'] = true
+
+//   let schools
+//   schools = schoolModel.findMany(req.query)
+
+//   schools.sort((a, b) => {
+//     return a.name.localeCompare(b.name)
+//   })
+
+//   res.json(schools)
+// }
