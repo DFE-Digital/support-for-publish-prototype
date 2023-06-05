@@ -166,6 +166,11 @@ exports.new_choose_post = (req, res) => {
   // store total number of results
   const studySiteCount = studySites.length
 
+  let selectedItem
+  if (req.session.data.school?.id) {
+    selectedItem = req.session.data.school.id
+  }
+
   // parse the school results for use in macro
   let studySiteItems = []
   studySites.forEach(studySite => {
@@ -188,7 +193,7 @@ exports.new_choose_post = (req, res) => {
 
   const errors = []
 
-  if (!req.session.data.school) {
+  if (!selectedItem) {
     const error = {}
     error.fieldName = 'school'
     error.href = '#school'
