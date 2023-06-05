@@ -1,0 +1,60 @@
+{% extends "_layout.njk" %}
+
+{% set primaryNavId = "organisations" %}
+
+{% set title = "Skilled Worker visas" %}
+{% set caption = "Visa sponsorship - " + organisation.name + " (" + organisation.code + ")" %}
+
+{% block pageTitle %}
+  {{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  {% include "_includes/error-summary.njk" %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% include "_includes/page-heading.njk" %}
+
+      <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+        {{ govukRadios({
+          idPrefix: "skilled-worker-visa",
+          name: "organisation[visaSponsorship][canSponsorSkilledWorkerVisa]",
+          fieldset: {
+            legend: {
+              text: "Can the organisation sponsor Skilled Worker visas for courses they run?",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          errorMessage: errors | getErrorMessage("skilled-worker-visa"),
+          items: skilledWorkerVisaOptions
+        }) }}
+
+        {{ govukInsetText({
+          text: "Changing the answer will not change visa information for courses that have already been created."
+        }) }}
+
+        {{ govukButton({
+          text: "Update " + title
+        }) }}
+
+      </form>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="{{ actions.cancel }}">Cancel</a>
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}

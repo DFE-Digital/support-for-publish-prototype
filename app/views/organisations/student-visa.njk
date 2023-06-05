@@ -1,0 +1,60 @@
+{% extends "_layout.njk" %}
+
+{% set primaryNavId = "organisations" %}
+
+{% set title = "Student visas" %}
+{% set caption = "Visa sponsorship - " + organisation.name + " (" + organisation.code + ")" %}
+
+{% block pageTitle %}
+  {{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  {% include "_includes/error-summary.njk" %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% include "_includes/page-heading.njk" %}
+
+      <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+        {{ govukRadios({
+          idPrefix: "student-visa",
+          name: "organisation[visaSponsorship][canSponsorStudentVisa]",
+          fieldset: {
+            legend: {
+              text: "Can the organisation sponsor Student visas they or their training partners run?",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          errorMessage: errors | getErrorMessage("student-visa"),
+          items: studentVisaOptions
+        }) }}
+
+        {{ govukInsetText({
+          text: "Changing the answer will not change visa information for courses the organisation or their training partners have already created."
+        }) }}
+
+        {{ govukButton({
+          text: "Update " + title
+        }) }}
+
+      </form>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="{{ actions.cancel }}">Cancel</a>
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}
