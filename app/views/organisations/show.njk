@@ -174,6 +174,38 @@
 
       <h2 class="govuk-heading-m govuk-!-margin-top-9">Visa sponsorship</h2>
 
+      {% set studentVisaHtml %}
+        {% if not organisation.visaSponsorship.canSponsorStudentVisa %}
+          {% set missingStudentVisaHtml -%}
+            <a href="{{ actions.change }}/student-visa" class="govuk-link">
+              Select if the provider can sponsor Student visas
+            </a>
+          {%- endset %}
+          {{ govukInsetText({
+            html: missingStudentVisaHtml,
+            classes: "app-inset-text--narrow-border app-inset-text--important govuk-!-margin-top-0"
+          }) }}
+        {% else %}
+          {{ organisation.visaSponsorship.canSponsorStudentVisa | getStudentVisaLabel + (" - can sponsor" if organisation.visaSponsorship.canSponsorStudentVisa == "yes" else " - cannot sponsor") }}
+        {% endif %}
+      {% endset %}
+
+      {% set skilledWorkerVisaHtml %}
+        {% if not organisation.visaSponsorship.canSponsorSkilledWorkerVisa %}
+        {% set missingSkilledWorkerVisaHtml -%}
+            <a href="{{ actions.change }}/skilled-worker-visa" class="govuk-link">
+              Select if the provider can sponsor Skilled Worker visas
+            </a>
+          {%- endset %}
+          {{ govukInsetText({
+            html: missingSkilledWorkerVisaHtml,
+            classes: "app-inset-text--narrow-border app-inset-text--important govuk-!-margin-top-0"
+          }) }}
+        {% else %}
+          {{ organisation.visaSponsorship.canSponsorSkilledWorkerVisa | getSkilledWorkerVisaLabel + (" - can sponsor" if organisation.visaSponsorship.canSponsorSkilledWorkerVisa == "yes" else " - cannot sponsor") }}
+        {% endif %}
+      {% endset %}
+
       {{ govukSummaryList({
         rows: [
           {
@@ -181,7 +213,7 @@
               text: "Student visas"
             },
             value: {
-              text: organisation.visaSponsorship.canSponsorStudentVisa | getStudentVisaLabel + (" - can sponsor" if organisation.visaSponsorship.canSponsorStudentVisa == "yes" else " - cannot sponsor")
+              html: studentVisaHtml
             },
             actions: {
               items: [
@@ -191,14 +223,14 @@
                   visuallyHiddenText: "if candidates can get a sponsored Student visa for the organisation’s fee paying courses"
                 }
               ]
-            } if organisation.type == "hei"
+            } if organisation.type == "hei" and organisation.visaSponsorship.canSponsorStudentVisa
           },
           {
             key: {
               text: "Skilled Worker visas"
             },
             value: {
-              text: organisation.visaSponsorship.canSponsorSkilledWorkerVisa | getSkilledWorkerVisaLabel + (" - can sponsor" if organisation.visaSponsorship.canSponsorSkilledWorkerVisa == "yes" else " - cannot sponsor")
+              html: skilledWorkerVisaHtml
             },
             actions: {
               items: [
@@ -208,7 +240,7 @@
                   visuallyHiddenText: "if candidates can get a sponsored Skilled Worker visa for the organisation’s salaried courses"
                 }
               ]
-            }
+            } if organisation.visaSponsorship.canSponsorSkilledWorkerVisa
           }
         ]
       }) }}
