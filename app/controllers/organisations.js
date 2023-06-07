@@ -463,7 +463,7 @@ exports.edit_student_visa_post = (req, res) => {
     const error = {}
     error.fieldName = 'student-visa'
     error.href = '#student-visa'
-    error.text = 'Select if the organisation can sponsor Student visas they or their training partners run'
+    error.text = 'Select if this organisation can sponsor Student visas they or their training partners run'
     errors.push(error)
   }
 
@@ -525,7 +525,7 @@ exports.edit_skilled_worker_visa_post = (req, res) => {
     const error = {}
     error.fieldName = 'skilled-worker-visa'
     error.href = '#skilled-worker-visa'
-    error.text = 'Select if the organisation can sponsor Skilled Worker visas for courses they run'
+    error.text = 'Select if this organisation can sponsor Skilled Worker visas for courses they run'
     errors.push(error)
   }
 

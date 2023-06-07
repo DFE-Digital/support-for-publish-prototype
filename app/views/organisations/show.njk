@@ -178,7 +178,7 @@
         {% if not organisation.visaSponsorship.canSponsorStudentVisa %}
           {% set missingStudentVisaHtml -%}
             <a href="{{ actions.change }}/student-visa" class="govuk-link">
-              Select if the provider can sponsor Student visas
+              Select if this organisation can sponsor Student visas
             </a>
           {%- endset %}
           {{ govukInsetText({
@@ -194,7 +194,7 @@
         {% if not organisation.visaSponsorship.canSponsorSkilledWorkerVisa %}
         {% set missingSkilledWorkerVisaHtml -%}
             <a href="{{ actions.change }}/skilled-worker-visa" class="govuk-link">
-              Select if the provider can sponsor Skilled Worker visas
+              Select if this organisation can sponsor Skilled Worker visas
             </a>
           {%- endset %}
           {{ govukInsetText({
@@ -223,7 +223,7 @@
                   visuallyHiddenText: "if candidates can get a sponsored Student visa for the organisation’s fee paying courses"
                 }
               ]
-            } if organisation.type == "hei" and organisation.visaSponsorship.canSponsorStudentVisa
+            } if organisation.visaSponsorship.canSponsorStudentVisa
           },
           {
             key: {
