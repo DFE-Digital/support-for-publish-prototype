@@ -48,7 +48,9 @@
 
         {% if currentLocation.id %}
           <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">School code</p>
-          <p class="govuk-body">{{ currentLocation.code }}</p>
+          <p class="govuk-body">
+            {{ "- (dash)" if currentLocation.code == "-" else currentLocation.code }}
+          </p>
         {% endif %}
 
         {{ govukInput({
