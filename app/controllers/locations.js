@@ -89,27 +89,188 @@ exports.show = (req, res) => {
 /// NEW LOCATION
 /// ------------------------------------------------------------------------ ///
 
-exports.new_get = (req, res) => {
+exports.new_find_get = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
 
-  let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+  res.render("../views/organisations/locations/find", {
+    organisation,
+    school: req.session.data.school,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+      edit: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/edit`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+    },
+  })
+}
+
+exports.new_find_post = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
+  const errors = []
+
+  if (!req.session.data.school.length) {
+    const error = {}
+    error.fieldName = 'school'
+    error.href = '#school'
+    error.text = 'Enter a school, university, college, URN or postcode'
+    errors.push(error)
+  }
+
+  if (errors.length) {
+    res.render("../views/organisations/locations/find", {
+      organisation,
+      school: req.session.data.school,
+      actions: {
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+        edit: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/edit`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+      },
+      errors,
+    })
+  } else {
+    res.redirect(
+      `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/edit`
+    )
+  }
+}
+
+exports.new_choose_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const schools = schoolModel.findMany({
+    query: req.session.data.query
+  })
+
+  // store total number of results
+  const schoolCount = schools.length
+
+  // parse the school results for use in macro
+  let schoolItems = []
+  schools.forEach(school => {
+    const item = {}
+    item.text = school.name
+    item.value = school.urn
+    item.hint = {
+      text: `${school.address.town}, ${school.address.postcode}`
+    }
+    schoolItems.push(item)
+  })
+
+  // sort items alphabetically
+  schoolItems.sort((a,b) => {
+    return a.text.localeCompare(b.text)
+  })
+
+  // only get the first 15 items
+  schoolItems = schoolItems.slice(0,15)
+
+  res.render("../views/organisations/locations/choose", {
+    organisation,
+    schoolItems,
+    schoolCount,
+    searchTerm: req.session.data.query,
+    actions: {
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/choose`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+      cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+    }
+  })
+}
+
+exports.new_choose_post = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const schools = schoolModel.findMany({
+    query: req.session.data.query
+  })
+
+  // store total number of results
+  const schoolCount = schools.length
+
+  let selectedItem
+  if (req.session.data.school?.id) {
+    selectedItem = req.session.data.school.id
+  }
+
+  // parse the school results for use in macro
+  let schoolItems = []
+  schools.forEach(school => {
+    const item = {}
+    item.text = school.name
+    item.value = school.urn
+    item.hint = {
+      text: `${school.address.town}, ${school.address.postcode}`
+    }
+    schoolItems.push(item)
+  })
+
+  // sort items alphabetically
+  schoolItems.sort((a,b) => {
+    return a.text.localeCompare(b.text)
+  })
+
+  // only get the first 15 items
+  schoolItems = schoolItems.slice(0,15)
+
+  const errors = []
+
+  if (!selectedItem) {
+    const error = {}
+    error.fieldName = 'school'
+    error.href = '#school'
+    error.text = 'Select a school'
+    errors.push(error)
+  }
+
+  if (errors.length) {
+    res.render("../views/organisations/locations/choose", {
+      organisation,
+      schoolItems,
+      schoolCount,
+      searchTerm: req.session.data.query,
+      actions: {
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/choose`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+        cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
+      },
+      errors,
+    })
+  } else {
+    // TODO: get school data
+
+    res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/edit`)
+  }
+}
+
+exports.new_edit_get = (req, res) => {
+  const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+
+  let location = {}
+  if (req.session.data.location) {
+    location = req.session.data.location
+  } else {
+   location = schoolModel.findOne({ name: req.session.data.school })
+  }
+
+  let back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`
   if (req.query.referrer === 'check') {
     back = `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/check`
   }
 
   res.render('../views/organisations/locations/edit', {
     organisation,
-    location: req.session.data.location,
+    location,
     actions: {
-      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+      save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/edit`,
       back,
       cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
     }
   })
 }
 
-exports.new_post = (req, res) => {
+exports.new_edit_post = (req, res) => {
   const organisation = organisationModel.findOne({ organisationId: req.params.organisationId })
+  const location = req.session.data.location
 
   const errors = []
 
@@ -158,10 +319,10 @@ exports.new_post = (req, res) => {
   if (errors.length) {
     res.render('../views/organisations/locations/edit', {
       organisation,
-      location: req.session.data.location,
+      location,
       actions: {
-        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
-        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
+        save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/edit`,
+        back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
         cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
       },
       errors
@@ -179,8 +340,8 @@ exports.new_check_get = (req, res) => {
     location: req.session.data.location,
     actions: {
       save: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/check`,
-      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
-      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new`,
+      back: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/edit`,
+      change: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations/new/edit`,
       cancel: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`
     }
   })
@@ -193,6 +354,7 @@ exports.new_check_post = (req, res) => {
   })
 
   delete req.session.data.location
+  delete req.session.data.school
 
   req.flash('success', 'School added')
 
@@ -588,15 +750,15 @@ exports.new_multiple_check_post = (req, res) => {
 /// SCHOOL SUGGESTIONS FOR AUTOCOMPLETE
 /// ------------------------------------------------------------------------ ///
 
-// exports.school_suggestions_json = (req, res) => {
-//   req.headers['Access-Control-Allow-Origin'] = true
+exports.school_suggestions_json = (req, res) => {
+  req.headers['Access-Control-Allow-Origin'] = true
 
-//   let schools
-//   schools = schoolModel.findMany(req.query)
+  let schools
+  schools = schoolModel.findMany(req.query)
 
-//   schools.sort((a, b) => {
-//     return a.name.localeCompare(b.name)
-//   })
+  schools.sort((a, b) => {
+    return a.name.localeCompare(b.name)
+  })
 
-//   res.json(schools)
-// }
+  res.json(schools)
+}
