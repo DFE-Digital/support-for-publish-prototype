@@ -7,6 +7,7 @@ const numeral = require('numeral')
 
 const cycleHelper = require('./helpers/cycles')
 const organisationHelper = require('./helpers/organisations')
+const visaSponsorshipHelper = require('./helpers/visa-sponsorship')
 
 const individualFiltersFolder = path.join(__dirname, './filters')
 
@@ -147,6 +148,36 @@ module.exports = (env) => {
 
     if (cycle) {
       label = cycleHelper.getCycleLabel(cycle)
+    }
+
+    return label
+  }
+
+  /* ------------------------------------------------------------------
+  utility function to get the student visa label
+  example: {{ "yes" | getStudentVisaLabel }}
+  outputs: "Yes"
+  ------------------------------------------------------------------ */
+  filters.getStudentVisaLabel = (code) => {
+    let label
+
+    if (code) {
+      label = visaSponsorshipHelper.getStudentVisaLabel(code)
+    }
+
+    return label
+  }
+
+  /* ------------------------------------------------------------------
+  utility function to get the skilled worker visa label
+  example: {{ "no" | getSkilledWorkerVisaLabel }}
+  outputs: "No, or not applicable"
+  ------------------------------------------------------------------ */
+  filters.getSkilledWorkerVisaLabel = (code) => {
+    let label
+
+    if (code) {
+      label = visaSponsorshipHelper.getSkilledWorkerVisaLabel(code)
     }
 
     return label

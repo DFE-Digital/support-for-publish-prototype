@@ -205,8 +205,14 @@ router.post('/cycles/:cycleId/organisations/new/contact', checkIsAuthenticated, 
 router.get('/cycles/:cycleId/organisations/new/check', checkIsAuthenticated, organisationController.new_check_get)
 router.post('/cycles/:cycleId/organisations/new/check', checkIsAuthenticated, organisationController.new_check_post)
 
-router.get('/cycles/:cycleId/organisations/:organisationId/edit/contact', checkIsAuthenticated, organisationController.edit_contact_details_get)
-router.post('/cycles/:cycleId/organisations/:organisationId/edit/contact', checkIsAuthenticated, organisationController.edit_contact_details_post)
+router.get('/cycles/:cycleId/organisations/:organisationId/student-visa', checkIsAuthenticated, organisationController.edit_student_visa_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/student-visa', checkIsAuthenticated, organisationController.edit_student_visa_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/skilled-worker-visa', checkIsAuthenticated, organisationController.edit_skilled_worker_visa_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/skilled-worker-visa', checkIsAuthenticated, organisationController.edit_skilled_worker_visa_post)
+
+router.get('/cycles/:cycleId/organisations/:organisationId/contact', checkIsAuthenticated, organisationController.edit_contact_details_get)
+router.post('/cycles/:cycleId/organisations/:organisationId/contact', checkIsAuthenticated, organisationController.edit_contact_details_post)
 
 router.get('/cycles/:cycleId/organisations/:organisationId/edit', checkIsAuthenticated, organisationController.edit_get)
 router.post('/cycles/:cycleId/organisations/:organisationId/edit', checkIsAuthenticated, organisationController.edit_post)

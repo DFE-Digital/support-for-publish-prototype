@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 const organisationModel = require('./organisations')
+const { log } = require('console')
 
 const directoryPath = path.join(__dirname, '../data/organisations/')
 
@@ -19,6 +20,10 @@ exports.insertOne = (params) => {
     ab.name = accreditedBody.name
     ab.description = params.accreditedBody.description
     ab.permissions = params.accreditedBody.permissions
+
+    if (!organisation.accreditedBodies) {
+      organisation.accreditedBodies = []
+    }
 
     organisation.accreditedBodies.push(ab)
 

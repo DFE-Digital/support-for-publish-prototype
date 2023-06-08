@@ -35,7 +35,7 @@ exports.list = (req, res) => {
       courses: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/courses`,
       locations: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/locations`,
       studySites: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
-      accreditedProviders: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`,
+      accreditedProviders: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/accredited-providers`,
       new: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new`,
       view: `/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites`
     }
