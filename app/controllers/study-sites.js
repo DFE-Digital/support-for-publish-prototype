@@ -215,13 +215,7 @@ exports.new_choose_post = (req, res) => {
       errors,
     })
   } else {
-    const organisation = organisationModel.findOne({
-      organisationId: req.session.data.accreditedProvider.id
-    })
-
-    req.session.data.accreditedProvider.id = organisation.id
-    req.session.data.accreditedProvider.code = organisation.code
-    req.session.data.accreditedProvider.name = organisation.name
+    // TODO: get study site data
 
     res.redirect(`/cycles/${req.params.cycleId}/organisations/${req.params.organisationId}/study-sites/new/description`)
   }
