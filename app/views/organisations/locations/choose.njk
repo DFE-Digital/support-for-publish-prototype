@@ -1,17 +1,17 @@
 {% extends "_layout.njk" %}
 
 {% set primaryNavId = "organisations" %}
-{% set subNavId = "studySites" %}
+{% set subNavId = "schools" %}
 
-{% if studySiteCount == 0 %}
+{% if schoolCount == 0 %}
   {% set title = "No results found for ‘" + searchTerm + "’" %}
-{% elif studySiteCount == 1 %}
+{% elif schoolCount == 1 %}
   {% set title = "1 result found for ‘" + searchTerm + "’" %}
 {% else %}
-  {% set title = (studySiteCount | numeral("0,0")) + " results found for ‘" + searchTerm + "’" %}
+  {% set title = (schoolCount | numeral("0,0")) + " results found for ‘" + searchTerm + "’" %}
 {% endif %}
 
-{% set caption = "Add study site - " + organisation.name + " (" + organisation.code + ")" %}
+{% set caption = "Add school - " + organisation.name + " (" + organisation.code + ")" %}
 
 {% block pageTitle %}
   {{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
@@ -33,21 +33,21 @@
 
       {% include "_includes/page-heading.njk" %}
 
-      {% if studySiteCount == 0 %}
+      {% if schoolCount == 0 %}
         <p class="govuk-body">
           <a class="govuk-link" href="{{ actions.back }}">Change your search</a>.
         </p>
-      {% elif studySiteCount > 15 %}
+      {% elif schoolCount > 15 %}
         <p class="govuk-body">
-          Showing the first 15 results. <a class="govuk-link" href="{{ actions.back }}">Try narrowing down your search</a> if the study site you’re looking for is not listed.
+          Showing the first 15 results. <a class="govuk-link" href="{{ actions.back }}">Try narrowing down your search</a> if the school you’re looking for is not listed.
         </p>
       {% else %}
         <p class="govuk-body">
-          <a class="govuk-link" href="{{ actions.back }}">Change your search</a> if the study site you’re looking for is not listed.
+          <a class="govuk-link" href="{{ actions.back }}">Change your search</a> if the school you’re looking for is not listed.
         </p>
       {% endif %}
 
-      {% if studySiteCount %}
+      {% if schoolCount %}
 
         <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
@@ -56,13 +56,13 @@
             name: "school[id]",
             fieldset: {
               legend: {
-                text: "Study site",
+                text: "School",
                 isPageHeading: false,
                 classes: "govuk-fieldset__legend--m"
               }
             },
             errorMessage: errors | getErrorMessage("school"),
-            items: studySiteItems
+            items: schoolItems
           }) }}
 
           {{ govukButton({
