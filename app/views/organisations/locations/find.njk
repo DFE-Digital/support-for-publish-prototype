@@ -3,9 +3,9 @@
 {% set primaryNavId = "organisations" %}
 {% set subNavId = "schools" %}
 
-{% set title = "Add school" %}
+{% set title = "Enter a school, university, college or postcode" %}
 
-{% set caption = organisation.name + " (" + organisation.code + ")" %}
+{% set caption = "Add school - " + organisation.name + " (" + organisation.code + ")" %}
 
 {% block pageTitle %}
   {{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
