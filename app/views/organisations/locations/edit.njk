@@ -3,7 +3,7 @@
 {% set primaryNavId = "organisations" %}
 {% set subNavId = "schools" %}
 
-{% if currentstudySite.id %}
+{% if currentLocation.id %}
   {% set caption = organisation.name + " (" + organisation.code + ")" %}
   {% set title = currentstudySite.name %}
 {% else %}
