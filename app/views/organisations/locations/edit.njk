@@ -3,13 +3,13 @@
 {% set primaryNavId = "organisations" %}
 {% set subNavId = "schools" %}
 
-{% if currentLocation.id %}
-  {% set title = currentLocation.name %}
+{% if currentstudySite.id %}
+  {% set caption = organisation.name + " (" + organisation.code + ")" %}
+  {% set title = currentstudySite.name %}
 {% else %}
-  {% set title = "Add school" %}
+  {% set caption = "Add school - " + organisation.name + " (" + organisation.code + ")" %}
+  {% set title = "School details" %}
 {% endif %}
-
-{% set caption = organisation.name + " (" + organisation.code + ")" %}
 
 {% block pageTitle %}
   {{ "Error: " if errors.length }}{{ title + " - " if title }}{{ caption + " - " if caption }}{{ serviceName }} - GOV.UK
