@@ -3,9 +3,9 @@
 {% set primaryNavId = "organisations" %}
 {% set subNavId = "schools" %}
 
-{% if currentstudySite.id %}
+{% if currentLocation.id %}
   {% set caption = organisation.name + " (" + organisation.code + ")" %}
-  {% set title = currentstudySite.name %}
+  {% set title = currentLocation.name %}
 {% else %}
   {% set caption = "Add school - " + organisation.name + " (" + organisation.code + ")" %}
   {% set title = "School details" %}
