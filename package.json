@@ -26,7 +26,7 @@
     "cross-spawn": "^7.0.3",
     "csv-string": "^4.1.1",
     "del": "^6.1.0",
-    "dotenv": "^16.0.3",
+    "dotenv": "^17.4.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "express-writer": "0.0.4",
